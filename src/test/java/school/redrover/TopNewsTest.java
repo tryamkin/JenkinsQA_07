@@ -24,8 +24,8 @@ public class TopNewsTest {
 
     }
 
-    @Test(description = "Сравнение контента заголовков в первом фрейме и в первом блоке боковой панели ", priority = 0)
-    public void srt() {
+    @Test(description = "Сравнение контента заголовков в первом фрейме и в первом блоке боковой панели ")
+    public void contentTest() {
         driver.get(URL);
         String mainTitle = driver.findElement(By.xpath("//div[@class = 'first-news-title']")).getText();
         driver.findElement(By.xpath("//div[@class = 'first-news-title']")).click();
@@ -35,7 +35,7 @@ public class TopNewsTest {
     }
 
     @Test(description = "Сравнение главного заголовка в разделе о проекте ", priority = 1)
-    public void anothrer() {
+    public void contentTest2() {
         String TITLE_ABOUT = "TOPNEWS — этот рейтинг делаешь только ты!";
         driver.get(URL);
         driver.findElement(By.id("menu-item-73200")).click();
