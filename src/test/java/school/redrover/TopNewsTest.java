@@ -14,7 +14,7 @@ public class TopNewsTest {
     ChromeDriver driver;
     ChromeOptions chromeOptions;
     private final String URL = "https://topnews.ru";
-    private final String TITLE_ABOUT = "TOPNEWS — этот рейтинг делаешь только ты!";
+
 
     @BeforeMethod
     public void initBrowser() {
@@ -36,6 +36,7 @@ public class TopNewsTest {
 
     @Test(description = "Сравнение главного заголовка в разделе о проекте ", priority = 1)
     public void anothrer() {
+        String TITLE_ABOUT = "TOPNEWS — этот рейтинг делаешь только ты!";
         driver.get(URL);
         driver.findElement(By.id("menu-item-73200")).click();
         driver.findElement(By.id("menu-item-73201")).click();
