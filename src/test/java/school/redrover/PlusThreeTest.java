@@ -199,7 +199,7 @@ public class PlusThreeTest {
         driver.quit();
     }
     @Test
-    public  void contactUs() throws InterruptedException {
+    public  void contactUs() {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(URL_PARABANK);
