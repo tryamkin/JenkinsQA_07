@@ -19,7 +19,7 @@ public class GroupQaClimbersTest {
             driver.get("https://demoqa.com");
             driver.manage().window().maximize();
 
-            driver.findElement(By.xpath("//div[@class='card-up'][1]")).click();
+            driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div/div[1]")).click();
             driver.findElement(By.xpath("//span[ contains(text(), 'Text Box')]")).click();
 
             WebElement inputName = driver.findElement(By.id("userName"));
