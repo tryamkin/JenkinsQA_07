@@ -15,5 +15,6 @@ public class GroupJavaAutomationTest {
         assertEquals(title, "The Internet");
         driver.quit();
     }
+
 }
 
