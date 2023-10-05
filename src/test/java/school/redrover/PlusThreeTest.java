@@ -24,13 +24,10 @@ public class PlusThreeTest {
     public static final String CITY= "LOS ANGELES";
     public static final String STATE ="California";
     ChromeDriver driver;
-    @BeforeTest
-    public void setup() {
-        this.driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
 
-    public void cleanDataBase() {
+    public void cleanDataBaseAndCloseBrow() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get(URL);
 
         WebElement adminPanel = driver.findElement(By.cssSelector(".leftmenu li:nth-child(6)"));
@@ -38,7 +35,9 @@ public class PlusThreeTest {
 
         WebElement cleanButton = driver.findElement(By.cssSelector("button[value='CLEAN']"));
         cleanButton.click();
-        Assert.assertEquals("Database Cleaned", driver.findElement(By.cssSelector("div[id='rightPanel'] > p> b")).getText());
+        Assert.assertEquals("Database Cleaned", driver.findElement(By.cssSelector("div[id='rightPanel'] > p > b")).getText());
+
+        driver.quit();
     }
 
     @Test
@@ -84,6 +83,8 @@ public class PlusThreeTest {
 
     @Test(description = "Создание/регистрация пользователя в банке")
     public void createUser() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get(URL);
 
         WebElement firstName = driver.findElement(By.id("customer.firstName"));
@@ -127,12 +128,8 @@ public class PlusThreeTest {
         WebElement result = driver.findElement(By.xpath("//div[@id='rightPanel']/p"));
         String resText = result.getText();
         Assert.assertEquals(resText, "Your account was created successfully. You are now logged in.");
-    }
 
-    @AfterTest
-    public void cleanDataBaseAndCloseBrowser() {
-        cleanDataBase();
-        driver.quit();
+        cleanDataBaseAndCloseBrow();
     }
 
     @Test
