@@ -12,7 +12,7 @@ public class IlichevTest {
         @Test
         public void testSearch() {
 
-            //Comment
+            //Comment!
             WebDriver driver = new ChromeDriver();
             driver.get("https://allegro.pl/");
 
