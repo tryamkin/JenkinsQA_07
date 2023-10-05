@@ -1,16 +1,15 @@
-
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import java.time.Duration;
+import static org.testng.Assert.assertEquals;
 
 public class PlusThreeTest {
 
@@ -48,7 +47,6 @@ public class PlusThreeTest {
         WebElement fullName = driver.findElement(By.id("userName"));
         fullName.sendKeys(FULL_NAME);
 
-
         WebElement email = driver.findElement(By.id("userEmail"));
         email.sendKeys(EMAIL);
 
@@ -60,7 +58,6 @@ public class PlusThreeTest {
 
         WebElement submitButton = driver.findElement(By.id("submit"));
         submitButton.click();
-
 
         WebElement nameR = driver.findElement(By.id("name"));
         String value = nameR.getText();
@@ -120,7 +117,6 @@ public class PlusThreeTest {
         WebElement register = driver.findElement(By.cssSelector("[value='Register']"));
         register.submit();
 
-
         WebElement title = driver.findElement(By.xpath("//div[@id='rightPanel']/h1"));
         String resTitle = title.getText();
         Assert.assertEquals(resTitle, "Welcome " + USERNAME);
@@ -174,4 +170,32 @@ public class PlusThreeTest {
 
         driver.quit();
     }
+
+    @Test
+    public static void testSearchDuck() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://duckduckgo.com/");
+
+        driver.findElement(By.xpath("//input[@id='searchbox_input']"))
+                .sendKeys("Selenium");
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+
+        driver.findElement(By.xpath("//button[@aria-label = 'Search']"))
+                .click();
+
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+
+        try {
+            WebElement title = driver.findElement(By.xpath("//span[@class ='module__title__link']"));
+            String value = title.getText();
+            assertEquals(value, "Selenium");
+        } catch (NoSuchFrameException e) {
+            System.out.println("My_Frame not found: " + e.getMessage());
+        }
+
+        driver.quit();
+    }
+
 }
