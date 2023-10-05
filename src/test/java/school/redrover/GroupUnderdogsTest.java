@@ -173,7 +173,7 @@ public class GroupUnderdogsTest {
         JavascriptExecutor js1 = (JavascriptExecutor) driver;
         WebElement marlin4 = driver.findElement(By.xpath("//*[text()='Marlin 4 Gen 2']"));
         js.executeScript("arguments[0].scrollIntoView();", marlin4);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         String bikeName =  marlin4.getText();
         Assert.assertEquals(bikeName, "Marlin 4 Gen 2");
