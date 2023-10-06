@@ -3,22 +3,20 @@ package school.redrover;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class GroupUnderdogsTest {
     WebDriver driver;
 
-    private final String MAIN_PAGE_URL = "http://www.99-bottles-of-beer.net/";
+    private final String mainPageUrl = "http://www.99-bottles-of-beer.net/";
     String userName = "academic198405@gmail.com";
     String password = "StateOfLiberty2021!";
     String wrongpassword = "StateOfLiberty2021!2";
 
     public void openMainPage() {
-        driver.get(MAIN_PAGE_URL);
+        driver.get(mainPageUrl);
     }
 
     @AfterMethod
