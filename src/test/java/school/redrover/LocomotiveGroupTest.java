@@ -87,21 +87,21 @@ public class LocomotiveGroupTest {
         driver.get("https://demoqa.com/radio-button");
 
 
-        SelectRadioButton(driver, "Yes");
+        selectRadioButton(driver, "Yes");
         WebElement textRadioButton = driver.findElement(By.xpath("//p[@class='mt-3']"));
         Assert.assertEquals(textRadioButton.getText(), "You have selected Yes");
 
         Thread.sleep(3000);
 
-        SelectRadioButton(driver, "Impressive");
+        selectRadioButton(driver, "Impressive");
         Assert.assertEquals(textRadioButton.getText(), "You have selected Impressive");
 
         Thread.sleep(3000);
 
         driver.close();
     }
-    public static void SelectRadioButton(WebDriver driver, String value) {
-        WebElement selectRadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
-        selectRadioButton.click();
+    public static void selectRadioButton(WebDriver driver, String value) {
+        WebElement RadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
+        RadioButton.click();
     }
 }
