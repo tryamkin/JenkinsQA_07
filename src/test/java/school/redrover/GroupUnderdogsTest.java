@@ -10,21 +10,27 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class GroupUnderdogsTest {
-
     WebDriver driver;
 
+    private final String MAIN_PAGE_URL = "http://www.99-bottles-of-beer.net/";
     String userName = "academic198405@gmail.com";
     String password = "StateOfLiberty2021!";
     String wrongpassword = "StateOfLiberty2021!2";
 
-//    @BeforeMethod
-//    public void before() {
-//        driver = new FirefoxDriver();
-//    }
+    public void openMainPage() {
+        driver.get(MAIN_PAGE_URL);
+    }
 
     @AfterMethod
     public void after() {
         driver.quit();
+    }
+
+    @Test
+    public void MainPageTitleTest() {
+        openMainPage();
+        String title = driver.getTitle();
+        Assert.assertEquals(title, "99 Bottles of Beer | Start");
     }
 
     @Test
@@ -62,7 +68,12 @@ public class GroupUnderdogsTest {
         Assert.assertEquals(lastMenuLinkValue, "SUBMIT NEW LANGUAGE");
 
     }
-
+    @Test
+    public void firstMenuTabTextTest(){
+        driver.get("http://www.99-bottles-of-beer.net/abc.html");
+        String elementName = driver.findElement(By.xpath("//ul[@id='submenu']/li[1]/a")).getText();
+        Assert.assertEquals(elementName, "0-9");
+    }
 
     //TC_11_07 что надпись об исключении красным цветом и с маленькой буквы
     @Test
