@@ -253,4 +253,5 @@ public class PlusThreeTest {
         Assert.assertEquals(confirmationMessage.getText(), "Thank you " + USERNAME);
         driver.quit();
     }
+
 }
