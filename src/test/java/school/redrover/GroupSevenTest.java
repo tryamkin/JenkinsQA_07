@@ -23,7 +23,7 @@ public class GroupSevenTest {
     }
 
     @Test
-    public void searchTest() throws InterruptedException{
+    public void searchTest() throws InterruptedException {
         WebDriver driver = new FirefoxDriver();
         try {
             driver.get("https://kyliecosmetics.com/collections/kylie-cosmetics");
@@ -51,7 +51,7 @@ public class GroupSevenTest {
     @Test
     public void TestBddSearch() {
         WebDriver driver = new ChromeDriver();
-        try{
+        try {
             driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
             driver.get("https://duckduckgo.com/");
             WebElement searchBox = driver.findElement(By.xpath("//input[@class = 'searchbox_input__bEGm3']"));
@@ -65,8 +65,9 @@ public class GroupSevenTest {
             driver.quit();
         }
     }
+
     @Test
-    public void testSearch(){
+    public void testSearch() {
         WebDriver driver = new ChromeDriver();
         try {
             driver.get("https://elitetransit.com/");
@@ -79,10 +80,11 @@ public class GroupSevenTest {
             String title = driver.getTitle();
 
             Assert.assertEquals(title, "Contact | ELITE Transit Solutions");
-        }finally {
+        } finally {
             driver.quit();
         }
     }
+
     @Test
     public void testTextInput() {
 
@@ -105,4 +107,53 @@ public class GroupSevenTest {
             driver.quit();
         }
     }
+
+    @Test
+
+    public void testSearchAB() {
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://duckduckgo.com/");
+
+        String title = driver.getTitle();
+        Assert.assertEquals(title, "DuckDuckGo — Privacy, simplified.");
+
+        WebElement textBox = driver.findElement(By.name("q"));
+        WebElement submitButton = driver.findElement(By.xpath("//*[@aria-label='Search']"));
+
+        textBox.sendKeys("Wikipedia");
+        submitButton.click();
+
+        WebElement wikiName = driver.findElement(By.xpath("(//*[@data-testid='result-title-a'])[1]"));
+        String wikiName2 = wikiName.getText();
+        Assert.assertEquals(wikiName2, "Wikipedia");
+
+        driver.quit();
+
+    }
+
+    @Test
+
+    public void testLinks() throws InterruptedException {
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://duckduckgo.com/");
+
+        WebElement textBox = driver.findElement(By.name("q"));
+        WebElement submitButton = driver.findElement(By.xpath("//*[@aria-label='Search']"));
+
+        textBox.sendKeys("Wikipedia");
+        submitButton.click();
+
+        Thread.sleep(5000);
+
+        int linkCount = driver.findElements(By.xpath("//*[@data-testid='result-extras-url-link']")).size();
+
+        Assert.assertEquals(linkCount, 10);
+
+        driver.quit();
+    }
+
 }
+
+
