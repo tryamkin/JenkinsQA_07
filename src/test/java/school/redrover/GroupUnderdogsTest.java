@@ -14,8 +14,9 @@ public class GroupUnderdogsTest {
     WebDriver driver;
 
     String userName = "academic198405@gmail.com";
-    String password = "StateOfLiberty2021!";
-    String wrongpassword = "StateOfLiberty2021!2";
+    String password = "BikeTrekMarlyn4!";
+    String wrongpassword = "Sbbhbhblnk!2";
+    String baseUrl = "https://www.trekbikes.com/us/en_US/";
 
 //    @BeforeMethod
 //    public void before() {
@@ -79,7 +80,7 @@ public class GroupUnderdogsTest {
     @Test
     public void artuomTrack_correct_CredentialTest() throws InterruptedException {
         driver = new ChromeDriver();
-        driver.get("https://www.trekbikes.com/us/en_US/");
+        driver.get(baseUrl);
         WebElement enterButton = driver.findElement(By.xpath("(//*[@class='pdl-icon pdl-icon--size-24'])[1]"));
         Thread.sleep(2000);
         enterButton.click();
@@ -98,6 +99,7 @@ public class GroupUnderdogsTest {
         WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"j_password\"]"));
         passwordField.click();
         passwordField.sendKeys(password);
+        Thread.sleep(1000);
 
         WebElement button = driver.findElement(By.xpath("(//*[text()='Log in'])[3]"));
         button.click();
@@ -115,7 +117,7 @@ public class GroupUnderdogsTest {
     @Test
     public void artuomTrack_Incorrect_CredentialTest() throws InterruptedException {
         driver = new ChromeDriver();
-        driver.get("https://www.trekbikes.com/us/en_US/");
+        driver.get(baseUrl);
         WebElement enterButton = driver.findElement(By.xpath("(//*[@class='pdl-icon pdl-icon--size-24'])[1]"));
         Thread.sleep(2000);
         enterButton.click();
@@ -150,7 +152,7 @@ public class GroupUnderdogsTest {
     @Test
     public void artuomMarlin4Test() throws InterruptedException {
         driver = new ChromeDriver();
-        driver.get("https://www.trekbikes.com/us/en_US/");
+        driver.get(baseUrl);
         WebElement enterButton = driver.findElement(By.xpath("(//*[@class='pdl-icon pdl-icon--size-24'])[1]"));
         Thread.sleep(2000);
         enterButton.click();
