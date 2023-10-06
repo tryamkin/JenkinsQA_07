@@ -167,8 +167,8 @@ public class GroupQaClimbersTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://demoqa.com");
-        try {
 
+        try {
             WebElement ElementsCard = driver.findElement(By.xpath("//div[@class='card mt-4 top-card'][1]"));
             ElementsCard.click();
 
@@ -190,6 +190,7 @@ public class GroupQaClimbersTest {
             Assert.assertEquals(value, "Name:Barak Obama\n" +
                     "\n" +
                     "Email:barak1961@gmail.com");//ожидаем что текст ""
+
         } finally {
             driver.quit();
         }
