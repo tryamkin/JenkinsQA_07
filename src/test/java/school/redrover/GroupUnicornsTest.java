@@ -7,6 +7,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -61,11 +65,9 @@ public class GroupUnicornsTest {
     }
 
     @Test
-    public void w3SchoolTest()
-    {
+    public void w3SchoolTest() {
         WebDriver wd = new ChromeDriver();
-        try
-        {
+        try {
             wd.get("https://www.w3schools.com/");
 
             //title
@@ -95,11 +97,44 @@ public class GroupUnicornsTest {
             //title
             title = wd.getTitle();
             Assert.assertEquals(title, "Java Tutorial");
-        }
-        finally
-        {
+        } finally {
             wd.quit();
         }
+    }
+
+        @Test
+        public void demoWebShopTest() {
+            WebDriver driver = new ChromeDriver();
+
+            String pageTitlePath = "//div[@class='page-title' ]//h1";
+
+            String basePath = "//ul[@class='top-menu']//a[@href='/";
+
+            HashMap<String, String> pages = new HashMap<>();
+            pages.put("Books",             basePath + "books']");
+            pages.put("Computers",         basePath + "computers']");
+            pages.put("Electronics",       basePath + "electronics']");
+            pages.put("Apparel & Shoes",   basePath + "apparel-shoes']");
+            pages.put("Digital downloads", basePath + "digital-downloads']");
+            pages.put("Jewelry",           basePath + "jewelry']");
+            pages.put("Gift Cards",        basePath + "gift-cards']");
+
+            String pageTitle;
+
+            try {
+                driver.get("https://demowebshop.tricentis.com/");
+
+                for (String key : pages.keySet()) {
+                    driver.findElement(By.xpath(pages.get(key))).click();
+                    pageTitle = driver.findElement(By.xpath(pageTitlePath)).getText();
+                    Assert.assertEquals(pageTitle, key);
+                }
+
+            } finally {
+                driver.quit();
+            }
+        }
+
+
 
     }
-}
