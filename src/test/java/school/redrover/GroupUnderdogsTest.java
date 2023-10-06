@@ -179,4 +179,42 @@ public class GroupUnderdogsTest {
         String bikeName =  marlin4.getText();
         Assert.assertEquals(bikeName, "Marlin 4 Gen 2");
     }
+
+    @Test
+    public void kristinaNameAuthorSite(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"main\"]/p[4]/a[2]"));
+        button.click();
+
+        WebElement nameOliver = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[1]"));
+        String name1 = nameOliver.getText();
+        Assert.assertEquals(name1, "Oliver Schade");
+
+        WebElement nameGregor = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[2]"));
+        String name2 = nameGregor.getText();
+        Assert.assertEquals(name2, "Gregor Scheithauer");
+
+        WebElement nameStefan = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[3]"));
+        String name3 = nameStefan.getText();
+        Assert.assertEquals(name3, "Stefan Scheler");
+
+        driver.quit();
+    }
+
+    @Test
+    public void kristinaTopLists(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement title = driver.findElement(By.xpath("//*[@id=\"menu\"]/li[4]/a[@href=\"/toplist.html\"]"));
+        title.click();
+
+        WebElement language = driver.findElement(By.xpath("//*[@id=\"category\"]/tbody/tr[2]/td[2]/a"));
+        String title1 = language.getText();
+        Assert.assertEquals(title1, "Malbolge (real loop version)");
+
+        driver.quit();
+    }
 }
