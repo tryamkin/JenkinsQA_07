@@ -104,6 +104,7 @@ public class GroupQaClimbersTest {
             permanentAddress.sendKeys("Лондон");
 
             WebElement submitButton = driver.findElement(By.id("submit"));
+            js.executeScript("arguments[0].scrollIntoView();", submitButton);
             submitButton.click();
 
             WebElement outputName = driver.findElement(By.xpath("//*[@id=\"name\"]"));
