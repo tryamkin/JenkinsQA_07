@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -57,5 +60,26 @@ public class GroupUnicornsTest {
         String actual = driver.findElement(By.id("flash-messages")).getText();
         assertTrue(actual.contains("Your username is invalid!"));
         driver.quit();
+    }
+
+    @Test
+    public void testGeico() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://www.geico.com/");
+
+            WebElement title = driver.findElement(By.xpath("//div/h1[@id ='section1heading']"));
+            title.isDisplayed();
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+
+            WebElement zipCode = driver.findElement(By.xpath("//div/input[@id ='ssp-service-zip']"));
+            zipCode.sendKeys("11111");
+
+            WebElement submit = driver.findElement(By.xpath("//input[@class ='btn btn--secondary']"));
+            submit.click();
+        } finally {
+            driver.quit();
+        }
     }
 }
