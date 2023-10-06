@@ -8,6 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.testng.Assert.assertEquals;
 
 public class GroupQaClimbersTest {
@@ -20,7 +24,7 @@ public class GroupQaClimbersTest {
             driver.get("https://demoqa.com");
             driver.manage().window().maximize();
 
-            driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div/div[1]")).click();
+            driver.findElement(By.xpath("(//div[@class='card-up'])[1]")).click();
             driver.findElement(By.xpath("//span[ contains(text(), 'Text Box')]")).click();
 
             WebElement inputName = driver.findElement(By.id("userName"));
@@ -191,6 +195,93 @@ public class GroupQaClimbersTest {
             Assert.assertEquals(value, "Name:Barak Obama\nEmail:barak1961@gmail.com");//ожидаем что текст "
         } finally {
 
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void TestCheckBoxMenuSubmitWindow(){
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://demoqa.com/");
+        driver.manage().window().maximize();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement elements = driver.findElement(By.xpath("//div[@class='card-up'][1]"));
+        js.executeScript("arguments[0].scrollIntoView();", elements);
+        elements.click();
+
+        WebElement checkBoxMenu = driver.findElement
+                (By.xpath("//span[@class='text' ][text() = 'Check Box']"));
+        checkBoxMenu.click();
+
+        WebElement submitWindow = driver.findElement
+                (By.xpath("//span[@class = 'rct-checkbox']"));
+        submitWindow.click();
+
+        WebElement text = driver.findElement(By.xpath("//span[text() = 'You have selected :']"));
+
+        String actualResult = text.getText();
+
+        Assert.assertEquals(actualResult,"You have selected :");
+
+        driver.quit();
+    }
+
+    @Test
+    public void testAllElementsOnFirstPage() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://demoqa.com/");
+
+            List<WebElement> listOfWebElements = driver
+                    .findElements(By.xpath("//div[@class='card mt-4 top-card']"));
+
+            List<String> actualListOfElementsNames = new ArrayList<>();
+
+            for (WebElement el : listOfWebElements) {
+                actualListOfElementsNames.add(el.getText());
+            }
+
+            List<String> expectedListElementsNames = Arrays.asList(
+                    "Elements", "Forms", "Alerts, Frame & Windows",
+                    "Widgets", "Interactions", "Book Store Application"
+            );
+            assertEquals(actualListOfElementsNames, expectedListElementsNames);
+
+        } finally {
+            driver.quit();
+        }
+    }
+    @Test
+    public void testClickOnHomeCheckBox() {
+        WebDriver driver = new ChromeDriver();
+        try {
+        driver.get("https://demoqa.com/");
+
+        WebElement elementOnPage = driver.findElement(By.xpath("(//div[@class='card-up'])[1]"));
+        elementOnPage.click();
+
+        driver.findElement(By.xpath("//span[ contains(text(), 'Check Box')]")).click();
+
+        WebElement checkboxHome = driver.findElement(By.xpath("//span[@class='rct-checkbox']"));
+        checkboxHome.click();
+
+        List<WebElement> listOfActualElementsTagsOnScreen = driver.findElements(By
+                .xpath("//span[@class='text-success']"));
+
+        List<String> listOfActualTagsNameOnScreen = new ArrayList<>();
+
+        for (WebElement el : listOfActualElementsTagsOnScreen) {
+            listOfActualTagsNameOnScreen.add(el.getText());
+        }
+
+        List<String> expectedResultNames = List.of("home", "desktop", "notes", "commands", "documents",
+                "workspace", "react", "angular", "veu", "office", "public", "private", "classified", "general",
+                "downloads", "wordFile", "excelFile");
+
+        assertEquals(listOfActualTagsNameOnScreen, expectedResultNames);
+    } finally {
             driver.quit();
         }
     }
