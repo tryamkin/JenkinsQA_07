@@ -143,7 +143,7 @@ public class GroupQaClimbersTest {
         }
     }
     @Test
-    public void widgetPageTest() throws InterruptedException {
+    public void widgetPageTest1() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://demoqa.com");
         driver.manage().window().maximize();
@@ -167,6 +167,7 @@ public class GroupQaClimbersTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://demoqa.com");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
         try {
             WebElement ElementsCard = driver.findElement(By.xpath("//div[@class='card mt-4 top-card'][1]"));
@@ -187,11 +188,9 @@ public class GroupQaClimbersTest {
 
             WebElement message = driver.findElement(By.xpath("//div[@class='border col-md-12 col-sm-12']"));
             String value = message.getText();//берем текст элемента
-            Assert.assertEquals(value, "Name:Barak Obama\n" +
-                    "\n" +
-                    "Email:barak1961@gmail.com");//ожидаем что текст ""
-
+            Assert.assertEquals(value, "Name:Barak Obama\nEmail:barak1961@gmail.com");//ожидаем что текст "
         } finally {
+
             driver.quit();
         }
     }
