@@ -65,4 +65,44 @@ public class GroupSevenTest {
             driver.quit();
         }
     }
+    @Test
+    public void testSearch(){
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://elitetransit.com/");
+
+            driver.manage().window().maximize();
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+            WebElement buttonContact = driver.findElement(By.xpath("//ul[@id='top-menu']//a[normalize-space()='Contact']"));
+            buttonContact.click();
+            String title = driver.getTitle();
+
+            Assert.assertEquals(title, "Contact | ELITE Transit Solutions");
+        }finally {
+            driver.quit();
+        }
+    }
+    @Test
+    public void testTextInput() {
+
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://www.selenium.dev/selenium/web/web-form.html");
+
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(800));
+
+            WebElement input = driver.findElement(By.id("my-text-id"));
+            input.click();
+            input.sendKeys("Selenium");
+
+            WebElement submit = driver.findElement(By.tagName("button")); ////button[@type='submit']
+            submit.submit();
+            WebElement message = driver.findElement(By.id("message"));
+            Assert.assertEquals(message.getText(), "Received!");
+        } finally {
+            driver.quit();
+        }
+    }
 }
