@@ -78,6 +78,11 @@ public class GroupUnicornsTest {
 
             WebElement submit = driver.findElement(By.xpath("//input[@class ='btn btn--secondary']"));
             submit.click();
+
+            WebElement message = driver.findElement(By.xpath("//div/p[@class = 'text-message']"));
+            message.isDisplayed();
+
+
         } finally {
             driver.quit();
         }
