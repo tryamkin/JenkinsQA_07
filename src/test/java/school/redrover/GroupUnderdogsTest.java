@@ -15,7 +15,7 @@ public class GroupUnderdogsTest {
 
     String userName = "academic198405@gmail.com";
     String password = "BikeTrekMarlyn4!";
-    String wrongpassword = "Sbbhbhbln2";
+    String wrongPassword = "Sbbhbhbln2";
     String baseUrl = "https://www.trekbikes.com/us/en_US/";
 
 //    @BeforeMethod
@@ -135,7 +135,7 @@ public class GroupUnderdogsTest {
 
         WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"j_password\"]"));
         passwordField.click();
-        passwordField.sendKeys(wrongpassword);
+        passwordField.sendKeys(wrongPassword);
 
         WebElement button = driver.findElement(By.xpath("(//*[text()='Log in'])[3]"));
         button.click();
