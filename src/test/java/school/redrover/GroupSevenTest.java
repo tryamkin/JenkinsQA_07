@@ -65,4 +65,22 @@ public class GroupSevenTest {
             driver.quit();
         }
     }
+    @Test
+    public void testSearch(){
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://elitetransit.com/");
+
+            driver.manage().window().maximize();
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+            WebElement button_contact = driver.findElement(By.xpath("//ul[@id='top-menu']//a[normalize-space()='Contact']"));
+            button_contact.click();
+            String title = driver.getTitle();
+
+            Assert.assertEquals(title, "Contact | ELITE Transit Solutions");
+        }finally {
+            driver.quit();
+        }
+    }
 }
