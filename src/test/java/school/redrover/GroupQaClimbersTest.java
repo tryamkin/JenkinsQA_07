@@ -129,7 +129,7 @@ public class GroupQaClimbersTest {
         }
     }
     @Test
-    public void widgetPageTest() throws InterruptedException {
+    public void widgetPageTest1() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://demoqa.com");
         driver.manage().window().maximize();
@@ -232,6 +232,38 @@ public class GroupQaClimbersTest {
 
         assertEquals(listOfActualTagsNameOnScreen, expectedResultNames);
     } finally {
+            driver.quit();
+        }
+    }
+    @Test
+    public void trainingPage() {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://demoqa.com");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        try {
+            WebElement ElementsCard = driver.findElement(By.xpath("//div[@class='card mt-4 top-card'][1]"));
+            ElementsCard.click();
+
+            WebElement TextBox = driver.findElement((By.xpath("//li[@id='item-0'][1]")));
+            TextBox.click();
+
+            WebElement inputFullName = driver.findElement(By.xpath("//input[@class=' mr-sm-2 form-control'][1]"));
+            inputFullName.sendKeys("Barak Obama");
+
+            WebElement inputEmail = driver.findElement(By.xpath("//input[@class='mr-sm-2 form-control']"));
+            inputEmail.sendKeys("barak1961@gmail.com");
+
+            WebElement SubmitButton = driver.findElement(By.xpath("//button[@id='submit']"));
+            js.executeScript("arguments[0].scrollIntoView();", SubmitButton);
+            SubmitButton.click();
+
+            WebElement message = driver.findElement(By.xpath("//div[@class='border col-md-12 col-sm-12']"));
+            String value = message.getText();//берем текст элемента
+            Assert.assertEquals(value, "Name:Barak Obama\nEmail:barak1961@gmail.com");//ожидаем что текст "
+        } finally {
+
             driver.quit();
         }
     }
