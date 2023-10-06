@@ -131,4 +131,21 @@ public class GroupUnicornsTest {
             driver.quit();
         }
     }
+
+    @Test
+    public void testSearch(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.w3schools.com/");
+        String title = driver.getTitle();
+        Assert.assertEquals( title, "W3Schools Online Web Tutorials");
+        WebElement textBox = driver.findElement(By.id("search2"));
+        WebElement submitButton = driver.findElement(By.id("learntocode_searchbtn"));
+        textBox.sendKeys("HTML Tutorial");
+        submitButton.click();
+        WebElement message = driver.findElement(By.className("color_h1"));
+        String value = message.getText();
+        Assert.assertEquals(value, "Tutorial");
+
+        driver.quit();
+    }
 }
