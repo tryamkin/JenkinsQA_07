@@ -11,11 +11,6 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class LocomotiveGroupTest {
-    public static void SelectRadioButton(WebDriver driver, String value) {
-        WebElement selectRadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
-        selectRadioButton.click();
-    }
-
     @Test
     public void demoqaTextBoxTest() {
         String fullName = "Tom Jonson";
@@ -101,8 +96,12 @@ public class LocomotiveGroupTest {
         SelectRadioButton(driver, "Impressive");
         Assert.assertEquals(textRadioButton.getText(), "You have selected Impressive");
 
-        Thread.sleep(2000);
+        Thread.sleep(3000);
 
         driver.close();
+    }
+    public static void SelectRadioButton(WebDriver driver, String value) {
+        WebElement selectRadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
+        selectRadioButton.click();
     }
 }
