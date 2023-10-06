@@ -11,6 +11,11 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class LocomotiveGroupTest {
+    public static void SelectRadioButton(WebDriver driver, String value) {
+        WebElement selectRadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
+        selectRadioButton.click();
+    }
+
     @Test
     public void demoqaTextBoxTest() {
         String fullName = "Tom Jonson";
@@ -29,7 +34,7 @@ public class LocomotiveGroupTest {
         emailTextBox.sendKeys(email);
 
         WebElement submitButton = driver.findElement(By.id("submit"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton );
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
         submitButton.click();
 
         String actualFullName = driver
@@ -38,7 +43,7 @@ public class LocomotiveGroupTest {
         Assert.assertEquals(actualFullName, "Name:" + fullName);
 
         String actualEmail = driver
-                .findElement( By.xpath("//*[@id=\"email\"]"))
+                .findElement(By.xpath("//*[@id=\"email\"]"))
                 .getText();
 
         Assert.assertEquals(actualEmail, "Email:" + email);
@@ -47,7 +52,7 @@ public class LocomotiveGroupTest {
     }
 
     @Test
-    public void testLink() throws InterruptedException{
+    public void testLink() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         try {
             String linkExpected = "https://demoqa.com/";
@@ -64,7 +69,7 @@ public class LocomotiveGroupTest {
             Thread.sleep(1000);
 
             for (String windowHandle : driver.getWindowHandles()) {
-                if(!originalWindow.contentEquals(windowHandle)) {
+                if (!originalWindow.contentEquals(windowHandle)) {
                     driver.switchTo().window(windowHandle);
                     break;
                 }
@@ -73,9 +78,9 @@ public class LocomotiveGroupTest {
             Thread.sleep(1000);
             driver.findElement(By.xpath("//*[@class=\"banner-image\"]")).isDisplayed();
 
-            } finally {
-                driver.quit();
-            }
+        } finally {
+            driver.quit();
+        }
     }
 
     @Test
@@ -96,13 +101,8 @@ public class LocomotiveGroupTest {
         SelectRadioButton(driver, "Impressive");
         Assert.assertEquals(textRadioButton.getText(), "You have selected Impressive");
 
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         driver.close();
-    }
-
-    public static void SelectRadioButton(WebDriver driver, String value) {
-        WebElement selectRadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
-            selectRadioButton.click();
     }
 }
