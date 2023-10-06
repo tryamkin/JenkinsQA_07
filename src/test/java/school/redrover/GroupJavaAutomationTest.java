@@ -2,12 +2,15 @@ package school.redrover;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -51,5 +54,25 @@ public class GroupJavaAutomationTest {
 
     }
 
+    @Test
+    public void testTextEditor() {
+        final String  expectedText = "My text\nsecond row";
+        WebDriver driver = new ChromeDriver();
+        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+        driver.get("https://the-internet.herokuapp.com/tinymce");
+
+        wait5.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(driver.findElement(By.xpath("//iframe[contains(@title, 'Text Area')]"))));
+
+        WebElement editor =  wait5.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//body[@id = 'tinymce']"))));
+        wait5.until(ExpectedConditions.textToBe(By.xpath("//body[@id = 'tinymce']"), "Your content goes here."));
+        editor.clear();
+        editor.sendKeys(expectedText);
+
+        String actualText = editor.getText();
+
+        Assert.assertEquals(actualText, expectedText);
+        System.out.println(actualText);
+
+    }
 }
 
