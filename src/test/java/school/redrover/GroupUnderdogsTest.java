@@ -14,8 +14,9 @@ public class GroupUnderdogsTest {
     WebDriver driver;
 
     String userName = "academic198405@gmail.com";
-    String password = "StateOfLiberty2021!";
-    String wrongpassword = "StateOfLiberty2021!2";
+    String password = "BikeTrekMarlyn4!";
+    String wrongPassword = "Sbbhbhbln2";
+    String baseUrl = "https://www.trekbikes.com/us/en_US/";
 
 //    @BeforeMethod
 //    public void before() {
@@ -64,22 +65,21 @@ public class GroupUnderdogsTest {
     }
 
 
-    //TC_11_07 что надпись об исключении красным цветом и с маленькой буквы
+    //text written in lower case and color red
     @Test
     public void maksinTestInactive() {
         driver = new FirefoxDriver();
         driver.get("http://www.99-bottles-of-beer.net/team.html");
-        WebElement header = driver.findElement(By.xpath
+        WebElement text = driver.findElement(By.xpath
                 ("/html/body/div/div[3]/p[7]/font/b"));
-        //Assert.assertTrue(header.getText().toLowerCase().equals(header.getText())); //одинаковые
-        Assert.assertEquals(header.getText(), header.getText().toLowerCase());     //одинаковые
-        Assert.assertEquals(header.getCssValue("color"), "rgb(255, 0, 0)");
+        Assert.assertTrue(text.getText().toLowerCase().equals(text.getText()));
+        Assert.assertEquals(text.getCssValue("color"), "rgb(255, 0, 0)");
     }
 
     @Test
     public void artuomTrack_correct_CredentialTest() throws InterruptedException {
         driver = new ChromeDriver();
-        driver.get("https://www.trekbikes.com/us/en_US/");
+        driver.get(baseUrl);
         WebElement enterButton = driver.findElement(By.xpath("(//*[@class='pdl-icon pdl-icon--size-24'])[1]"));
         Thread.sleep(2000);
         enterButton.click();
@@ -98,6 +98,7 @@ public class GroupUnderdogsTest {
         WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"j_password\"]"));
         passwordField.click();
         passwordField.sendKeys(password);
+        Thread.sleep(1000);
 
         WebElement button = driver.findElement(By.xpath("(//*[text()='Log in'])[3]"));
         button.click();
@@ -115,7 +116,7 @@ public class GroupUnderdogsTest {
     @Test
     public void artuomTrack_Incorrect_CredentialTest() throws InterruptedException {
         driver = new ChromeDriver();
-        driver.get("https://www.trekbikes.com/us/en_US/");
+        driver.get(baseUrl);
         WebElement enterButton = driver.findElement(By.xpath("(//*[@class='pdl-icon pdl-icon--size-24'])[1]"));
         Thread.sleep(2000);
         enterButton.click();
@@ -133,7 +134,7 @@ public class GroupUnderdogsTest {
 
         WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"j_password\"]"));
         passwordField.click();
-        passwordField.sendKeys(wrongpassword);
+        passwordField.sendKeys(wrongPassword);
 
         WebElement button = driver.findElement(By.xpath("(//*[text()='Log in'])[3]"));
         button.click();
@@ -150,7 +151,7 @@ public class GroupUnderdogsTest {
     @Test
     public void artuomMarlin4Test() throws InterruptedException {
         driver = new ChromeDriver();
-        driver.get("https://www.trekbikes.com/us/en_US/");
+        driver.get(baseUrl);
         WebElement enterButton = driver.findElement(By.xpath("(//*[@class='pdl-icon pdl-icon--size-24'])[1]"));
         Thread.sleep(2000);
         enterButton.click();
@@ -177,5 +178,43 @@ public class GroupUnderdogsTest {
 
         String bikeName =  marlin4.getText();
         Assert.assertEquals(bikeName, "Marlin 4 Gen 2");
+    }
+
+    @Test
+    public void kristinaNameAuthorSite(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"main\"]/p[4]/a[2]"));
+        button.click();
+
+        WebElement nameOliver = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[1]"));
+        String name1 = nameOliver.getText();
+        Assert.assertEquals(name1, "Oliver Schade");
+
+        WebElement nameGregor = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[2]"));
+        String name2 = nameGregor.getText();
+        Assert.assertEquals(name2, "Gregor Scheithauer");
+
+        WebElement nameStefan = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[3]"));
+        String name3 = nameStefan.getText();
+        Assert.assertEquals(name3, "Stefan Scheler");
+
+        driver.quit();
+    }
+
+    @Test
+    public void kristinaTopLists(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement title = driver.findElement(By.xpath("//*[@id=\"menu\"]/li[4]/a[@href=\"/toplist.html\"]"));
+        title.click();
+
+        WebElement language = driver.findElement(By.xpath("//*[@id=\"category\"]/tbody/tr[2]/td[2]/a"));
+        String title1 = language.getText();
+        Assert.assertEquals(title1, "Malbolge (real loop version)");
+
+        driver.quit();
     }
 }
