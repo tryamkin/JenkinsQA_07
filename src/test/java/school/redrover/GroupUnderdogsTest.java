@@ -15,7 +15,7 @@ public class GroupUnderdogsTest {
 
     String userName = "academic198405@gmail.com";
     String password = "BikeTrekMarlyn4!";
-    String wrongpassword = "Sbbhbhblnk!2";
+    String wrongpassword = "Sbbhbhbln2";
     String baseUrl = "https://www.trekbikes.com/us/en_US/";
 
 //    @BeforeMethod
