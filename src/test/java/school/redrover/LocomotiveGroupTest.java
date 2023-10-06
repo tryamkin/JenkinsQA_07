@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class LocomotiveGroupTest {
     @Test
     public void demoqaTextBoxTest() {
@@ -76,4 +78,31 @@ public class LocomotiveGroupTest {
             }
     }
 
+    @Test
+    public void checkRadioButton() throws InterruptedException {
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("https://demoqa.com/radio-button");
+
+
+        SelectRadioButton(driver, "Yes");
+        WebElement textRadioButton = driver.findElement(By.xpath("//p[@class='mt-3']"));
+        Assert.assertEquals(textRadioButton.getText(), "You have selected Yes");
+
+        Thread.sleep(3000);
+
+        SelectRadioButton(driver, "Impressive");
+        Assert.assertEquals(textRadioButton.getText(), "You have selected Impressive");
+
+        Thread.sleep(3000);
+
+        driver.close();
+    }
+
+    public static void SelectRadioButton(WebDriver driver, String value) {
+        WebElement selectRadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
+            selectRadioButton.click();
+    }
 }
