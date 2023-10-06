@@ -30,9 +30,9 @@ public class GroupJavaAutomationTest {
         driver.get("https://the-internet.herokuapp.com/");
         WebElement buttonABTesting = driver.findElement(By.xpath("//a[@href='/abtest']"));
         buttonABTesting.click();
-        WebElement getText = driver.findElement(By.xpath("//h3[text()='A/B Test Control']"));
-        String message = getText.getText();
-        assertEquals(message, "A/B Test Control");
+        WebElement textABTest = driver.findElement(By.xpath("//h3[text()='A/B Test Control']"));
+        String abTestTitle = textABTest.getText();
+        assertEquals(abTestTitle, "A/B Test Control");
         driver.quit();
     }
 
@@ -43,8 +43,8 @@ public class GroupJavaAutomationTest {
         driver.get("https://the-internet.herokuapp.com/");
         WebElement buttonCheckBox = driver.findElement(By.xpath("//a[@href='/checkboxes']"));
         buttonCheckBox.click();
-        WebElement getTextCheckBox = driver.findElement(By.xpath("//h3[text()='Checkboxes']"));
-        String titleCheckBox = getTextCheckBox.getText();
+        WebElement textCheckBox = driver.findElement(By.xpath("//h3[text()='Checkboxes']"));
+        String titleCheckBox = textCheckBox.getText();
         softAssert.assertEquals(titleCheckBox, "Checkboxes");
         List<WebElement> listCheckbox = driver.findElements(By.xpath("//input[@type='checkbox']"));
         softAssert.assertEquals(listCheckbox.size(), 2);
