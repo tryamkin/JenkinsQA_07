@@ -73,7 +73,7 @@ public class GroupJavaExplorersTest {
         driver.quit();
     }
     @Test
-    public void testSignInNegative() {
+    public void testSignInNegative() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://magento.softwaretestingboard.com/");
         String title = driver.getTitle();
@@ -92,6 +92,7 @@ public class GroupJavaExplorersTest {
         signInto.click();
         WebElement accIncorrect = driver.findElement(By.xpath("//*[@id='maincontent']/div[2]/div[2]/div/div/div"));
         String accFailText = accIncorrect.getText();
+        Thread.sleep(1000);
         Assert.assertEquals(accFailText, "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.");
         driver.quit();
     }
