@@ -16,7 +16,6 @@ import java.time.Duration;
 
 import org.testng.asserts.SoftAssert;
 
-
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -80,7 +79,7 @@ public class GroupJavaAutomationTest {
     }
 
     @Test
-    public void herokuappABTest() {
+    public void herokuAppABTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/");
         WebElement buttonABTesting = driver.findElement(By.xpath("//a[@href='/abtest']"));
@@ -92,7 +91,7 @@ public class GroupJavaAutomationTest {
     }
 
     @Test
-    public void herokuappCheckBoxTest() {
+    public void herokuAppCheckBoxTest() {
         WebDriver driver = new ChromeDriver();
         SoftAssert softAssert = new SoftAssert();
         driver.get("https://the-internet.herokuapp.com/");
@@ -129,44 +128,6 @@ public class GroupJavaAutomationTest {
         driver.quit();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Test
     public void loginSuccessfulTest() {
         WebDriver webDriver = new ChromeDriver();
@@ -189,6 +150,7 @@ public class GroupJavaAutomationTest {
         logout.click();
         webDriver.quit();
     }
+
     @Test
     public void loginEmptyNameTest() {
         WebDriver webDriver = new ChromeDriver();
