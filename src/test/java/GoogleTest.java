@@ -5,7 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-    public class GoogleTest {
+import java.time.Duration;
+
+public class GoogleTest {
 
         @Test
         public void testSearch() throws InterruptedException {
