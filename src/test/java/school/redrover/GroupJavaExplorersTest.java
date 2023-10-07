@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 public class GroupJavaExplorersTest {
     @Test
     public void testSearchWatches() throws InterruptedException {
@@ -71,7 +73,7 @@ public class GroupJavaExplorersTest {
         driver.quit();
     }
     @Test
-    public void testSignInNegative() {
+    public void testSignInNegative() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://magento.softwaretestingboard.com/");
         String title = driver.getTitle();
@@ -90,7 +92,28 @@ public class GroupJavaExplorersTest {
         signInto.click();
         WebElement accIncorrect = driver.findElement(By.xpath("//*[@id='maincontent']/div[2]/div[2]/div/div/div"));
         String accFailText = accIncorrect.getText();
+        Thread.sleep(1000);
         Assert.assertEquals(accFailText, "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.");
+        driver.quit();
+    }
+
+    @Test
+    public void testSearchOlivia() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://magento.softwaretestingboard.com");
+
+        WebElement textBox = driver.findElement(By.xpath("//input[@id='search']"));
+        textBox.sendKeys("Olivia");
+
+        WebElement submitButton = driver.findElement(By.xpath("//button[@type='submit']"));
+        submitButton.click();
+
+        Thread.sleep(3000);
+
+        String title = driver.findElement(By.xpath("//h1")).getText();
+
+        assertEquals(title, "Search results for: 'Olivia'");
+
         driver.quit();
     }
 }
