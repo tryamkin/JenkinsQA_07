@@ -16,7 +16,7 @@ import java.time.Duration;
 
 import org.testng.asserts.SoftAssert;
 
-import java.util.Arrays;
+
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -128,6 +128,43 @@ public class GroupJavaAutomationTest {
 
         driver.quit();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @Test
