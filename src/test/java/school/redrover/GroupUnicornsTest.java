@@ -5,11 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-
 import org.testng.annotations.Test;
-
+import java.util.HashMap;
 import java.time.Duration;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -64,11 +62,9 @@ public class GroupUnicornsTest {
     }
 
     @Test
-    public void w3SchoolTest()
-    {
+    public void w3SchoolTest() {
         WebDriver wd = new ChromeDriver();
-        try
-        {
+        try {
             wd.get("https://www.w3schools.com/");
 
             //title
@@ -98,12 +94,9 @@ public class GroupUnicornsTest {
             //title
             title = wd.getTitle();
             Assert.assertEquals(title, "Java Tutorial");
-        }
-        finally
-        {
+        } finally {
             wd.quit();
         }
-
     }
 
     @Test
@@ -125,19 +118,17 @@ public class GroupUnicornsTest {
 
             WebElement message = driver.findElement(By.xpath("//div/p[@class = 'text-message']"));
             message.isDisplayed();
-
-
         } finally {
             driver.quit();
         }
     }
 
     @Test
-    public void testSearch(){
+    public void testSearch() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.w3schools.com/");
         String title = driver.getTitle();
-        Assert.assertEquals( title, "W3Schools Online Web Tutorials");
+        Assert.assertEquals(title, "W3Schools Online Web Tutorials");
         WebElement textBox = driver.findElement(By.id("search2"));
         WebElement submitButton = driver.findElement(By.id("learntocode_searchbtn"));
         textBox.sendKeys("HTML Tutorial");
@@ -147,5 +138,38 @@ public class GroupUnicornsTest {
         Assert.assertEquals(value, "Tutorial");
 
         driver.quit();
+    }
+
+    @Test
+    public void demoWebShopTest() {
+        WebDriver driver = new ChromeDriver();
+
+        String pageTitlePath = "//div[@class='page-title' ]//h1";
+
+        String basePath = "//ul[@class='top-menu']//a[@href='/";
+
+        HashMap<String, String> pages = new HashMap<>();
+        pages.put("Books", basePath + "books']");
+        pages.put("Computers", basePath + "computers']");
+        pages.put("Electronics", basePath + "electronics']");
+        pages.put("Apparel & Shoes", basePath + "apparel-shoes']");
+        pages.put("Digital downloads", basePath + "digital-downloads']");
+        pages.put("Jewelry", basePath + "jewelry']");
+        pages.put("Gift Cards", basePath + "gift-cards']");
+
+        String pageTitle;
+
+        try {
+            driver.get("https://demowebshop.tricentis.com/");
+
+            for (String key : pages.keySet()) {
+                driver.findElement(By.xpath(pages.get(key))).click();
+                pageTitle = driver.findElement(By.xpath(pageTitlePath)).getText();
+                Assert.assertEquals(pageTitle, key);
+            }
+
+        } finally {
+            driver.quit();
+        }
     }
 }
