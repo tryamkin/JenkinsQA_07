@@ -7,7 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.chromium.ChromiumDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -84,6 +83,28 @@ public class GroupJavaAutomationTest {
         List<WebElement> listCheckbox = driver.findElements(By.xpath("//input[@type='checkbox']"));
         softAssert.assertEquals(listCheckbox.size(), 2);
         softAssert.assertAll();
+        driver.quit();
+    }
+
+    @Test
+    public void testEntryAd() {
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://the-internet.herokuapp.com/");
+
+        WebElement entryAd = driver.findElement(By.xpath("//a[@href='/entry_ad']"));
+        entryAd.click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
+        WebElement pClose = driver.findElement(By.xpath("//*[@id=\"modal\"]/div[2]/div[3]"));
+        pClose.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.invisibilityOf(pClose));
+
+        Assert.assertFalse(pClose.isDisplayed());
+
         driver.quit();
     }
 
