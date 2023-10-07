@@ -1,22 +1,24 @@
 package school.redrover;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chromium.ChromiumDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.net.URI;
 import java.time.Duration;
 
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.testng.Assert.assertEquals;
 
@@ -83,6 +85,41 @@ public class GroupJavaAutomationTest {
         softAssert.assertEquals(listCheckbox.size(), 2);
         softAssert.assertAll();
         driver.quit();
+    }
+
+    @Test
+    public void testAddElement() {
+        List<String> expectedButtonsName = new ArrayList<>(List.of("Add Element","Delete"));
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
+        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        WebElement addButton = wait5.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text() = 'Add Element']")));
+        addButton.click();
+
+        List<WebElement> buttons = wait5.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button"))));
+        List<String> actualButtonsName = new ArrayList<>();
+        for(WebElement button : buttons){
+            actualButtonsName.add(button.getText());
+        }
+
+        Assert.assertEquals(actualButtonsName, expectedButtonsName);
+
+        driver.quit();
+    }
+
+    @Test
+    public void testBasicAuth() {
+        WebDriver driver = new ChromeDriver();
+        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+        Predicate<URI> uriPredicate = uri -> uri.getHost().contains("the-internet.herokuapp.com");
+        ((HasAuthentication) driver).register(uriPredicate, UsernameAndPassword.of("admin", "admin"));
+        driver.get("https://the-internet.herokuapp.com/basic_auth");
+
+        String authMessage = wait5.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p"))).getText();
+
+        Assert.assertEquals(authMessage, "Congratulations! You must have the proper credentials.");
     }
 
 }
