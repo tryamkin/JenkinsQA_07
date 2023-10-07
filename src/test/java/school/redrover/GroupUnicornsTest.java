@@ -5,11 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import java.time.Duration;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -130,6 +133,51 @@ public class GroupUnicornsTest {
                     Assert.assertEquals(pageTitle, key);
                 }
 
+    }
+
+    @Test
+    public void testGeico() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://www.geico.com/");
+
+            WebElement title = driver.findElement(By.xpath("//div/h1[@id ='section1heading']"));
+            title.isDisplayed();
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+
+            WebElement zipCode = driver.findElement(By.xpath("//div/input[@id ='ssp-service-zip']"));
+            zipCode.sendKeys("11111");
+
+            WebElement submit = driver.findElement(By.xpath("//input[@class ='btn btn--secondary']"));
+            submit.click();
+
+            WebElement message = driver.findElement(By.xpath("//div/p[@class = 'text-message']"));
+            message.isDisplayed();
+
+
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void testSearch(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.w3schools.com/");
+        String title = driver.getTitle();
+        Assert.assertEquals( title, "W3Schools Online Web Tutorials");
+        WebElement textBox = driver.findElement(By.id("search2"));
+        WebElement submitButton = driver.findElement(By.id("learntocode_searchbtn"));
+        textBox.sendKeys("HTML Tutorial");
+        submitButton.click();
+        WebElement message = driver.findElement(By.className("color_h1"));
+        String value = message.getText();
+        Assert.assertEquals(value, "Tutorial");
+
+        driver.quit();
+    }
+}
             } finally {
                 driver.quit();
             }
