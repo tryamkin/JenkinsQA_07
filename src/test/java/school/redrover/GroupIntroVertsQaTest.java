@@ -106,7 +106,7 @@ public class GroupIntroVertsQaTest {
     /**
      * DmitryS. Тесты
      */
-    // region DmitryS. Добавляю в данный блок тесты
+    // region DmitryS. Добавляю в данный блок тесты.
     @Test (description = "проверка содержания хидера")
     public void textHeaderForm() {
         WebDriver driver = new ChromeDriver();
