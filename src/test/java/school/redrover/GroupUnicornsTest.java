@@ -188,7 +188,7 @@ public class GroupUnicornsTest {
             searchTable.clear();
             searchTable.sendKeys("SPX");
             searchTable.sendKeys(Keys.ENTER);
-            Thread.sleep(100);
+            Thread.sleep(500);
             WebElement newTickerNameActual = driver.findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
             Assert.assertEquals(newTickerNameActual.getText(), "SPX");
         } finally {
