@@ -49,7 +49,7 @@ public class GroupJavaAutomationTest {
         catch (Exception e) {
             e.printStackTrace();
         }
-
+        driver.quit();
 
     }
 
@@ -70,7 +70,7 @@ public class GroupJavaAutomationTest {
         String actualText = editor.getText();
 
         Assert.assertEquals(actualText, expectedText);
-        System.out.println(actualText);
+        driver.quit();
 
     }
     @Test
