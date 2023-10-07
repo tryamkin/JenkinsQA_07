@@ -1,13 +1,17 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.util.HashMap;
 import java.time.Duration;
+import java.util.List;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -168,6 +172,28 @@ public class GroupUnicornsTest {
                 Assert.assertEquals(pageTitle, key);
             }
 
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void searchVerificationGitHub() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+            driver.manage().window().maximize();
+            driver.get("https://github.com");
+            WebElement searchBox = driver.findElement(By.xpath("//span[@class=\"flex-1\"]"));
+            searchBox.click();
+            WebElement inputButton = driver.findElement(By.xpath("//*[@class='QueryBuilder-InputWrapper']/input"));
+            inputButton.sendKeys("selenium" + Keys.ENTER);
+            List<WebElement> listOfResults = driver.findElements(By.xpath("//span[starts-with(@class, 'Text-sc-17v1xeu-0 qaOIC search-match')]"));
+            int expectedSize = 10;
+            int actualSize = listOfResults.size();
+            Assert.assertEquals(actualSize, expectedSize);
+            driver.quit();
         } finally {
             driver.quit();
         }
