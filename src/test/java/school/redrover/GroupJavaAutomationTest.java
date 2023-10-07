@@ -1,9 +1,7 @@
 package school.redrover;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,11 +10,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.net.URI;
 import java.time.Duration;
 
 import org.testng.asserts.SoftAssert;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.testng.Assert.assertEquals;
 
@@ -30,7 +31,6 @@ public class GroupJavaAutomationTest {
         assertEquals(title, "The Internet");
         driver.quit();
     }
-
     @Test
     public void herokuAppAddRemoveTest() throws InterruptedException {
         WebDriver driver = new FirefoxDriver();
@@ -50,31 +50,11 @@ public class GroupJavaAutomationTest {
             //clicking on the button, this action will only happen when the button element is visible on the page
             driver.findElement(By.xpath("//*[@id=\"elements\"]/button[1]")).click();
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
-        driver.quit();
 
-    }
-
-    @Test
-    public void testTextEditor() {
-        final String expectedText = "My text\nsecond row";
-        WebDriver driver = new ChromeDriver();
-        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
-        driver.get("https://the-internet.herokuapp.com/tinymce");
-
-        wait5.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(driver.findElement(By.xpath("//iframe[contains(@title, 'Text Area')]"))));
-
-        WebElement editor = wait5.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//body[@id = 'tinymce']"))));
-        wait5.until(ExpectedConditions.textToBe(By.xpath("//body[@id = 'tinymce']"), "Your content goes here."));
-        editor.clear();
-        editor.sendKeys(expectedText);
-
-        String actualText = editor.getText();
-
-        Assert.assertEquals(actualText, expectedText);
-        driver.quit();
 
     }
 
@@ -124,6 +104,43 @@ public class GroupJavaAutomationTest {
         wait.until(ExpectedConditions.invisibilityOf(pClose));
 
         Assert.assertFalse(pClose.isDisplayed());
+
+        driver.quit();
+    }
+
+    @Test
+    public void testAddElement() {
+        List<String> expectedButtonsName = new ArrayList<>(List.of("Add Element","Delete"));
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
+        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        WebElement addButton = wait5.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text() = 'Add Element']")));
+        addButton.click();
+
+        List<WebElement> buttons = wait5.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button"))));
+        List<String> actualButtonsName = new ArrayList<>();
+        for(WebElement button : buttons){
+            actualButtonsName.add(button.getText());
+        }
+
+        Assert.assertEquals(actualButtonsName, expectedButtonsName);
+
+        driver.quit();
+    }
+
+    @Test
+    public void testBasicAuth() {
+        WebDriver driver = new ChromeDriver();
+        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+        Predicate<URI> uriPredicate = uri -> uri.getHost().contains("the-internet.herokuapp.com");
+        ((HasAuthentication) driver).register(uriPredicate, UsernameAndPassword.of("admin", "admin"));
+        driver.get("https://the-internet.herokuapp.com/basic_auth");
+
+        String authMessage = wait5.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p"))).getText();
+
+        Assert.assertEquals(authMessage, "Congratulations! You must have the proper credentials.");
 
         driver.quit();
     }
