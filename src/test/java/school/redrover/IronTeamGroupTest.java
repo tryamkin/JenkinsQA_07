@@ -70,7 +70,7 @@ public class IronTeamGroupTest {
         }
     }
     @Test
-    public void ferosorSearch() throws InterruptedException {
+    public void testFerosorSearch() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         try {
@@ -86,7 +86,7 @@ public class IronTeamGroupTest {
         }
     }
     @Test
-    public void ferosorLogin() throws InterruptedException{
+    public void testFerosorLogin() throws InterruptedException{
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         try{
