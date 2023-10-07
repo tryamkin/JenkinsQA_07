@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 
 
-            //driver.manage().timeouts().implicitlyWait(Duration.ofMillis(9000));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(9000));
 
             WebElement textBox = driver.findElement(By.className("gLFyF"));
             textBox.sendKeys("Selenium");
