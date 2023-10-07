@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.openqa.selenium.By.className;
+
 public class IronTeamGroupTest {
     @Test
     public void w3schoolTest() throws InterruptedException {
@@ -80,6 +82,22 @@ public class IronTeamGroupTest {
             Thread.sleep(1000);
 
         } finally {
+            driver.quit();
+        }
+    }
+    @Test
+    public void ferosorLogin() throws InterruptedException{
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        try{
+            driver.get("https://ferosor.cl");
+            driver.findElement(className("login")).click();
+            WebElement email = driver.findElement(className("form-control"));
+            email.sendKeys("test@test.com");
+            WebElement password = driver.findElement(className("js-child-focus"));
+            password.sendKeys("12345");
+            driver.findElement(By.id("submit-login")).click();
+        }finally{
             driver.quit();
         }
     }
