@@ -141,6 +141,8 @@ public class GroupJavaAutomationTest {
         String authMessage = wait5.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p"))).getText();
 
         Assert.assertEquals(authMessage, "Congratulations! You must have the proper credentials.");
+
+        driver.quit();
     }
 
 }
