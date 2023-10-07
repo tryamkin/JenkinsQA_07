@@ -126,7 +126,7 @@ public class GroupSevenTest {
         driver.quit();
     }
     @Test
-    public void TestHarrySearch() {
+    public void TestHPSearch() {
         WebDriver driver = new ChromeDriver();
         try {
             driver.get("https://www.wizardingworld.com/");
