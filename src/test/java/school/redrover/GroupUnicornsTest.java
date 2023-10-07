@@ -1,6 +1,7 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -171,5 +172,28 @@ public class GroupUnicornsTest {
         } finally {
             driver.quit();
         }
+    }
+    @Test
+    public void testTradingView() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        String url = "https://www.tradingview.com/chart/";
+        try {
+            driver.get(url);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
+            WebElement tickerNameActual = driver.findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
+            Assert.assertEquals(tickerNameActual.getText(), "AAPL");
+
+            driver.findElement(By.xpath("//button[@id = 'header-toolbar-symbol-search']")).click();
+            WebElement searchTable = driver.findElement(By.xpath("//input[@class = 'search-ZXzPWcCf upperCase-ZXzPWcCf input-qm7Rg5MB']"));
+            searchTable.clear();
+            searchTable.sendKeys("SPX");
+            searchTable.sendKeys(Keys.ENTER);
+            Thread.sleep(100);
+            WebElement newTickerNameActual = driver.findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
+            Assert.assertEquals(newTickerNameActual.getText(), "SPX");
+        } finally {
+            driver.quit();
+        }
+
     }
 }
