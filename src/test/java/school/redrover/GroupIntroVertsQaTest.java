@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.Random;
 
 public class GroupIntroVertsQaTest {
@@ -100,6 +101,19 @@ public class GroupIntroVertsQaTest {
 
         Assert.assertEquals(value, "Accounts Overview");
 
+        driver.quit();
+    }
+
+    @Test
+    public void aboutUsTest(){
+        WebDriver driver = new ChromeDriver();
+        driver.get(URL);
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
+        WebElement usernameInput = driver.findElement(By.xpath(" //a[@href=contains(text(), \"About Us\")]"));
+        usernameInput.click();
+
+        WebElement greetings = driver.findElement(By.xpath("//h1[@class=\"title\"]"));
+        Assert.assertEquals(greetings.getText(), "ParaSoft Demo Website");
         driver.quit();
     }
 
