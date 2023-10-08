@@ -20,7 +20,7 @@ public class MaklerTest {
             WebElement textBox = driver.findElement(By.className("disable-border"));
             textBox.sendKeys("Handmade");
 
-            Thread.sleep(4000);
+            Thread.sleep(5000);
 
             WebElement searchButton = driver.findElement(By.id("header_searchButton"));
             searchButton.click();
