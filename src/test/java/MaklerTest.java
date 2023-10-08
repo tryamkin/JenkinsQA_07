@@ -4,9 +4,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 
 
-    public class MaklerTest {
+public class MaklerTest {
 
         @Test
         public void testSearch() throws InterruptedException {
@@ -15,7 +16,7 @@ import org.testng.annotations.Test;
 
 
 
-            //driver.manage().timeouts().implicitlyWait(Duration.ofMillis(9000));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(9000));
 
             WebElement textBox = driver.findElement(By.className("disable-border"));
             textBox.sendKeys("Handmade");
