@@ -9,7 +9,7 @@ import java.time.Duration;
 
 public class MaklerTEST {
 
-        @Test
+    @Test
         public void testSearch() throws InterruptedException {
             WebDriver driver = new ChromeDriver();
             driver.get("https://makler.md/");
@@ -29,12 +29,8 @@ public class MaklerTEST {
             Assert.assertEquals(value,"Handmade");
 
             driver.quit();
-
-
         }
-
-
-    }
+}
 
 
 
