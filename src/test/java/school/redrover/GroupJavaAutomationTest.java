@@ -31,6 +31,7 @@ public class GroupJavaAutomationTest {
         assertEquals(title, "The Internet");
         driver.quit();
     }
+
     @Test
     public void herokuAppAddRemoveTest() throws InterruptedException {
         WebDriver driver = new FirefoxDriver();
@@ -54,12 +55,33 @@ public class GroupJavaAutomationTest {
         catch (Exception e) {
             e.printStackTrace();
         }
-
+        driver.quit();
 
     }
 
     @Test
-    public void herokuappABTest() {
+    public void testTextEditor() {
+        final String expectedText = "My text\nsecond row";
+        WebDriver driver = new ChromeDriver();
+        Wait<WebDriver> wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
+        driver.get("https://the-internet.herokuapp.com/tinymce");
+
+        wait5.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(driver.findElement(By.xpath("//iframe[contains(@title, 'Text Area')]"))));
+
+        WebElement editor = wait5.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//body[@id = 'tinymce']"))));
+        wait5.until(ExpectedConditions.textToBe(By.xpath("//body[@id = 'tinymce']"), "Your content goes here."));
+        editor.clear();
+        editor.sendKeys(expectedText);
+
+        String actualText = editor.getText();
+
+        Assert.assertEquals(actualText, expectedText);
+        driver.quit();
+
+    }
+
+    @Test
+    public void herokuAppABTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/");
         WebElement buttonABTesting = driver.findElement(By.xpath("//a[@href='/abtest']"));
@@ -71,7 +93,7 @@ public class GroupJavaAutomationTest {
     }
 
     @Test
-    public void herokuappCheckBoxTest() {
+    public void herokuAppCheckBoxTest() {
         WebDriver driver = new ChromeDriver();
         SoftAssert softAssert = new SoftAssert();
         driver.get("https://the-internet.herokuapp.com/");
@@ -145,5 +167,46 @@ public class GroupJavaAutomationTest {
         driver.quit();
     }
 
+    @Test
+    public void loginSuccessfulTest() {
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.get("https://the-internet.herokuapp.com/");
+        webDriver.manage().window().maximize();
+        WebElement elementLogin = webDriver.findElement(By.xpath("//a[@href='/login']"));
+        elementLogin.click();
+        WebElement inputName = webDriver.findElement(By.xpath("//input[@name='username']"));
+        WebElement inputPassword = webDriver.findElement(By.xpath("//input[@name='password']"));
+        inputName.sendKeys("tomsmith");
+        inputPassword.sendKeys("SuperSecretPassword!");
+        WebElement buttonSubmit = webDriver.findElement(By.xpath("//button[@type='submit']"));
+        buttonSubmit.click();
+        WebElement messageTitle = webDriver.findElement(By.xpath("//div[@class='flash success']"));
+        Assert.assertEquals(messageTitle
+                        .getText()
+                        .replaceAll("[×\n]", ""),
+                "You logged into a secure area!");
+        WebElement logout = webDriver.findElement(By.xpath("//*[@href='/logout']"));
+        logout.click();
+        webDriver.quit();
+    }
+
+    @Test
+    public void loginEmptyNameTest() {
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.get("https://the-internet.herokuapp.com/");
+        webDriver.manage().window().maximize();
+        WebElement elementLogin = webDriver.findElement(By.xpath("//a[@href='/login']"));
+        elementLogin.click();
+        WebElement inputPassword = webDriver.findElement(By.xpath("//input[@name='password']"));
+        inputPassword.sendKeys("SuperSecretPassword!");
+        WebElement buttonSubmit = webDriver.findElement(By.xpath("//button[@type='submit']"));
+        buttonSubmit.click();
+        WebElement messageTitle = webDriver.findElement(By.xpath("//div[@class='flash error']"));
+        Assert.assertEquals(messageTitle
+                        .getText()
+                        .replaceAll("[×\n]", ""),
+                "Your username is invalid!");
+        webDriver.quit();
+    }
 }
 
