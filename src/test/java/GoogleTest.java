@@ -19,9 +19,6 @@ public class GoogleTest {
 
 
 
-
-
-
             //driver.manage().timeouts().implicitlyWait(Duration.ofMillis(9000));
 
             WebElement textBox = driver.findElement(By.className("gLFyF"));
