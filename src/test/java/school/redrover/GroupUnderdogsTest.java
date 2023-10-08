@@ -35,7 +35,7 @@ public class GroupUnderdogsTest {
     @Test
     public void tereshenkov99BottlesTitleTest() {
         driver = new ChromeDriver();
-        driver.get("http://www.99-bottles-of-beer.net/");
+            driver.get("http://www.99-bottles-of-beer.net/");
 
         WebElement title = driver.findElement(By.xpath("//*[@id=\"header\"]/h1"));
         String titleValue = title.getText();
@@ -59,7 +59,7 @@ public class GroupUnderdogsTest {
     @Test
     public void tereshenkov99BottlesLastMenuLinkTestGetText() {
         driver = new ChromeDriver();
-         driver.get("http://www.99-bottles-of-beer.net/");
+        driver.get("http://www.99-bottles-of-beer.net/");
 
         WebElement lastMenuLink = driver.findElement(By.xpath("//*[@id=\"menu\"]/li[6]/a"));
 
