@@ -12,6 +12,9 @@ public class GoogleTest {
         @Test
         public void testSearch() throws InterruptedException {
             WebDriver driver = new ChromeDriver();
+
+
+
             driver.get("https://www.google.com/");
 
 
