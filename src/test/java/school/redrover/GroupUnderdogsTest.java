@@ -295,6 +295,28 @@ public class GroupUnderdogsTest {
     }
 
     @Test
+    public void testRailiaImportantNoticeMarkup() {
+        driver = new ChromeDriver();
+        openMainPage();
+        driver.findElement(By.linkText("SUBMIT NEW LANGUAGE")).click();
+
+
+        List<WebElement> listItems = driver.findElements(By.xpath("//*[@id=\"main\"]/ul/li/span"));
+        Assert.assertFalse(listItems.isEmpty(), "We should have at least one list item with bold text");
+
+        for (WebElement el :listItems) {
+            String notificationText = el.getText();
+            if (notificationText.equalsIgnoreCase("important:")) {
+                String backgroundColor = el.getCssValue("background-color");
+                String textColor = el.getCssValue("color");
+                Assert.assertEquals(backgroundColor, "rgba(255, 0, 0, 1)");
+                Assert.assertEquals(textColor, "rgba(255, 255, 255, 1)");
+                Assert.assertEquals(notificationText, notificationText.toUpperCase());
+            }
+
+        }
+    }
+
     public void testNamesOfCreatorsOfSite() {
         List<String> teamMembers = Arrays.asList("Oliver Schade", "Gregor Scheithauer", "Stefan Scheler");
 
