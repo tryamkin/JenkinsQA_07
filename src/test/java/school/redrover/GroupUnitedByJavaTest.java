@@ -313,7 +313,6 @@ public class GroupUnitedByJavaTest {
             String title_add_form = window_add.getText();
             Assert.assertEquals(title_add_form, "Registration Form");
             Thread.sleep(2000);
-
         } finally {
             driver.quit();
         }
