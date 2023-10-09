@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GroupUnderdogsTest {
-    WebDriver driver;
+    WebDriver driver = new ChromeDriver();
 
     private final String mainPageUrl = "http://www.99-bottles-of-beer.net/";
     String userName = "academic198405@gmail.com";
@@ -81,6 +81,19 @@ public class GroupUnderdogsTest {
         driver.get("http://www.99-bottles-of-beer.net/abc.html");
         String elementName = driver.findElement(By.xpath("//ul[@id='submenu']/li[1]/a")).getText();
         Assert.assertEquals(elementName, "0-9");
+    }
+
+    @Test
+    public void authorNamesTest() {
+        List<String> expectedAuthorNames = Arrays.asList("Oliver Schade", "Gregor Scheithauer", "Stefan Scheler");
+        openMainPage();
+        driver.findElement(By.xpath("//a[@href='team.html']")).click();
+        List<WebElement> elements = driver.findElements(By.xpath("//h3"));
+        List<String> authorNames = new ArrayList<>();
+        for (WebElement i : elements) {
+            authorNames.add(i.getText());
+        }
+        Assert.assertEquals(authorNames, expectedAuthorNames);
     }
 
     //text written in lower case and color red
