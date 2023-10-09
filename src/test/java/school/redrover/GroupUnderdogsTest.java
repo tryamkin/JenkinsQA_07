@@ -3,14 +3,20 @@ package school.redrover;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GroupUnderdogsTest {
-    WebDriver driver;
+    WebDriver driver = new ChromeDriver();
 
     private final String mainPageUrl = "http://www.99-bottles-of-beer.net/";
     String userName = "academic198405@gmail.com";
@@ -69,11 +75,25 @@ public class GroupUnderdogsTest {
         Assert.assertEquals(lastMenuLinkValue, "SUBMIT NEW LANGUAGE");
 
     }
+
     @Test
-    public void firstMenuTabTextTest(){
+    public void firstMenuTabTextTest() {
         driver.get("http://www.99-bottles-of-beer.net/abc.html");
         String elementName = driver.findElement(By.xpath("//ul[@id='submenu']/li[1]/a")).getText();
         Assert.assertEquals(elementName, "0-9");
+    }
+
+    @Test
+    public void authorNamesTest() {
+        List<String> expectedAuthorNames = Arrays.asList("Oliver Schade", "Gregor Scheithauer", "Stefan Scheler");
+        openMainPage();
+        driver.findElement(By.xpath("//a[@href='team.html']")).click();
+        List<WebElement> elements = driver.findElements(By.xpath("//h3"));
+        List<String> authorNames = new ArrayList<>();
+        for (WebElement i : elements) {
+            authorNames.add(i.getText());
+        }
+        Assert.assertEquals(authorNames, expectedAuthorNames);
     }
 
     //text written in lower case and color red
@@ -152,13 +172,14 @@ public class GroupUnderdogsTest {
         Thread.sleep(1000);
 
 
-        WebElement incorrectUser= driver.findElement(By.xpath("//*[text()='Incorrect username or password']"));
+        WebElement incorrectUser = driver.findElement(By.xpath("//*[text()='Incorrect username or password']"));
 
         String text = incorrectUser.getText();
         Assert.assertEquals(text, "Incorrect username or password");
 
 
     }
+
     @Test
     public void artuomMarlin4Test() throws InterruptedException {
         driver = new ChromeDriver();
@@ -187,12 +208,12 @@ public class GroupUnderdogsTest {
         js.executeScript("arguments[0].scrollIntoView();", marlin4);
         Thread.sleep(2000);
 
-        String bikeName =  marlin4.getText();
+        String bikeName = marlin4.getText();
         Assert.assertEquals(bikeName, "Marlin 4 Gen 2");
     }
 
     @Test
-    public void kristinaNameAuthorSite(){
+    public void kristinaNameAuthorSite() {
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.99-bottles-of-beer.net/");
 
@@ -215,7 +236,7 @@ public class GroupUnderdogsTest {
     }
 
     @Test
-    public void kristinaTopLists(){
+    public void kristinaTopLists() {
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.99-bottles-of-beer.net/");
 
@@ -294,6 +315,56 @@ public class GroupUnderdogsTest {
             }
 
         }
+    }
 
+    public void testNamesOfCreatorsOfSite() {
+        List<String> teamMembers = Arrays.asList("Oliver Schade", "Gregor Scheithauer", "Stefan Scheler");
+
+        driver = new ChromeDriver();
+        driver.get(mainPageUrl);
+
+        WebElement teamLink = driver.findElement(By.xpath("//a[text()='Team']"));
+        teamLink.click();
+
+        List<WebElement> creators = driver.findElements(By.xpath("//h3"));
+        List<String> namesOfCreators = new ArrayList<>();
+        for (WebElement element : creators) {
+            namesOfCreators.add(element.getText());
+        }
+
+        Assert.assertEquals(namesOfCreators, teamMembers);
+
+    }
+
+    @Test
+    public void testSubmitLanguage() {
+        WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement clickSub = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//*[@id=\"menu\"]/li[6]/a")));
+        clickSub.click();
+
+        WebElement header = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//*[@id=\"submenu\"]/li/a")));
+        String actualHeader = header.getText();
+        Assert.assertEquals(actualHeader, "Submit New Language");
+
+        driver.quit();
+    }
+
+    @Test
+    public void testTitle() {
+        WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement title = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//*[@id=\"header\"]/h1")));
+        String actualTitle = title.getText();
+        Assert.assertEquals(actualTitle, "99 Bottles of Beer");
+
+        driver.quit();
     }
 }
