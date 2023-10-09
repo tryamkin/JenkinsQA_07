@@ -321,7 +321,7 @@ public class GroupUnderdogsTest {
 
     @Test
     public void testTitle() {
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         driver.get("http://www.99-bottles-of-beer.net/");
 
