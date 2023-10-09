@@ -340,7 +340,7 @@ public class GroupUnderdogsTest {
     public void testSubmitLanguage() {
         WebDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        driver.get("http://www.99-bottles-of-beer.net/");
+        driver.get(mainPageUrl);
 
         WebElement clickSub = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//*[@id=\"menu\"]/li[6]/a")));
@@ -358,7 +358,7 @@ public class GroupUnderdogsTest {
     public void testTitle() {
         WebDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        driver.get("http://www.99-bottles-of-beer.net/");
+        driver.get(mainPageUrl);
 
         WebElement title = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//*[@id=\"header\"]/h1")));
