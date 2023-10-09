@@ -318,4 +318,18 @@ public class GroupUnderdogsTest {
 
         driver.quit();
     }
+
+    @Test
+    public void testTitle() {
+        WebDriver driver = new FirefoxDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        driver.get("http://www.99-bottles-of-beer.net/");
+
+        WebElement title = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//*[@id=\"header\"]/h1")));
+        String actualTitle = title.getText();
+        Assert.assertEquals(actualTitle, "99 Bottles of Beer");
+
+        driver.quit();
+    }
 }
