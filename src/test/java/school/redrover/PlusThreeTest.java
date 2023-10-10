@@ -319,9 +319,8 @@ public class PlusThreeTest {
         WebElement signInButton = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/button"));
         signInButton.click();
         driver.quit();
-
     }
     @Test
-    public void DemoqaTest2(){}
+    public void DemoqaTest2() {};
 }
 
