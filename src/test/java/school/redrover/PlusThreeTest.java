@@ -320,15 +320,5 @@ public class PlusThreeTest {
         signInButton.click();
         driver.quit();
     }
-    @Test
-    public void DemoqaTest2() {};
-
-    @Test
-    public void DemoTest () {
-
-
-    }
-
-
 }
 
