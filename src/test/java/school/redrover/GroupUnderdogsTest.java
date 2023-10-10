@@ -136,7 +136,6 @@ public class GroupUnderdogsTest {
         button.click();
         Thread.sleep(1000);
 
-
         WebElement isAllNewArrivals = driver.findElement(By.xpath("(//*[@class=\"pdl-heading pdl-heading--xl \"])[1]"));
 
         String text = isAllNewArrivals.getText();
@@ -229,7 +228,6 @@ public class GroupUnderdogsTest {
 
         WebElement modWindOfferEnCours = driver.findElement(By.xpath("//*[@class='promo-drawer__heading']"));
         modWindOfferEnCours.click();
-
 
         WebElement addresseZipCode = driver.findElement(By.xpath("//*[@class='location-data']"));
         addresseZipCode.click();
@@ -420,7 +418,6 @@ public class GroupUnderdogsTest {
         }
 
         Assert.assertEquals(namesOfCreators, teamMembers);
-
     }
 
     @Test
