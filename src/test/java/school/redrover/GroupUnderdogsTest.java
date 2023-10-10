@@ -450,6 +450,7 @@ public class GroupUnderdogsTest {
         driver.quit();
     }
 
+    @Test
     public void yuliafaReddit() {
         WebDriver driver = new ChromeDriver();
 
