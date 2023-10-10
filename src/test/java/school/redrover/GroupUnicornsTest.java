@@ -221,7 +221,7 @@ public class GroupUnicornsTest {
     }
 
     @Test
-    public void verificationSocialIconsGitHub(){
+    public void verificationSocialIconsGitHub() {
         WebDriver driver = new ChromeDriver();
         try {
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
@@ -242,6 +242,7 @@ public class GroupUnicornsTest {
             driver.quit();
         }
     }
+
     @Test
     public void testComputersMenu() {
         WebDriver driver = new ChromeDriver();
@@ -253,7 +254,7 @@ public class GroupUnicornsTest {
             List<WebElement> elements = driver.findElements(By.className("sub-category-item"));
 
             boolean actual = true;
-            for(int i = 0; i < elements.size(); i++){
+            for (int i = 0; i < elements.size(); i++) {
                 if (!computers[i].equals(elements.get(i).getText())) {
                     actual = false;
                     break;
@@ -265,6 +266,7 @@ public class GroupUnicornsTest {
             driver.quit();
         }
     }
+
     @Test
     public void verificationSocialIconsGitHub2() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
@@ -281,6 +283,51 @@ public class GroupUnicornsTest {
             String url = driver.getCurrentUrl();
             driver.findElement(By.xpath("//div[@aria-label='Close']")).click();
             Assert.assertTrue(url.contains("face"));
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void unsuccessfulLoginDigitalBank() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://18.118.14.155:8080/bank/login");
+            driver.manage().window().maximize();
+            WebElement icon = driver.findElement(By.xpath("//div//img[@class = 'align-content']"));
+            icon.isDisplayed();
+
+            WebElement loginBtn = driver.findElement(By.id("username"));
+            loginBtn.sendKeys("tester1@gmail.com");
+            WebElement password = driver.findElement(By.id("password"));
+            password.sendKeys("1234Test");
+            WebElement submitBtn = driver.findElement(By.id("submit"));
+            submitBtn.click();
+            WebElement errorMsg = driver.findElement(By.xpath("//div[contains(@class, 'sufee-alert')]"));
+            errorMsg.isDisplayed();
+
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void successfulLoginDigitalBank() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://18.118.14.155:8080/bank/login");
+            driver.manage().window().maximize();
+            WebElement icon = driver.findElement(By.xpath("//div//img[@class = 'align-content']"));
+            icon.isDisplayed();
+
+            WebElement loginBtn = driver.findElement(By.id("username"));
+            loginBtn.sendKeys("tester@gmail.com");
+            WebElement password = driver.findElement(By.id("password"));
+            password.sendKeys("Test1234");
+            WebElement submitBtn = driver.findElement(By.id("submit"));
+            submitBtn.click();
+            WebElement avatar = driver.findElement(By.xpath("//img[contains(@class, 'user-avatar')]"));
+            avatar.isDisplayed();
         } finally {
             driver.quit();
         }
