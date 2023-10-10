@@ -25,4 +25,23 @@ public class GroupJavaJitsuTest {
         Assert.assertEquals("Swag Labs", title);
     }
 
+    @Test
+    public void testLogin(){
+        WebDriver driver= new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+
+        WebElement user = driver.findElement(By.xpath("//input[@placeholder='Username']"));
+        WebElement password = driver.findElement(By.xpath("//input[@placeholder='Password']"));
+
+        user.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+
+        WebElement loginBtn = driver.findElement(By.xpath("//input[@id='login-button']"));
+        loginBtn.click();
+        String url = driver.getCurrentUrl();
+
+        Assert.assertEquals(url,  "https://www.saucedemo.com/inventory.html");
+
+
+    }
 }
