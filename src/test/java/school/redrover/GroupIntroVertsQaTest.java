@@ -104,29 +104,6 @@ public class GroupIntroVertsQaTest {
         driver.quit();
     }
 
-    static class Ann {
-        public static void main(String[] args) {
-        }
-        public static int mylti(int a, int b) {
-            return a + b;
-        }
-    }
-    @Test
-        public void testSum() {
-            int r1 = Ann.mylti(10, -5);
-            Assert.assertEquals(r1, -50);
-        }
-    @Test
-        public void testSum1() {
-            int r1 = Ann.mylti(0, 0);
-            Assert.assertEquals(r1, 0);
-        }
-        @Test
-        public void testSum2() {
-            int r1 = Ann.mylti(10, 5);
-            Assert.assertEquals(r1, 50);
-        }
-
     @Test
     public void aboutUsTest(){
         WebDriver driver = new ChromeDriver();
@@ -178,4 +155,27 @@ public class GroupIntroVertsQaTest {
     }
     // endregion
 
+    // region AkiMiraTest
+    @Test (description = "Test of Text-Box 'Name'")
+    public void TextBoxTest () {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://demoqa.com/text-box");
+
+        String title = driver.getTitle();
+        Assert.assertEquals("DEMOQA", title);
+
+//        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+
+        WebElement textBox = driver.findElement(By.xpath("//*[@id=\"userName\"]"));
+        WebElement submitButton = driver.findElement(By.xpath("//*[@id=\"submit\"]"));
+
+        textBox.sendKeys("Oleg");
+        submitButton.click();
+
+        WebElement message = driver.findElement(By.xpath("//*[@id=\"name\"]"));
+        String value = message.getText();
+        Assert.assertEquals("Name:Oleg", value);
+
+        driver.quit();
+    }
 }
