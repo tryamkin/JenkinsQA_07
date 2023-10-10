@@ -141,7 +141,6 @@ public class GroupUnderdogsTest {
         String text = isAllNewArrivals.getText();
         Assert.assertEquals(text, "All-new arrivals");
 
-
     }
 
     @Test
