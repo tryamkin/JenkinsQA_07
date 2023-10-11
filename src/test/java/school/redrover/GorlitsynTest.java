@@ -9,7 +9,7 @@ public class GorlitsynTest extends BaseTest {
 
 
     @Test
-    public void petStoreTitleTest(){
+    public void testPetStoreTitle(){
 
 
         getDriver().get("https://petstore.octoperf.com/");
@@ -19,7 +19,7 @@ public class GorlitsynTest extends BaseTest {
     }
 
     @Test
-    public void openPetStoreCatalog(){
+    public void testOpenPetStoreCatalog(){
         String expectedFooter = "www.mybatis.org";
         getDriver().get("https://petstore.octoperf.com/");
         WebElement enterTheStoreButton = getDriver().findElement(By.linkText("Enter the Store"));
