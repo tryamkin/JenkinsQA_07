@@ -26,16 +26,13 @@ public class GroupUnicornsTest extends BaseTest {
         assertEquals(title, "Welcome | USPS");
     }
 
-    @Ignore
     @Test
-    public void usPsSendMailPackageTest() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.usps.com/");
-        WebElement send = driver.findElement(By.xpath("//a[@id='mail-ship-width']"));
+    public void testUsPsSendMailPackage() {
+        getDriver().get("https://www.usps.com/");
+        WebElement send = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
         send.click();
-        String sendTitle = driver.getTitle();
+        String sendTitle = getDriver().getTitle();
         assertEquals("Send Mail & Packages | USPS", sendTitle);
-        driver.quit();
     }
 
     @Test
