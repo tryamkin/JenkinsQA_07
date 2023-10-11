@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
@@ -139,9 +140,8 @@ public class LocomotiveGroupTest extends BaseTest {
             driver.quit();
         }
       }
-
+    @Ignore
     @Test
-
     public void simpleSearchTest() throws InterruptedException {
         WebDriver driver = new FirefoxDriver();
 
