@@ -268,7 +268,7 @@ public class GroupUnicornsTest extends BaseTest {
         }
     }
     @Test
-    public void unsuccessfulLoginDigitalBank() {
+    public void unsuccessfulLoginDigitalBankTest() {
         WebDriver driver = getDriver();
 
             driver.get("http://18.118.14.155:8080/bank/login");
@@ -288,7 +288,7 @@ public class GroupUnicornsTest extends BaseTest {
 
     }
     @Test
-    public void successfulLoginDigitalBank() {
+    public void successfulLoginDigitalBankTest() {
         WebDriver driver = getDriver();
             driver.get("http://18.118.14.155:8080/bank/login");
             driver.manage().window().maximize();
