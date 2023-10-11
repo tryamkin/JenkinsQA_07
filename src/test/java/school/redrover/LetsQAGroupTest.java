@@ -19,7 +19,7 @@ import java.time.Duration;
 @Ignore
 public class LetsQAGroupTest {
     private static final String BASE_URL = "https://www.sawinery.net/";
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;// = new ChromeDriver();
     @Test
     public void testChrome(){
 
@@ -72,7 +72,7 @@ public class LetsQAGroupTest {
     }
     @AfterTest
     public void quitBrowser() {
-        driver.quit();
+        //driver.quit();
     }
 
 
