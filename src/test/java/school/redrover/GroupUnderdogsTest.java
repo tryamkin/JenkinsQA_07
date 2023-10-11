@@ -452,6 +452,7 @@ public class GroupUnderdogsTest extends BaseTest {
         driver.quit();
     }
 
+    @Test
     public void yuliafaReddit() {
         WebDriver driver = new ChromeDriver();
 
