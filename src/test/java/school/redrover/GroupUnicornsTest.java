@@ -267,11 +267,10 @@ public class GroupUnicornsTest extends BaseTest {
             driver.quit();
         }
     }
-    @Ignore
     @Test
     public void unsuccessfulLoginDigitalBank() {
-        WebDriver driver = new ChromeDriver();
-        try {
+        WebDriver driver = getDriver();
+
             driver.get("http://18.118.14.155:8080/bank/login");
             driver.manage().window().maximize();
             WebElement icon = driver.findElement(By.xpath("//div//img[@class = 'align-content']"));
@@ -284,17 +283,13 @@ public class GroupUnicornsTest extends BaseTest {
             WebElement submitBtn = driver.findElement(By.id("submit"));
             submitBtn.click();
             WebElement errorMsg = driver.findElement(By.xpath("//div[contains(@class, 'sufee-alert')]"));
-            errorMsg.isDisplayed();
+            Assert.assertTrue(errorMsg.isDisplayed(), "Error message is displayed");
 
-        } finally {
-            driver.quit();
-        }
+
     }
-    @Ignore
     @Test
     public void successfulLoginDigitalBank() {
-        WebDriver driver = new ChromeDriver();
-        try {
+        WebDriver driver = getDriver();
             driver.get("http://18.118.14.155:8080/bank/login");
             driver.manage().window().maximize();
             WebElement icon = driver.findElement(By.xpath("//div//img[@class = 'align-content']"));
@@ -307,9 +302,7 @@ public class GroupUnicornsTest extends BaseTest {
             WebElement submitBtn = driver.findElement(By.id("submit"));
             submitBtn.click();
             WebElement avatar = driver.findElement(By.xpath("//img[contains(@class, 'user-avatar')]"));
-            avatar.isDisplayed();
-        } finally {
-            driver.quit();
-        }
+            Assert.assertTrue(avatar.isDisplayed(), "login is successful");
+
     }
 }
