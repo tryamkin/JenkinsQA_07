@@ -238,31 +238,27 @@ public class GroupUnitedByJavaTest extends BaseTest {
     @Test
     @Description("Check some elements")
     public void testCheckSomeElements() throws InterruptedException {
-        try {
-            getDriver().get("https://redrover.school/");
-            String title = getDriver().getTitle();
-            Assert.assertEquals(title, "RedRover | Non-commercial it-school");
-            Thread.sleep(2000);
-            WebElement submitButton = getDriver().findElement(By.xpath("//div[@data-elem-id='1674179354982']"));
-            submitButton.click();
-            WebElement emailField = getDriver().findElement(By.xpath("//input[@placeholder='Email']"));
-            emailField.sendKeys("testSeleniumFirstCommit@test.ru");
-            WebElement nameField = getDriver().findElement(By.xpath("//input[@placeholder='Name']"));
-            nameField.sendKeys("testUser");
-            Thread.sleep(3000);
-            WebElement checkbox = getDriver().findElement(By.className("t-checkbox__indicator"));
-            boolean isSelected = checkbox.isSelected();
-            if (!isSelected) {
-                checkbox.click();
-            }
-            WebElement teachers = getDriver().findElement(By.xpath("//h2[@field=\"tn_text_1674776847053\"]"));
-            ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", teachers);
-            String expectedHeading = "Teachers";
-            String heading = getDriver().findElement(By.xpath("//h2[contains(text(), \"Teachers\")]")).getText();
-            Assert.assertEquals(expectedHeading, heading);
-        } finally {
-            getDriver().quit();
+        getDriver().get("https://redrover.school/");
+        String title = getDriver().getTitle();
+        Assert.assertEquals(title, "RedRover | Non-commercial it-school");
+        Thread.sleep(2000);
+        WebElement submitButton = getDriver().findElement(By.xpath("//div[@data-elem-id='1674179354982']"));
+        submitButton.click();
+        WebElement emailField = getDriver().findElement(By.xpath("//input[@placeholder='Email']"));
+        emailField.sendKeys("testSeleniumFirstCommit@test.ru");
+        WebElement nameField = getDriver().findElement(By.xpath("//input[@placeholder='Name']"));
+        nameField.sendKeys("testUser");
+        Thread.sleep(3000);
+        WebElement checkbox = getDriver().findElement(By.className("t-checkbox__indicator"));
+        boolean isSelected = checkbox.isSelected();
+        if (!isSelected) {
+            checkbox.click();
         }
+        WebElement teachers = getDriver().findElement(By.xpath("//h2[@field=\"tn_text_1674776847053\"]"));
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", teachers);
+        String expectedHeading = "Teachers";
+        String heading = getDriver().findElement(By.xpath("//h2[contains(text(), \"Teachers\")]")).getText();
+        Assert.assertEquals(expectedHeading, heading);
     }
 
     @Ignore
