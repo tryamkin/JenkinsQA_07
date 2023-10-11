@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.Dimension;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import school.redrover.runner.BaseTest;
@@ -236,37 +235,30 @@ public class GroupUnitedByJavaTest extends BaseTest {
         driver.quit();
     }
 
-    @Ignore
     @Test
     @Description("Check some elements")
     public void testCheckSomeElements() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        Dimension d = new Dimension(1920,1080);
-        driver.manage().window().setSize(d);
-        try {
-            driver.get("https://redrover.school/");
-            String title = driver.getTitle();
-            Assert.assertEquals(title, "RedRover | Non-commercial it-school");
-            Thread.sleep(2000);
-            WebElement submitButton = driver.findElement(By.xpath("//div[@data-elem-id='1674179354982']"));
-            submitButton.click();
-            WebElement emailField = driver.findElement(By.xpath("//input[@placeholder='Email']"));
-            emailField.sendKeys("testSeleniumFirstCommit@test.ru");
-            WebElement nameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
-            nameField.sendKeys("testUser");
-            WebElement checkbox = driver.findElement(By.className("t-checkbox__indicator"));
-            boolean isSelected = checkbox.isSelected();
-            if (!isSelected) {
-                checkbox.click();
-            }
-            WebElement teachers = driver.findElement(By.xpath("//h2[@field=\"tn_text_1674776847053\"]"));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", teachers);
-            String expectedHeading = "Teachers";
-            String heading = driver.findElement(By.xpath("//h2[contains(text(), \"Teachers\")]")).getText();
-            Assert.assertEquals(expectedHeading, heading);
-        } finally {
-            driver.quit();
+        getDriver().get("https://redrover.school/");
+        String title = getDriver().getTitle();
+        Assert.assertEquals(title, "RedRover | Non-commercial it-school");
+        Thread.sleep(2000);
+        WebElement submitButton = getDriver().findElement(By.xpath("//div[@data-elem-id='1674179354982']"));
+        submitButton.click();
+        WebElement emailField = getDriver().findElement(By.xpath("//input[@placeholder='Email']"));
+        emailField.sendKeys("testSeleniumFirstCommit@test.ru");
+        WebElement nameField = getDriver().findElement(By.xpath("//input[@placeholder='Name']"));
+        nameField.sendKeys("testUser");
+        Thread.sleep(3000);
+        WebElement checkbox = getDriver().findElement(By.className("t-checkbox__indicator"));
+        boolean isSelected = checkbox.isSelected();
+        if (!isSelected) {
+            checkbox.click();
         }
+        WebElement teachers = getDriver().findElement(By.xpath("//h2[@field=\"tn_text_1674776847053\"]"));
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", teachers);
+        String expectedHeading = "Teachers";
+        String heading = getDriver().findElement(By.xpath("//h2[contains(text(), \"Teachers\")]")).getText();
+        Assert.assertEquals(expectedHeading, heading);
     }
 
     @Ignore
