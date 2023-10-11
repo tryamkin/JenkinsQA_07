@@ -32,7 +32,7 @@ public class GroupUnicornsTest extends BaseTest {
         WebElement send = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
         send.click();
         String sendTitle = getDriver().getTitle();
-        assertEquals("Send Mail & Packages | USPS", sendTitle);
+        assertEquals(sendTitle, "Send Mail & Packages | USPS");
     }
 
     @Test
