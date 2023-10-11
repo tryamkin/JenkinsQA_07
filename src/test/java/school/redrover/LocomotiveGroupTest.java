@@ -6,54 +6,53 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+
+import school.redrover.runner.BaseTest;
+
+
 import java.util.concurrent.TimeUnit;
 
-@Ignore
-public class LocomotiveGroupTest {
+
+public class LocomotiveGroupTest extends BaseTest {
     @Test
-    public void demoqaTextBoxTest() {
+    public void testDemoqaTextBox() {
         String fullName = "Tom Jonson";
         String email = "mail@mail.com";
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://demoqa.com/text-box");
+        getDriver().get("https://demoqa.com/text-box");
 
-        String pageTitleText = driver.findElement(By.className("main-header")).getText();
+        String pageTitleText = getDriver().findElement(By.className("main-header")).getText();
         Assert.assertEquals(pageTitleText, "Text Box");
 
-        WebElement fullNameTextBox = driver.findElement(By.cssSelector("#userName"));
+        WebElement fullNameTextBox = getDriver().findElement(By.cssSelector("#userName"));
         fullNameTextBox.sendKeys(fullName);
 
-        WebElement emailTextBox = driver.findElement(By.id("userEmail"));
+        WebElement emailTextBox = getDriver().findElement(By.id("userEmail"));
         emailTextBox.sendKeys(email);
 
-        WebElement submitButton = driver.findElement(By.id("submit"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        WebElement submitButton = getDriver().findElement(By.id("submit"));
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", submitButton);
         submitButton.click();
 
-        String actualFullName = driver
+        String actualFullName = getDriver()
                 .findElement(By.id("name"))
                 .getText();
         Assert.assertEquals(actualFullName, "Name:" + fullName);
 
-        String actualEmail = driver
+        String actualEmail = getDriver()
                 .findElement(By.xpath("//*[@id=\"email\"]"))
                 .getText();
 
         Assert.assertEquals(actualEmail, "Email:" + email);
-
-        driver.quit();
     }
 
     @Test
     public void testLink() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        try {
             String linkExpected = "https://demoqa.com/";
 
-            driver.get("https://demoqa.com/links");
-            String originalWindow = driver.getWindowHandle();
-            WebElement link = driver.findElement(By.xpath("//*[@id=\"simpleLink\"]"));
+            getDriver().get("https://demoqa.com/links");
+            String originalWindow = getDriver().getWindowHandle();
+            WebElement link = getDriver().findElement(By.xpath("//*[@id=\"simpleLink\"]"));
             String linkActual = link.getAttribute("href");
 
             Assert.assertEquals(linkActual, linkExpected);
@@ -62,21 +61,18 @@ public class LocomotiveGroupTest {
 
             Thread.sleep(1000);
 
-            for (String windowHandle : driver.getWindowHandles()) {
+            for (String windowHandle : getDriver().getWindowHandles()) {
                 if (!originalWindow.contentEquals(windowHandle)) {
-                    driver.switchTo().window(windowHandle);
+                    getDriver().switchTo().window(windowHandle);
                     break;
                 }
             }
 
             Thread.sleep(1000);
-            driver.findElement(By.xpath("//*[@class=\"banner-image\"]")).isDisplayed();
-
-        } finally {
-            driver.quit();
-        }
+            getDriver().findElement(By.xpath("//*[@class=\"banner-image\"]")).isDisplayed();
     }
 
+    @Ignore
     @Test
     public void checkRadioButton() throws InterruptedException {
 
@@ -99,10 +95,14 @@ public class LocomotiveGroupTest {
 
         driver.close();
     }
+
+    @Ignore
     public static void selectRadioButton(WebDriver driver, String value) {
         WebElement RadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
         RadioButton.click();
     }
+
+    @Ignore
     @Test
 
     public void DashboardButtonTest() {
@@ -120,6 +120,7 @@ public class LocomotiveGroupTest {
         }
       }
 
+      @Ignore
       @Test
     public void yandexSearchBarTest() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
