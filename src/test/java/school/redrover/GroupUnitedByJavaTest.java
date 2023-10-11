@@ -249,6 +249,7 @@ public class GroupUnitedByJavaTest extends BaseTest {
             emailField.sendKeys("testSeleniumFirstCommit@test.ru");
             WebElement nameField = getDriver().findElement(By.xpath("//input[@placeholder='Name']"));
             nameField.sendKeys("testUser");
+            Thread.sleep(3000);
             WebElement checkbox = getDriver().findElement(By.className("t-checkbox__indicator"));
             boolean isSelected = checkbox.isSelected();
             if (!isSelected) {
