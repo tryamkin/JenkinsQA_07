@@ -155,7 +155,8 @@ public class GroupIntroVertsQaTest extends BaseTest {
         submitButton.submit();
         WebElement resultValueStudentName = getDriver().findElement(By.xpath("//tr/td[2]"));
         String textResultValueStudentName = resultValueStudentName.getText();
-        Assert.assertEquals(textResultValueStudentName, variablesDmitryS.FIRST_NAME + " " + variablesDmitryS.LAST_NAME);
+        String answer = variablesDmitryS.FIRST_NAME + " " + variablesDmitryS.LAST_NAME;
+        Assert.assertEquals(textResultValueStudentName, answer);
     }
     @Test (description = "позитивный кейс, заполнение всех полей")
     public void testPositiveTestAllParameters() throws InterruptedException {
