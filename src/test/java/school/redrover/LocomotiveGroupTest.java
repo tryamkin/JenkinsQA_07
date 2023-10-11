@@ -142,8 +142,8 @@ public class LocomotiveGroupTest extends BaseTest {
       }
     @Ignore
     @Test
-    public void simpleSearchTest() throws InterruptedException {
-        WebDriver driver = new FirefoxDriver();
+    public void testSimpleSearch() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
 
         driver.get("https://999.md/");
 
