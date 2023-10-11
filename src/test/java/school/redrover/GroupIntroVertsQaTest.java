@@ -170,7 +170,6 @@ public class GroupIntroVertsQaTest extends BaseTest {
         WebElement fieldSubjects = getDriver().findElement(By.xpath("//*[@id='subjectsInput']"));
         WebElement fieldHobbiesSport = getDriver().findElement(By.xpath("//label[@for='hobbies-checkbox-2']"));
         WebElement fieldCurrentAddress = getDriver().findElement(By.xpath("//textarea[@id = 'currentAddress']"));
-
         fieldFirstName.sendKeys(variablesDmitryS.FIRST_NAME);
         fieldLastName.sendKeys(variablesDmitryS.LAST_NAME);
         fieldEmail.sendKeys(variablesDmitryS.EMAIL);
