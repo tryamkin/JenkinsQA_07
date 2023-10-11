@@ -22,17 +22,18 @@ public class GroupUnicornsTest extends BaseTest {
     @Test
     public void testUsPsPageOpen() {
         getDriver().get("https://www.usps.com/");
-        String title = getDriver().getTitle();
-        assertEquals(title, "Welcome | USPS");
+
+        Assert.assertEquals(getDriver().getTitle(),"Welcome | USPS");
     }
 
     @Test
-    public void testUsPsSendMailPackage() {
+    public void testUsPsSendMailPackageOpen() {
         getDriver().get("https://www.usps.com/");
+
         WebElement send = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
         send.click();
-        String sendTitle = getDriver().getTitle();
-        assertEquals(sendTitle, "Send Mail & Packages | USPS");
+
+        Assert.assertEquals(getDriver().getTitle(),"Send Mail & Packages | USPS");
     }
 
     @Test
