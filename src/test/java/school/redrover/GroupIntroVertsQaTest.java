@@ -153,7 +153,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
         fieldNumber.sendKeys(variablesDmitryS.NUMBER);
         WebElement submitButton = getDriver().findElement(By.id("submit"));
         submitButton.submit();
-        WebElement resultValueStudentName = getDriver().findElement(By.xpath("//tr/td[2]"));
+        WebElement resultValueStudentName = getDriver().findElement(By.xpath("//div[4]/div/div/div[2]/div/table/tbody/tr[1]/td[2]"));
         String textResultValueStudentName = resultValueStudentName.getText();
         String answer = variablesDmitryS.FIRST_NAME + " " + variablesDmitryS.LAST_NAME;
         Assert.assertEquals(textResultValueStudentName, answer);
