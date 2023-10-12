@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+import school.redrover.runner.JenkinsUtils;
 
 import java.util.HashMap;
 import java.time.Duration;
@@ -315,5 +316,13 @@ public class GroupUnicornsTest extends BaseTest {
         } finally {
             driver.quit();
         }
+    }
+    @Test
+    public void testJenkinsVersion() {
+        JenkinsUtils.login(getDriver());
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")).getText(),
+                "Jenkins 2.414.2");
     }
 }
