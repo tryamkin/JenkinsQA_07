@@ -119,7 +119,7 @@ public class GroupUnicornsTest extends BaseTest {
     }
 
     @Test
-    public void demoWebShopTest() {
+    public void testDemoWebShop() {
 
         String pageTitlePath = "//div[@class='page-title']//h1";
         String basePath = "//ul[@class='top-menu']//a[@href='/";
