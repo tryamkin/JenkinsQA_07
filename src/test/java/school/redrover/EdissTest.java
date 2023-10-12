@@ -17,7 +17,7 @@ public class EdissTest extends BaseTest {
         WebElement SearchBox = getDriver().findElement(By.name("q"));
         SearchBox.sendKeys("Duck");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         SearchBox.submit();
 
         WebElement title = getDriver().findElement(By.id("result-stats"));
