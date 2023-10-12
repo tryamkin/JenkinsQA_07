@@ -256,7 +256,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
     //AnnaByliginaTest
     @Test
 
-    public void testTextBox() {
+    public void testTextBox1() {
         WebDriver driver = new ChromeDriver();
         driver.get(" https://demoqa.com/text-box");
         String title = driver.getTitle();
