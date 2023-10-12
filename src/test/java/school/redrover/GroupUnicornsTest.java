@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.time.Duration;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
@@ -119,9 +118,6 @@ public class GroupUnicornsTest extends BaseTest {
         driver.quit();
     }
 
-    
-    
-    
     @Test
     public void demoWebShopTest() {
 
@@ -237,7 +233,7 @@ public class GroupUnicornsTest extends BaseTest {
 
     @Ignore
     @Test
-    public void verificationSocialIconsGitHub2() throws InterruptedException {
+    public void verificationSocialIconsGitHub2(){
         WebDriver driver = new ChromeDriver();
         try {
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
