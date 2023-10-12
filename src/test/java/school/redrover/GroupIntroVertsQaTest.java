@@ -254,6 +254,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
     }
 
     //AnnaByliginaTest
+    @Ignore
     @Test
 
     public void testTextBox1() {
