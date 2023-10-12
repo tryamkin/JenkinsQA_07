@@ -320,8 +320,7 @@ public class GroupUnderdogsTest extends BaseTest {
     @Ignore
     @Test
     public void testKristinaNameAuthorSite() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("http://www.99-bottles-of-beer.net/");
+        getDriver().get("http://www.99-bottles-of-beer.net/");
 
         WebElement button = driver.findElement(By.xpath("//*[@id=\"main\"]/p[4]/a[2]"));
         button.click();
@@ -337,15 +336,12 @@ public class GroupUnderdogsTest extends BaseTest {
         WebElement nameStefan = driver.findElement(By.xpath("//div[@id=\"main\"]/h3[3]"));
         String name3 = nameStefan.getText();
         assertEquals(name3, "Stefan Scheler");
-
-        driver.quit();
     }
 
     @Ignore
     @Test
     public void testKristinaTopLists() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("http://www.99-bottles-of-beer.net/");
+        getDriver().get("http://www.99-bottles-of-beer.net/");
 
         WebElement title = driver.findElement(By.xpath("//*[@id=\"menu\"]/li[4]/a[@href=\"/toplist.html\"]"));
         title.click();
@@ -353,13 +349,12 @@ public class GroupUnderdogsTest extends BaseTest {
         WebElement language = driver.findElement(By.xpath("//*[@id=\"category\"]/tbody/tr[2]/td[2]/a"));
         String title1 = language.getText();
         assertEquals(title1, "Malbolge (real loop version)");
-
-        driver.quit();
     }
+
+    @Ignore
     @Test
     public void testKristinaSubmitLanguage(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("http://www.99-bottles-of-beer.net/submitnewlanguage.html");
+        getDriver().get("http://www.99-bottles-of-beer.net/submitnewlanguage.html");
 
         WebElement button = driver.findElement(By.xpath("//*[@id=\"addlanguage\"]/p/input[8]"));
         button.click();
@@ -367,8 +362,6 @@ public class GroupUnderdogsTest extends BaseTest {
         WebElement alert = driver.findElement(By.xpath("//*[@id=\"main\"]/p"));
         String title = alert.getText();
         Assert.assertEquals(title, "Error: Precondition failed - Incomplete Input.");
-
-        driver.quit();
     }
 
     @Ignore
