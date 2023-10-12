@@ -119,13 +119,13 @@ public class GroupUnicornsTest extends BaseTest {
         driver.quit();
     }
 
-    @Ignore
+    
+    
+    
     @Test
     public void demoWebShopTest() {
-        WebDriver driver = new ChromeDriver();
 
-        String pageTitlePath = "//div[@class='page-title' ]//h1";
-
+        String pageTitlePath = "//div[@class='page-title']//h1";
         String basePath = "//ul[@class='top-menu']//a[@href='/";
 
         HashMap<String, String> pages = new HashMap<>();
@@ -138,18 +138,12 @@ public class GroupUnicornsTest extends BaseTest {
         pages.put("Gift Cards", basePath + "gift-cards']");
 
         String pageTitle;
+        getDriver().get("https://demowebshop.tricentis.com/");
 
-        try {
-            driver.get("https://demowebshop.tricentis.com/");
-
-            for (String key : pages.keySet()) {
-                driver.findElement(By.xpath(pages.get(key))).click();
-                pageTitle = driver.findElement(By.xpath(pageTitlePath)).getText();
-                Assert.assertEquals(pageTitle, key);
-            }
-
-        } finally {
-            driver.quit();
+        for (String key : pages.keySet()) {
+            getDriver().findElement(By.xpath(pages.get(key))).click();
+            pageTitle = getDriver().findElement(By.xpath(pageTitlePath)).getText();
+            Assert.assertEquals(pageTitle, key);
         }
     }
 
@@ -223,29 +217,22 @@ public class GroupUnicornsTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void testComputersMenu() {
-        WebDriver driver = new ChromeDriver();
+
         String[] computers = new String[]{"Desktops", "Notebooks", "Accessories"};
+        getDriver().get("https://demowebshop.tricentis.com/");
+        getDriver().findElement(By.xpath("//ul[@class='top-menu']//a[@href='/computers']")).click();
+        List<WebElement> elements = getDriver().findElements(By.className("sub-category-item"));
 
-        try {
-            driver.get("https://demowebshop.tricentis.com/");
-            driver.findElement(By.xpath("//ul[@class='top-menu']//a[@href='/computers']")).click();
-            List<WebElement> elements = driver.findElements(By.className("sub-category-item"));
-
-            boolean actual = true;
-            for (int i = 0; i < elements.size(); i++) {
-                if (!computers[i].equals(elements.get(i).getText())) {
-                    actual = false;
-                    break;
-                }
+        boolean actual = true;
+        for (int i = 0; i < elements.size(); i++) {
+            if (!computers[i].equals(elements.get(i).getText())) {
+                actual = false;
+                break;
             }
-            assertTrue(actual);
-
-        } finally {
-            driver.quit();
         }
+        assertTrue(actual);
     }
 
     @Ignore
