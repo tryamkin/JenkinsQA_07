@@ -15,8 +15,9 @@ public class AikaTest extends BaseTest {
     @Test
     public void testRelativeLocationToLeftOf() {
         String categoriesOpt = "Categories";
+        JenkinsUtils.login(getDriver());
+        
         getDriver().get("https://mvnrepository.com/");
-        // JenkinsUtils.login(getDriver());
         WebElement popularOpt = getDriver().findElement(By.xpath("//a[text()= 'Popular']"));
 
         Assert.assertEquals(getDriver().findElement(with(By.tagName("a"))
