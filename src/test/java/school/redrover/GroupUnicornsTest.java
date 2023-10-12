@@ -220,7 +220,6 @@ public class GroupUnicornsTest extends BaseTest {
         getDriver().get("https://demowebshop.tricentis.com/");
         getDriver().findElement(By.xpath("//ul[@class='top-menu']//a[@href='/computers']")).click();
         List<WebElement> elements = getDriver().findElements(By.className("sub-category-item"));
-
         boolean actual = true;
         for (int i = 0; i < elements.size(); i++) {
             if (!computers[i].equals(elements.get(i).getText())) {
