@@ -359,4 +359,22 @@ public class GroupSevenTest extends BaseTest {
         driver.quit();
 
     }
+
+    @Test
+    public void testTitle(){
+
+        getDriver().get("https://www.psafe.com/");
+        String title = getDriver().getTitle();
+        Assert.assertEquals(title, "PSafe | Leading provider of mobile privacy, security, and performance apps");
+
+        WebElement enterHomeButton = getDriver().findElement(By.linkText("Home"));
+        enterHomeButton.click();
+
+        String footer = getDriver().findElement(By.xpath("//a[@href = 'https://www.psafe.com/dfndr/']")).getText();
+        String expectedText = "Home";
+        Assert.assertEquals(footer,expectedText);
+    }
+
+
+
 }
