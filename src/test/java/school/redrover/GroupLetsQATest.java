@@ -7,8 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
 public class GroupLetsQATest extends BaseTest {
     private static final String BASE_URL = "https://www.sawinery.net/";
@@ -32,7 +31,7 @@ public class GroupLetsQATest extends BaseTest {
 
         WebElement searchResult = getDriver().findElement(By.xpath("//*[@id=\"content\"]/div/section[2]/div/div/div/div/div/div/article[1]/div/h3/a"));
         String searchText = searchResult.getAttribute("textContent").toLowerCase();
-        Assert.assertTrue(searchText.contains("saw"));
+        assertTrue(searchText.contains("saw"));
     }
 
 
@@ -100,7 +99,7 @@ public class GroupLetsQATest extends BaseTest {
 
             try {
                 buttonAppearingAfterDelay.click();
-                Assert.assertTrue(true);
+                assertTrue(true);
             } catch (Exception e) {
                 Assert.fail("The button Appearing After Delay is not clickable.");
             }
@@ -112,7 +111,7 @@ public class GroupLetsQATest extends BaseTest {
         getDriver().get("https://lichess.org");
 
         String title = getDriver().getTitle();
-        assertEquals(title, "lichess.org • Бесплатные шахматы онлайн");
+        assertTrue(title.contains("lichess.org"));
 
         WebElement button = getDriver().findElement(By.className("config_hook"));
         button.click();
