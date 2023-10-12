@@ -319,7 +319,7 @@ public class GroupUnderdogsTest extends BaseTest {
 
     @Ignore
     @Test
-    public void kristinaNameAuthorSite() {
+    public void testKristinaNameAuthorSite() {
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.99-bottles-of-beer.net/");
 
@@ -343,7 +343,7 @@ public class GroupUnderdogsTest extends BaseTest {
 
     @Ignore
     @Test
-    public void kristinaTopLists() {
+    public void testKristinaTopLists() {
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.99-bottles-of-beer.net/");
 
@@ -353,6 +353,20 @@ public class GroupUnderdogsTest extends BaseTest {
         WebElement language = driver.findElement(By.xpath("//*[@id=\"category\"]/tbody/tr[2]/td[2]/a"));
         String title1 = language.getText();
         assertEquals(title1, "Malbolge (real loop version)");
+
+        driver.quit();
+    }
+    @Test
+    public void testKristinaSubmitLanguage(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.99-bottles-of-beer.net/submitnewlanguage.html");
+
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"addlanguage\"]/p/input[8]"));
+        button.click();
+
+        WebElement alert = driver.findElement(By.xpath("//*[@id=\"main\"]/p"));
+        String title = alert.getText();
+        Assert.assertEquals(title, "Error: Precondition failed - Incomplete Input.");
 
         driver.quit();
     }
