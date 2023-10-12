@@ -217,8 +217,10 @@ public class GroupUnicornsTest extends BaseTest {
     public void testComputersMenu() {
 
         String[] computers = new String[]{"Desktops", "Notebooks", "Accessories"};
+
         getDriver().get("https://demowebshop.tricentis.com/");
         getDriver().findElement(By.xpath("//ul[@class='top-menu']//a[@href='/computers']")).click();
+
         List<WebElement> elements = getDriver().findElements(By.className("sub-category-item"));
         boolean actual = true;
         for (int i = 0; i < elements.size(); i++) {
