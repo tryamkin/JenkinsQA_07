@@ -270,7 +270,6 @@ public class GroupUnicornsTest extends BaseTest {
     @Test
     public void unsuccessfulLoginDigitalBankTest() {
         WebDriver driver = getDriver();
-
             driver.get("http://18.118.14.155:8080/bank/login");
             driver.manage().window().maximize();
             WebElement icon = driver.findElement(By.xpath("//div//img[@class = 'align-content']"));
@@ -284,8 +283,6 @@ public class GroupUnicornsTest extends BaseTest {
             submitBtn.click();
             WebElement errorMsg = driver.findElement(By.xpath("//div[contains(@class, 'sufee-alert')]"));
             Assert.assertTrue(errorMsg.isDisplayed(), "Error message is displayed");
-
-
     }
     @Test
     public void successfulLoginDigitalBankTest() {
@@ -302,7 +299,6 @@ public class GroupUnicornsTest extends BaseTest {
             WebElement submitBtn = driver.findElement(By.id("submit"));
             submitBtn.click();
             WebElement avatar = driver.findElement(By.xpath("//img[contains(@class, 'user-avatar')]"));
-            Assert.assertTrue(avatar.isDisplayed(), "login is successful");
-
+            Assert.assertTrue(avatar.isDisplayed(), "Avatar is displayed");
     }
 }
