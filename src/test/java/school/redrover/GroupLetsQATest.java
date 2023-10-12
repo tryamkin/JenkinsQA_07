@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-import java.time.Duration;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class GroupLetsQATest extends BaseTest {
     private static final String BASE_URL = "https://www.sawinery.net/";
@@ -106,4 +106,18 @@ public class GroupLetsQATest extends BaseTest {
             }
 
     }
+
+    @Test
+    public void searchDialogLichess() {
+        getDriver().get("https://lichess.org");
+
+        String title = getDriver().getTitle();
+        assertEquals(title, "lichess.org • Бесплатные шахматы онлайн");
+
+        WebElement button = getDriver().findElement(By.className("config_hook"));
+        button.click();
+
+        WebElement dialog = getDriver().findElement(By.className("dialog-content"));
+        assertNotNull(dialog);
     }
+}
