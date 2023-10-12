@@ -340,6 +340,16 @@ public class GroupUnderdogsTest extends BaseTest {
 
         driver.quit();
     }
+    
+    @Ignore
+    @Test
+    public void testKristinaNameMenu(){
+        getDriver().get("http://www.99-bottles-of-beer.net/abc.html");
+
+        WebElement title = driver.findElement(By.xpath("//*[@id=\"submenu\"]/li[1]/a"));
+        String value = title.getText();
+        Assert.assertEquals(value, "0-9");
+    }
 
     @Ignore
     @Test
