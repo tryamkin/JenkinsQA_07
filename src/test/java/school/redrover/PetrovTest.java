@@ -50,7 +50,7 @@ public class PetrovTest extends BaseTest {
 
         number.sendKeys("1111111111");
 
-        WebElement submitButton = getDriver().findElement(By.cssSelector("#submit"));
+        WebElement submitButton = getDriver().findElement(By.id("submit"));
 
         //*[@id="submit"]
         submitButton.click();
