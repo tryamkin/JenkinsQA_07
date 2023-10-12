@@ -54,23 +54,18 @@ public class GroupSevenTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void TestBddSearch() {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
-            driver.get("https://duckduckgo.com/");
-            WebElement searchBox = driver.findElement(By.xpath("//input[@class = 'searchbox_input__bEGm3']"));
-            searchBox.sendKeys("bdd");
-            WebElement searchButton = driver.findElement(By.xpath("//button[@class = 'searchbox_searchButton__F5Bwq iconButton_button__6x_9C']"));
-            searchButton.click();
-            WebElement searchResult = driver.findElement(By.xpath("//h2[@class = 'Ee2e63EzQ9F3xq9wsGDY']"));
-            String resultText = searchResult.getText();
-            Assert.assertTrue(resultText.contains("Behavior-driven development"));
-        } finally {
-            driver.quit();
-        }
+        WebDriver driver = getDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+        driver.get("https://duckduckgo.com/");
+        WebElement searchBox = driver.findElement(By.xpath("//input[@class = 'searchbox_input__bEGm3']"));
+        searchBox.sendKeys("bdd");
+        WebElement searchButton = driver.findElement(By.xpath("//button[@class = 'searchbox_searchButton__F5Bwq iconButton_button__6x_9C']"));
+        searchButton.click();
+        WebElement searchResult = driver.findElement(By.xpath("//h2[@class = 'Ee2e63EzQ9F3xq9wsGDY']"));
+        String resultText = searchResult.getText();
+        Assert.assertTrue(resultText.contains("Behavior-driven development"));
     }
 
     @Ignore
