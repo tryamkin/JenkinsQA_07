@@ -378,7 +378,7 @@ public class PlusThreeTest extends BaseTest {
     }
 
     @Test
-    public void signUpButtonTest() {
+    public void testSignUpButton() {
         getDriver().get("https://bandcamp.com/");
         WebElement signUp = getDriver().findElement(By.className("all-signup-link"));
         signUp.click();
