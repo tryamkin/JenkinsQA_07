@@ -62,48 +62,44 @@ public class GroupBrainBuildersTest extends BaseTest {
     @Test
     public void testCreatingDoubleRoom() throws InterruptedException {
 
-        try {
-            getDriver().get("https://automationintesting.online");
-            getDriver().findElement(By.linkText("admin panel")).click();
+        getDriver().get("https://automationintesting.online");
+        getDriver().findElement(By.linkText("admin panel")).click();
 
-            if (getDriver().findElement(By.id("username")).isDisplayed()) {
-                WebElement inputName = getDriver().findElement(By.id("username"));
-                WebElement inputPassword = getDriver().findElement(By.id("password"));
+        if (getDriver().findElement(By.id("username")).isDisplayed()) {
+            WebElement inputName = getDriver().findElement(By.id("username"));
+            WebElement inputPassword = getDriver().findElement(By.id("password"));
                 inputName.click();
                 inputName.sendKeys("admin");
                 inputPassword.click();
                 inputPassword.sendKeys("password");
                 getDriver().findElement(By.id("doLogin")).click();
-            }
-
-            Thread.sleep(2000);
-            getDriver().findElement(By.id("roomName")).click();
-            getDriver().findElement(By.id("roomName")).sendKeys("111");
-            getDriver().findElement(By.id("type")).click();
-            {
-                WebElement dropdown = getDriver().findElement(By.id("type"));
-                dropdown.findElement(By.xpath("//option[. = 'Double']")).click();
-            }
-            getDriver().findElement(By.id("accessible")).click();
-            {
-                WebElement dropdown = getDriver().findElement(By.id("accessible"));
-                dropdown.findElement(By.xpath("//option[. = 'true']")).click();
-            }
-
-            getDriver().findElement(By.id("roomPrice")).click();
-            getDriver().findElement(By.id("roomPrice")).sendKeys("150");
-            getDriver().findElement(By.id("wifiCheckbox")).click();
-            getDriver().findElement(By.id("refreshCheckbox")).click();
-            getDriver().findElement(By.id("tvCheckbox")).click();
-            getDriver().findElement(By.id("safeCheckbox")).click();
-            getDriver().findElement(By.id("createRoom")).click();
-            getDriver().findElement(By.linkText("home page")).click();
-
-            Thread.sleep(2000);
-            Assert.assertTrue(getDriver().getPageSource().contains("Double"));
-        } finally {
-            getDriver().quit();
         }
+
+        Thread.sleep(2000);
+        getDriver().findElement(By.id("roomName")).click();
+        getDriver().findElement(By.id("roomName")).sendKeys("111");
+        getDriver().findElement(By.id("type")).click();
+        {
+            WebElement dropdown = getDriver().findElement(By.id("type"));
+            dropdown.findElement(By.xpath("//option[. = 'Double']")).click();
+        }
+        getDriver().findElement(By.id("accessible")).click();
+        {
+            WebElement dropdown = getDriver().findElement(By.id("accessible"));
+            dropdown.findElement(By.xpath("//option[. = 'true']")).click();
+        }
+
+        getDriver().findElement(By.id("roomPrice")).click();
+        getDriver().findElement(By.id("roomPrice")).sendKeys("150");
+        getDriver().findElement(By.id("wifiCheckbox")).click();
+        getDriver().findElement(By.id("refreshCheckbox")).click();
+        getDriver().findElement(By.id("tvCheckbox")).click();
+        getDriver().findElement(By.id("safeCheckbox")).click();
+        getDriver().findElement(By.id("createRoom")).click();
+        getDriver().findElement(By.linkText("home page")).click();
+
+        Thread.sleep(2000);
+        Assert.assertTrue(getDriver().getPageSource().contains("Double"));
     }
 
     @Test
@@ -112,10 +108,9 @@ public class GroupBrainBuildersTest extends BaseTest {
         JenkinsUtils.login(getDriver());
 
         getDriver().findElement(By.cssSelector("#tasks > div:nth-child(2) > span > a")).click();
-        getDriver().findElement(By.cssSelector("#person-Admin > td:nth-child(2) > a")).click();
+        getDriver().findElement(By.xpath("//*[@id='person-Admin']/td[2]/a")).click();
 
         Assert.assertTrue(getDriver().getPageSource().contains("Jenkins User ID: Admin"));
     }
-
 
 }
