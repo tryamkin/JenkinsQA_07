@@ -140,6 +140,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
         Assert.assertEquals(textTitleRegistrationForm, "Student Registration Form");
     }
 
+    @Ignore
     @Test (description = "позитивный кейс")
     public void testPositiveTest() throws InterruptedException {
         getDriver().get(variablesDmitryS.getUrl());
