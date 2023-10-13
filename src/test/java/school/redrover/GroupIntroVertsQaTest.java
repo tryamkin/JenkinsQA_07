@@ -170,13 +170,11 @@ public class GroupIntroVertsQaTest extends BaseTest {
         WebElement fieldNumber = getDriver().findElement(By.xpath("//input[@id = 'userNumber']"));
         WebElement fieldDateOfBirth = getDriver().findElement(By.xpath("//input[@id = 'dateOfBirthInput']"));
         WebElement fieldSubjects = getDriver().findElement(By.xpath("//*[@id='subjectsInput']"));
-        Thread.sleep(5000);
-        WebElement fieldHobbiesSport = getDriver().findElement(By.xpath("//label[@for = 'hobbies-checkbox-2']"));
+//        WebElement fieldHobbiesSport = getDriver().findElement(By.xpath("//label[@for = 'hobbies-checkbox-2']"));
         WebElement fieldCurrentAddress = getDriver().findElement(By.xpath("//textarea[@id = 'currentAddress']"));
         fieldFirstName.sendKeys(variablesDmitryS.FIRST_NAME);
         fieldLastName.sendKeys(variablesDmitryS.LAST_NAME);
         fieldEmail.sendKeys(variablesDmitryS.EMAIL);
-        Thread.sleep(5000);
         radioButtonGender.click();
         fieldNumber.sendKeys(variablesDmitryS.NUMBER);
         fieldDateOfBirth.click();
@@ -186,17 +184,8 @@ public class GroupIntroVertsQaTest extends BaseTest {
         Thread.sleep(5000);
         fieldSubjects.sendKeys("c");
         fieldSubjects.sendKeys(Keys.ENTER);
-        fieldHobbiesSport.click();
+//        fieldHobbiesSport.click();
         fieldCurrentAddress.sendKeys(variablesDmitryS.CURRENT_ADDRESS);
-
-//        WebElement fieldSelectState = getDriver().findElement(By.xpath("//*[@id='state']/div/div[1]/div[1]"));
-//        Thread.sleep(2000);
-//        fieldSelectState.click();
-//        fieldSelectState.sendKeys(Keys.ENTER);
-
-//        WebElement fieldChoiceSelectState = driver.findElement(By.cssSelector("//*[@id='state']/div/div[1]/div[1]/*[contains(string(), 'Haryana')]"));
-//        fieldChoiceSelectState.click();
-
         Thread.sleep(5000);
         WebElement submitButton = getDriver().findElement(By.id("submit"));
         submitButton.submit();
