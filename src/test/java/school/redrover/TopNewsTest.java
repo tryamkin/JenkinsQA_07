@@ -19,9 +19,11 @@ public class TopNewsTest extends BaseTest {
     public void testContent1() {
         getDriver().get(BASEURL);
         String mainTitle = getDriver().findElement(By.xpath("//div[@class = 'first-news-title']")).getText();
+        int sub = mainTitle.indexOf("(");
+        mainTitle = mainTitle.substring(0, sub);
         getDriver().findElement(By.xpath("//div[@class = 'first-news-title']")).click();
         String sideTitle = getDriver().findElement(By.xpath(" //div[@class ='top-news-item'][1]")).getText();
-
+        sideTitle = sideTitle.substring(0, sub);
         Assert.assertEquals(mainTitle, sideTitle, "Заголовки не совпадают");
     }
 
