@@ -108,9 +108,12 @@ public class GroupBrainBuildersTest extends BaseTest {
         JenkinsUtils.login(getDriver());
 
         getDriver().findElement(By.cssSelector("#tasks > div:nth-child(2) > span > a")).click();
-        getDriver().findElement(By.xpath("//*[@id='person-Admin']/td[2]/a")).click();
-
-        Assert.assertTrue(getDriver().getPageSource().contains("Jenkins User ID: Admin"));
+        // From the list of users I would like to get name of the particular user and click on it
+        WebElement recordInTheList = getDriver().findElement(By.className("jenkins-table__link"));
+        String userName = recordInTheList.getText();
+        recordInTheList.click();
+        // And to verify that on the next page userID match with the name
+        Assert.assertTrue(getDriver().getPageSource().contains(userName));
     }
 
 }
