@@ -2,15 +2,11 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Ignore;
+
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-import school.redrover.runner.JenkinsUtils;
-import school.redrover.runner.ProjectUtils;
 
-import static school.redrover.runner.ProjectUtils.*;
+import school.redrover.runner.ProjectUtils;
 
 
 public class TopNewsTest extends BaseTest {
