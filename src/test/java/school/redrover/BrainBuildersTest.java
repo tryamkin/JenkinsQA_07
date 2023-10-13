@@ -93,7 +93,6 @@ public class BrainBuildersTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void testAskentSearch() {
             getDriver().get("https://www.askent.ru/");
