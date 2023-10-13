@@ -175,10 +175,12 @@ public class GroupIntroVertsQaTest extends BaseTest {
         fieldFirstName.sendKeys(variablesDmitryS.FIRST_NAME);
         fieldLastName.sendKeys(variablesDmitryS.LAST_NAME);
         fieldEmail.sendKeys(variablesDmitryS.EMAIL);
+        Thread.sleep(5000);
         radioButtonGender.click();
         fieldNumber.sendKeys(variablesDmitryS.NUMBER);
         fieldDateOfBirth.click();
         fieldDateOfBirth.clear();
+        Thread.sleep(5000);
         fieldDateOfBirth.sendKeys("Aug 2023-11");
         Thread.sleep(5000);
         fieldSubjects.sendKeys("c");
