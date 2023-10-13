@@ -14,7 +14,7 @@ import java.time.Duration;
 import static org.testng.Assert.assertEquals;
 
 
-public class GroupBrainBuildersTest extends BaseTest {
+public class BrainBuildersTest extends BaseTest {
 
     @Ignore
     @Test
