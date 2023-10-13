@@ -146,8 +146,10 @@ public class BrainBuildersTest extends BaseTest {
         String title = getDriver().getTitle();
         assertEquals(title, "МИНИ ПОРТМОНЕ MODULE , пол: Женский, цвет: breen, размер: 100х080х035. Купить в интернет-магазине ASKENT. Цена 4 490 руб.");
 
-        WebElement cookieButton = getDriver().findElement(By.xpath("//*[@id = 'cookie_accept']"));
-        cookieButton.click();
+        if (getDriver().findElement(By.xpath("//*[@id = 'cookie_accept']")).isDisplayed()) {
+            WebElement cookieButton = getDriver().findElement(By.xpath("//*[@id = 'cookie_accept']"));
+            cookieButton.click();
+        }
 
         WebElement addToCartButton = getDriver().findElement(By.xpath("//*[@class = 'optionsBlock__add add-cart-statistics']"));
         addToCartButton.click();
