@@ -141,7 +141,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
     }
 
     @Test (description = "позитивный кейс")
-    public void testPositiveTest() {
+    public void testPositiveTest() throws InterruptedException {
         getDriver().get(variablesDmitryS.getUrl());
         WebElement fieldFirstName = getDriver().findElement(By.xpath("//input[@id = 'firstName']"));
         WebElement fieldLastName = getDriver().findElement(By.xpath("//input[@id = 'lastName']"));
@@ -153,8 +153,9 @@ public class GroupIntroVertsQaTest extends BaseTest {
         fieldNumber.sendKeys(variablesDmitryS.NUMBER);
         WebElement submitButton = getDriver().findElement(By.id("submit"));
         submitButton.submit();
-        WebElement resultValueStudentName = getDriver().findElement(By.xpath("//div[4]/div/div/div[2]/div/table/tbody/tr[1]/td[2]"));
+        WebElement resultValueStudentName = getDriver().findElement(By.xpath("//tr/td[2]"));
         String textResultValueStudentName = resultValueStudentName.getText();
+        Thread.sleep(5000);
         String answer = variablesDmitryS.FIRST_NAME + " " + variablesDmitryS.LAST_NAME;
         Assert.assertEquals(textResultValueStudentName, answer);
     }
@@ -178,6 +179,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
         fieldDateOfBirth.click();
         fieldDateOfBirth.clear();
         fieldDateOfBirth.sendKeys("Aug 2023-11");
+        Thread.sleep(5000);
         fieldSubjects.sendKeys("c");
         fieldSubjects.sendKeys(Keys.ENTER);
         fieldHobbiesSport.click();
