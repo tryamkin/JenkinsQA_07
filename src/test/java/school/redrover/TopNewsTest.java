@@ -10,10 +10,14 @@ import school.redrover.runner.BaseTest;
 import school.redrover.runner.JenkinsUtils;
 import school.redrover.runner.ProjectUtils;
 
+import static school.redrover.runner.ProjectUtils.*;
+
 
 public class TopNewsTest extends BaseTest {
 
     private static final String BASEURL = "https://topnews.ru";
+    private static final String LOGINJENKINS = "Admin";
+    private static final String PASSWORDJENKINS = "Admin";
 
     @Test(description = "Сравнение контента заголовков в первом фрейме и в первом блоке боковой панели ")
     public void testContent1() {
@@ -26,7 +30,7 @@ public class TopNewsTest extends BaseTest {
     }
 
 
-    @Test(description = "Сравнение главного заголовка в разделе о проекте ", priority = 1)
+    @Test(description = "Сравнение главного заголовка в разделе о проекте ")
     public void testContent2() {
         String TITLE_ABOUT = "TOPNEWS — этот рейтинг делаешь только ты!";
         getDriver().get(BASEURL);
@@ -38,9 +42,28 @@ public class TopNewsTest extends BaseTest {
 
     }
 
-    @Test(description = "Проверка инициализации запуска Jenkins локально", priority = 2)
-    public void testJenkins() {
+    void AuthorizationInJenkins() {
         ProjectUtils.get(getDriver());
+        getDriver().findElement(By.id("j_username")).sendKeys(LOGINJENKINS);
+        getDriver().findElement(By.id("j_password")).sendKeys(PASSWORDJENKINS);
+        getDriver().findElement(By.name("Submit")).click();
+    }
+
+    @Test(description = "Проверка Заголовка приветствия")
+    public void testJenkinsAuthorization() {
+        AuthorizationInJenkins();
+        String actualInfo = getDriver().findElement(By.xpath("//h2[@class ='h4'][contains(text(), 'Start')]")).getText();
+
+        Assert.assertEquals(actualInfo, "Start building your software project", "Заголовок не совпадает");
+    }
+
+    @Test(description = "Проверка адреса URL страницы новой Job")
+    public void testJenkins() {
+        AuthorizationInJenkins();
+        getDriver().findElement(By.xpath("//span[contains(text(),'Create a job')]")).click();
+        String actualURL = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualURL, "http://localhost:8080/newJob", "URL не совпадает");
     }
 
 }
