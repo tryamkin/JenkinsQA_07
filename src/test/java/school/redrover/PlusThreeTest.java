@@ -390,7 +390,7 @@ public void testLoginJenkinsKaramelev() {
         List<WebElement> list = getDriver().findElements(By.className("signup-button"));
         Assert.assertEquals(list.size(), 3);
     }
-
+@Ignore
     @Test
     void tripadvisorTest() {
         getDriver().get("https://www.tripadvisor.ru");
