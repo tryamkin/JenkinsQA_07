@@ -173,8 +173,8 @@ public class GroupUnicornsTest extends BaseTest {
 
     @Test
     public void testTradingView() throws InterruptedException {
-        String url = "https://www.tradingview.com/chart/";
-        getDriver().get(url);
+        final String URL = "https://www.tradingview.com/chart/";
+        getDriver().get(URL);
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
         WebElement tickerNameActual = getDriver().findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
         Assert.assertEquals(tickerNameActual.getText(), "AAPL");
@@ -348,5 +348,16 @@ public class GroupUnicornsTest extends BaseTest {
         getDriver().findElement(By.className("textarea-show-preview")).click();
         String actualText = getDriver().findElement(By.className("textarea-preview")).getText();
         Assert.assertEquals(descText, actualText);
+    }
+
+    @Test
+    public void testRaiffeisenBank() {
+        final List<String> currnecyExpected = List.of("USD", "EUR", "GBP", "CHF", "JPY", "CNY");
+
+            getDriver().get("https://www.raiffeisen.ru/currency_rates/");
+            for (int i =1; i < 7; i++ ) {
+                WebElement currencyActual = getDriver().findElement(By.xpath("(//p[@data-marker='CurrencyRateTable.P'])["+ i+"]"));
+                Assert.assertEquals(currencyActual.getText(),currnecyExpected.get(i-1));
+            }
     }
 }
