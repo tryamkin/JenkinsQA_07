@@ -317,6 +317,20 @@ public class GroupUnicornsTest extends BaseTest {
         actualResult = driver.findElement(descriptionArea).getText();
         assertTrue(actualResult.isEmpty());
     }
+     
+  
+  
 
+    @Test
+    public void testSubmit() {
+
+        getDriver().get("https://chadd.org/for-adults/overview/");
+
+        WebElement textBox = getDriver().findElement(By.name("EMAIL"));
+        WebElement submitButton = getDriver().findElement(By.className("button"));
+
+        textBox.sendKeys("ximotof590@ibtrades.com");
+        submitButton.click();
+    }
 
 }
