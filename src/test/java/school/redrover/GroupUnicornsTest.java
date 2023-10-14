@@ -111,6 +111,20 @@ public class GroupUnicornsTest extends BaseTest {
     }
 
     @Test
+    public void TestJenkins() {
+
+        JenkinsUtils.login(getDriver());
+
+        //Check the button REST API
+
+        getDriver().findElement(By.linkText("REST API")).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(),
+                "REST API");
+    }
+
+    @Test
     public void testDemoWebShop() {
 
         String pageTitlePath = "//div[@class='page-title']//h1";
