@@ -26,7 +26,7 @@ public class ildanaTest extends BaseTest {
         WebElement text = getDriver().findElement(By.xpath("//div[@class='cds-9 css-1cs9i33']//div//h3"));
         String value = text.getText();
         Assert.assertEquals(value,"Filter by");
-        System.out.println(value);
+
     }
 
     @Test
