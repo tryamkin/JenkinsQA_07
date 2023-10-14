@@ -2,19 +2,16 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-import java.time.Duration;
+import static org.testng.Assert.*;
 
 public class GroupLetsQATest extends BaseTest {
     private static final String BASE_URL = "https://www.sawinery.net/";
-    @Ignore
+
     @Test
     public void checkTitleTest() {
         getDriver().get(BASE_URL);
@@ -23,7 +20,6 @@ public class GroupLetsQATest extends BaseTest {
         Assert.assertEquals("Sawinery - #1 Woodworking Education Resource", title);
     }
 
-    @Ignore
     @Test
     public void searchTest() {
         getDriver().get(BASE_URL);
@@ -35,10 +31,10 @@ public class GroupLetsQATest extends BaseTest {
 
         WebElement searchResult = getDriver().findElement(By.xpath("//*[@id=\"content\"]/div/section[2]/div/div/div/div/div/div/article[1]/div/h3/a"));
         String searchText = searchResult.getAttribute("textContent").toLowerCase();
-        Assert.assertTrue(searchText.contains("saw"));
+        assertTrue(searchText.contains("saw"));
     }
 
-    @Ignore
+
     @Test
     public void clickChromeTest() {
         getDriver().get("http://www.uitestingplayground.com/click");
@@ -49,7 +45,7 @@ public class GroupLetsQATest extends BaseTest {
         Assert.assertFalse("rgba(0, 123, 255, 1)".equals(badButton.getCssValue("background-color")));
     }
 
-    @Ignore
+
     @Test
     public void verifyTextTest() {
         getDriver().get("http://www.uitestingplayground.com/verifytext");
@@ -60,7 +56,7 @@ public class GroupLetsQATest extends BaseTest {
         Assert.assertEquals(text, "Welcome UserName!");
     }
 
-    @Ignore
+
     @Test
     public void testConfIxbt(){
 
@@ -75,7 +71,7 @@ public class GroupLetsQATest extends BaseTest {
         String title_k = getDriver().getTitle();
         Assert.assertEquals("Конференция iXBT.com", title_k);
     }
-    @Ignore
+
     @Test
     public void testTextInput() {
 
@@ -91,4 +87,36 @@ public class GroupLetsQATest extends BaseTest {
             Assert.assertEquals(newButtonName, value);
 
         }
+
+    @Test
+    public void testLOadDelays(){
+        getDriver().get("http://www.uitestingplayground.com/loaddelay");
+        WebElement homePageLink = getDriver().findElement(By.cssSelector(".nav-link[href='/home']"));
+        homePageLink.click();
+        WebElement loadDelaysLink = getDriver().findElement(By.xpath("//a[@href='/loaddelay']"));
+        loadDelaysLink.click();
+        WebElement buttonAppearingAfterDelay = getDriver().findElement(By.cssSelector(".btn-primary"));
+
+            try {
+                buttonAppearingAfterDelay.click();
+                assertTrue(true);
+            } catch (Exception e) {
+                Assert.fail("The button Appearing After Delay is not clickable.");
+            }
+
     }
+
+    @Test
+    public void searchDialogLichess() {
+        getDriver().get("https://lichess.org");
+
+        String title = getDriver().getTitle();
+        assertTrue(title.contains("lichess.org"));
+
+        WebElement button = getDriver().findElement(By.className("config_hook"));
+        button.click();
+
+        WebElement dialog = getDriver().findElement(By.className("dialog-content"));
+        assertNotNull(dialog);
+    }
+}
