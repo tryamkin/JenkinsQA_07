@@ -289,4 +289,16 @@ public class GroupUnicornsTest extends BaseTest {
                 getDriver().findElement(By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")).getText(),
                 "Jenkins 2.414.2");
     }
+
+    @Test
+    public void testSubmit() {
+
+        getDriver().get("https://chadd.org/for-adults/overview/");
+
+        WebElement textBox = getDriver().findElement(By.name("EMAIL"));
+        WebElement submitButton = getDriver().findElement(By.className("button"));
+
+        textBox.sendKeys("ximotof590@ibtrades.com");
+        submitButton.click();
+    }
 }
