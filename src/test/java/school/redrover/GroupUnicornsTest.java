@@ -317,9 +317,6 @@ public class GroupUnicornsTest extends BaseTest {
         actualResult = driver.findElement(descriptionArea).getText();
         assertTrue(actualResult.isEmpty());
     }
-     
-  
-  
 
     @Test
     public void testSubmit() {
