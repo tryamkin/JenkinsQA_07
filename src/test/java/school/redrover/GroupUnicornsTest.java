@@ -171,29 +171,25 @@ public class GroupUnicornsTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void testTradingView() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
         String url = "https://www.tradingview.com/chart/";
-        try {
-            driver.get(url);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
-            WebElement tickerNameActual = driver.findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
-            Assert.assertEquals(tickerNameActual.getText(), "AAPL");
+        getDriver().get(url);
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
+        WebElement tickerNameActual = getDriver().findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
+        Assert.assertEquals(tickerNameActual.getText(), "AAPL");
 
-            driver.findElement(By.xpath("//button[@id = 'header-toolbar-symbol-search']")).click();
-            WebElement searchTable = driver.findElement(By.xpath("//input[@class = 'search-ZXzPWcCf upperCase-ZXzPWcCf input-qm7Rg5MB']"));
-            searchTable.clear();
-            searchTable.sendKeys("SPX");
-            searchTable.sendKeys(Keys.ENTER);
-            Thread.sleep(500);
-            WebElement newTickerNameActual = driver.findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
-            Assert.assertEquals(newTickerNameActual.getText(), "SPX");
-        } finally {
-            driver.quit();
-        }
+        getDriver().findElement(By.xpath("//button[@id = 'header-toolbar-symbol-search']")).click();
+        WebElement searchTable = getDriver().findElement(By.xpath("//input[@class = 'search-ZXzPWcCf upperCase-ZXzPWcCf input-qm7Rg5MB']"));
+        searchTable.clear();
+        searchTable.sendKeys("SPX");
+        searchTable.sendKeys(Keys.ENTER);
+        Thread.sleep(500);
+        WebElement newTickerNameActual = getDriver().findElement(By.xpath("(//div[@class = 'js-button-text text-GwQQdU8S text-cq__ntSC'])[3]"));
+        Assert.assertEquals(newTickerNameActual.getText(), "SPX");
     }
+
+
 
     @Ignore
     @Test
