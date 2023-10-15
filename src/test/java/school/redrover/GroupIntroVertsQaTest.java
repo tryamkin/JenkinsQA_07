@@ -119,7 +119,6 @@ public class GroupIntroVertsQaTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
         WebElement usernameInput = driver.findElement(By.xpath(" //a[@href=contains(text(), \"About Us\")]"));
         usernameInput.click();
-
         WebElement greetings = driver.findElement(By.xpath("//h1[@class=\"title\"]"));
         Assert.assertEquals(greetings.getText(), "ParaSoft Demo Website");
         driver.quit();
@@ -141,25 +140,6 @@ public class GroupIntroVertsQaTest extends BaseTest {
     }
 
     @Ignore
-    @Test (description = "позитивный кейс")
-    public void testPositiveTest() throws InterruptedException {
-        getDriver().get(variablesDmitryS.getUrl());
-        WebElement fieldFirstName = getDriver().findElement(By.xpath("//input[@id = 'firstName']"));
-        WebElement fieldLastName = getDriver().findElement(By.xpath("//input[@id = 'lastName']"));
-        WebElement radioButtonGender = getDriver().findElement(By.xpath("//label[@for = 'gender-radio-1']"));
-        WebElement fieldNumber = getDriver().findElement(By.xpath("//input[@id = 'userNumber']"));
-        fieldFirstName.sendKeys(variablesDmitryS.FIRST_NAME);
-        fieldLastName.sendKeys(variablesDmitryS.LAST_NAME);
-        radioButtonGender.click();
-        fieldNumber.sendKeys(variablesDmitryS.NUMBER);
-        WebElement submitButton = getDriver().findElement(By.id("submit"));
-        submitButton.submit();
-        WebElement resultValueStudentName = getDriver().findElement(By.xpath("//tr/td[2]"));
-        String textResultValueStudentName = resultValueStudentName.getText();
-        Thread.sleep(5000);
-        String answer = variablesDmitryS.FIRST_NAME + " " + variablesDmitryS.LAST_NAME;
-        Assert.assertEquals(textResultValueStudentName, answer);
-    }
     @Test (description = "позитивный кейс, заполнение всех полей")
     public void testPositiveTestAllParameters() throws InterruptedException {
         getDriver().get(variablesDmitryS.getUrl());
