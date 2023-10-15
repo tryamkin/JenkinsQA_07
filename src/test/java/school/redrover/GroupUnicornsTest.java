@@ -360,4 +360,19 @@ public class GroupUnicornsTest extends BaseTest {
                 Assert.assertEquals(currencyActual.getText(),currnecyExpected.get(i-1));
             }
     }
+
+    @Test
+    public void testPearson() {
+        getDriver().get("https://www.pearson.com/");
+
+        getDriver().findElement(By.id("onetrust-accept-btn-handler")).click();
+
+        getDriver().findElement(By.className("usernav-signin-button")).click();
+        getDriver().findElement(By.className("side-banner__heading"));
+        getDriver().findElement(By.className("ies-input")).sendKeys("tester@gmail.com");
+        getDriver().findElement(By.id("password")).sendKeys("Test1234");
+        getDriver().findElement(By.id("submitBttn")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("(//div[@class='alert'])[1]")).getText(),"We can't find an account with this email and password. Please try again.");
+    }
 }
