@@ -171,7 +171,7 @@ public class GroupSevenTest extends BaseTest {
         WebElement searchField = getDriver().findElement(By.xpath("//input[@placeholder='Search']"));
         searchField.sendKeys("Harry Potter",Keys.RETURN);
 
-        WebElement searchResults = getDriver().findElement(By.xpath("//h3[normalize-space()='Harry Potter']"));
+        WebElement searchResults = getDriver().findElement(By.xpath("//h3[text()='Harry Potter']"));
         searchResults.click();
 
         ArrayList<String> wid = new ArrayList<>(getDriver().getWindowHandles());
