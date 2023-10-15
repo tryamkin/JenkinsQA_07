@@ -129,7 +129,7 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertEquals(value, "/2 resultados");
     }
 
-    @Ignore
+
     @Test
     public void testJenkinsAdminStatus() throws InterruptedException {
 
