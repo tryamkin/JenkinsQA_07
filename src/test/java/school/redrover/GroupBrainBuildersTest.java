@@ -12,7 +12,7 @@ import static org.testng.Assert.assertEquals;
 
 public class GroupBrainBuildersTest extends BaseTest {
 
-    @Ignore
+
     @Test
     public void testAskentLogIn() throws InterruptedException {
         getDriver().get("https://www.askent.ru/cabinet/order/?show_all=Y");
@@ -37,7 +37,7 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertEquals(resultTitle, "Личный кабинет");
     }
 
-    @Ignore
+
     @Test
     public void testAskentAddToCart() throws InterruptedException {
         getDriver().get("https://www.askent.ru/cat/bumazhniki/portmone_308/");
@@ -62,7 +62,7 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertEquals(resultName, "МИНИ ПОРТМОНЕ MODULE");
     }
 
-    @Ignore
+    
     @Test
     public void testCreatingDoubleRoom() throws InterruptedException {
 
