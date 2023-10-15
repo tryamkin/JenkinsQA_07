@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+import school.redrover.runner.JenkinsUtils;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -181,6 +182,26 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertEquals(resultHeader.getText(), "Harry Potter");
     }
 
+    @Test
+    public void testJenkinsAbout() {
+        JenkinsUtils.login(getDriver());
+
+        WebElement bottomRightButtonExpand = getDriver().findElement(By.xpath("//button[normalize-space()='Jenkins 2.414.2']"));
+        bottomRightButtonExpand.click();
+
+        WebElement aboutJenkins = getDriver().findElement(By.xpath("//a[normalize-space()='About Jenkins']"));
+        aboutJenkins.click();
+
+        WebElement resultHeader = getDriver().findElement(By.xpath("//h1[normalize-space()='Jenkins']"));
+        Assert.assertEquals(resultHeader.getText(), "Jenkins");
+
+        WebElement version = getDriver().findElement(By.xpath("//p[@class='app-about-version']"));
+        Assert.assertEquals(version.getText(),"Version 2.414.2");
+
+        WebElement checkOnWhatPage = getDriver().findElement(By.xpath("(//li[@class='jenkins-breadcrumbs__list-item'])[3]"));
+        Assert.assertEquals(checkOnWhatPage.getText(),"About Jenkins");
+
+    }
 
     @Test
     public void testBestBrainsSearch() throws InterruptedException {
