@@ -119,6 +119,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
         WebElement usernameInput = driver.findElement(By.xpath(" //a[@href=contains(text(), \"About Us\")]"));
         usernameInput.click();
+
         WebElement greetings = driver.findElement(By.xpath("//h1[@class=\"title\"]"));
         Assert.assertEquals(greetings.getText(), "ParaSoft Demo Website");
         driver.quit();
