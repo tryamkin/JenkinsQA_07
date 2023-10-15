@@ -62,7 +62,7 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertEquals(resultName, "МИНИ ПОРТМОНЕ MODULE");
     }
 
-    
+
     @Test
     public void testCreatingDoubleRoom() throws InterruptedException {
 
@@ -144,7 +144,7 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertTrue(getDriver().getPageSource().contains(userName));
     }
 
-    @Ignore
+
     @Test
     public void testAskentSearch() {
         getDriver().get("https://www.askent.ru/");
