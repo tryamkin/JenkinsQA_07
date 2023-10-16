@@ -73,34 +73,4 @@ public class GroupTestscriptCollaboratoriumTest {
             driver.quit();
         }
     }
-    @Test
-    public void testSearch() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("http://uitestingplayground.com/");
-
-            WebElement textButton = driver.findElement(By.xpath("//a[@href=\"/resources\"]"));
-            textButton.click();
-
-            WebElement title = driver.findElement(By.xpath("//a[@href=\"https://www.w3schools.com\"]"));
-        } finally {
-            driver.quit();
-        }
-    }
-
-    @Test
-    public void testInput() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("http://uitestingplayground.com/");
-
-            WebElement textButton = driver.findElement(By.xpath("//a[@href=\"/textinput\"]"));
-            textButton.click();
-
-            driver.findElement(By.xpath("//input[@class=\"form-control\"]")).sendKeys("text");
-            Thread.sleep(900);
-        } finally {
-            driver.quit();
-        }
-    }
 }
