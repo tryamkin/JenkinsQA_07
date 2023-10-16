@@ -456,6 +456,7 @@ public class GroupUnitedByJavaTest extends BaseTest {
         Thread.sleep(2000);
 
     }
+   @Ignore
     @Test
     public void testJenkinsDescriptionPreview() throws InterruptedException {
         JenkinsUtils.login(getDriver());

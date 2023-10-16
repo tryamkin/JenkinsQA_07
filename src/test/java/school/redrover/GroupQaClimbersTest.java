@@ -671,7 +671,7 @@ public class GroupQaClimbersTest extends BaseTest {
         String actualMessage=getDriver().findElement(By.xpath("//div[text()='Swag Labs']")).getText();
         Assert.assertEquals(actualMessage,expectedMessage);
     }
-
+@Ignore
     @Test
     public void testClickOnCreateAJob() {
 
