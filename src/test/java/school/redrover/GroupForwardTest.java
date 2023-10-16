@@ -236,6 +236,43 @@ public class GroupForwardTest extends BaseTest {
             "Welcome to Jenkins!");
   }
 
+
+  @Test
+  public void aboutLDOCETest() {
+    getDriver().get(PAGE_URL);
+
+
+    WebElement closeCookieWindow = getDriver().findElement(By.xpath("//button[@aria-label = 'Close']"));
+    closeCookieWindow.click();
+    WebElement aboutUsLink = getDriver().findElement(By.xpath("//a[text()='About LDOCE']"));
+
+    aboutUsLink.click();
+
+    Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.ldoceonline.com/about.html");
+    WebElement title = getDriver().findElement(By.xpath("//h1[@class='about_title']"));
+    String value = title.getText();
+
+    Assert.assertEquals(value, "About LDOCE Online");
+  }
+
+  @Test
+  public void testAddDescription() {
+
+    JenkinsUtils.login(getDriver());
+    String addDescription = "GroupForward #1";
+
+    WebElement description = getDriver().findElement(By.id("description-link"));
+    description.click();
+    WebElement textField = getDriver().findElement(By.name("description"));
+    textField.clear();
+    textField.sendKeys(addDescription);
+    getDriver().findElement(By.name("Submit")).click();
+    String newDescriprtion = getDriver().findElement(By.id("description")).getText();
+
+    Assert.assertTrue(newDescriprtion.contains(addDescription));
+
+  }
+
 }
 
 
