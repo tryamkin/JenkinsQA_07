@@ -149,26 +149,20 @@ public class GroupUnicornsTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
-    public void searchVerificationGitHub() {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-            driver.manage().window().maximize();
-            driver.get("https://github.com");
-            WebElement searchBox = driver.findElement(By.xpath("//span[@class=\"flex-1\"]"));
-            searchBox.click();
-            WebElement inputButton = driver.findElement(By.xpath("//*[@class='QueryBuilder-InputWrapper']/input"));
-            inputButton.sendKeys("selenium" + Keys.ENTER);
-            List<WebElement> listOfResults = driver.findElements(By.xpath("//span[starts-with(@class, 'Text-sc-17v1xeu-0 qaOIC search-match')]"));
-            int expectedSize = 10;
-            int actualSize = listOfResults.size();
-            Assert.assertEquals(actualSize, expectedSize);
-        } finally {
-            driver.quit();
-        }
+    public void testSearchVerificationGitHub() {
+        WebDriver driver = getDriver();
+        driver.get("https://github.com");
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+        WebElement searchBox = driver.findElement(By.xpath("//span[@class=\"flex-1\"]"));
+        searchBox.click();
+        WebElement inputButton = driver.findElement(By.xpath("//*[@class='QueryBuilder-InputWrapper']/input"));
+        inputButton.sendKeys("selenium" + Keys.ENTER);
+        List<WebElement> listOfResults = driver.findElements(By.xpath("//span[starts-with(@class, 'Text-sc-17v1xeu-0 qaOIC search-match')]"));
+        int expectedSize = 10;
+        int actualSize = listOfResults.size();
+        Assert.assertEquals(actualSize, expectedSize);
+        driver.quit();
     }
 
     @Test
