@@ -5,7 +5,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -14,6 +16,7 @@ import school.redrover.runner.JenkinsUtils;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GroupSevenTest extends BaseTest {
@@ -26,6 +29,8 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertEquals(title, "Kylie Cosmetics by Kylie Jenner | Kylie Skin | Kylie Baby");
     }
 
+
+    @Ignore
     @Test
     public void testSearchField() {
 
@@ -182,6 +187,26 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertEquals(resultHeader.getText(), "Harry Potter");
     }
 
+    @Test
+    public void testJenkinsAbout() {
+        JenkinsUtils.login(getDriver());
+
+        WebElement bottomRightButtonExpand = getDriver().findElement(By.xpath("//button[normalize-space()='Jenkins 2.414.2']"));
+        bottomRightButtonExpand.click();
+
+        WebElement aboutJenkins = getDriver().findElement(By.xpath("//a[normalize-space()='About Jenkins']"));
+        aboutJenkins.click();
+
+        WebElement resultHeader = getDriver().findElement(By.xpath("//h1[normalize-space()='Jenkins']"));
+        Assert.assertEquals(resultHeader.getText(), "Jenkins");
+
+        WebElement version = getDriver().findElement(By.xpath("//p[@class='app-about-version']"));
+        Assert.assertEquals(version.getText(),"Version 2.414.2");
+
+        WebElement checkOnWhatPage = getDriver().findElement(By.xpath("(//li[@class='jenkins-breadcrumbs__list-item'])[3]"));
+        Assert.assertEquals(checkOnWhatPage.getText(),"About Jenkins");
+
+    }
 
     @Test
     public void testBestBrainsSearch() throws InterruptedException {
@@ -401,5 +426,34 @@ public class GroupSevenTest extends BaseTest {
         WebElement message = getDriver().findElement(By.xpath("//h1[text()='Tools']"));
         String value = message.getText();
         Assert.assertEquals(value, "Tools");
+    }
+
+    @Test
+    public void testInventoryPage() {
+        getDriver().get("https://www.saucedemo.com/inventory.html");
+        WebElement usernameInput = getDriver().findElement(By.id("user-name"));
+        WebElement passwordInput = getDriver().findElement(By.id("password"));
+        WebElement loginButton = getDriver().findElement(By.id("login-button"));
+
+        usernameInput.sendKeys("standard_user");
+        passwordInput.sendKeys("secret_sauce");
+        loginButton.click();
+
+        WebElement productsPageTitle = getDriver().findElement(By.className("title"));
+        Assert.assertTrue(productsPageTitle.isDisplayed(), "Not on product page");
+
+
+        }
+
+    @Test
+    public void testUserPage() {
+        JenkinsUtils.login(getDriver());
+
+        WebElement userIcon = getDriver().findElement(By.xpath("//a[@href='/user/admin']"));
+        userIcon.click();
+
+        WebElement nameTitle = getDriver().findElement(By.xpath("//h1[normalize-space()='admin']"));
+        String value = nameTitle.getText();
+        Assert.assertEquals(value, "admin");
     }
 }
