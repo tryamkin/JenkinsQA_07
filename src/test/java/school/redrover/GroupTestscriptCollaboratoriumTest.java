@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.runner.BaseTest;
 
 import static org.testng.Assert.assertEquals;
 
@@ -15,21 +16,24 @@ public class GroupTestscriptCollaboratoriumTest {
     @Test
     public void getGuru() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
-        driver.get("https://www.guru99.com/");
+        try {
+            driver.get("https://www.guru99.com/");
 
-        String title = driver.getTitle();
-        assertEquals("Meet Guru99 – Free Training Tutorials & Video for IT Courses", title);
+            String title = driver.getTitle();
+            assertEquals("Meet Guru99 – Free Training Tutorials & Video for IT Courses", title);
 
 
-        WebElement JUnitButton = driver.findElement(By.xpath("//*[@data-lasso-id='147439']"));
-        JUnitButton.click();
+            WebElement JUnitButton = driver.findElement(By.xpath("//*[@data-lasso-id='147439']"));
+            JUnitButton.click();
 
-        Thread.sleep(900);
+            Thread.sleep(900);
 
-        WebElement textButton = driver.findElement(By.xpath("//*[@id='post-862']/div/div/h2[2]"));
-        Assert.assertEquals(textButton.getText(),"JUnit Tutorial Syllabus");
-
-        driver.quit();
+            WebElement textButton = driver.findElement(By.xpath("//*[@id='post-862']/div/div/h2[2]"));
+            Assert.assertEquals(textButton.getText(), "JUnit Tutorial Syllabus");
+        }
+            finally {
+                driver.quit();
+        }
     }
     @Test
     public void testSubscription(){
@@ -71,6 +75,37 @@ public class GroupTestscriptCollaboratoriumTest {
             Assert.assertEquals(valueBasket, "1");
 
         }finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void testSearch() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://uitestingplayground.com/");
+
+            WebElement textButton = driver.findElement(By.xpath("//a[@href=\"/resources\"]"));
+            textButton.click();
+
+            WebElement title = driver.findElement(By.xpath("//a[@href=\"https://www.w3schools.com\"]"));
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void testInput() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://uitestingplayground.com/");
+
+            WebElement textButton = driver.findElement(By.xpath("//a[@href=\"/textinput\"]"));
+            textButton.click();
+
+            driver.findElement(By.xpath("//input[@class=\"form-control\"]")).sendKeys("text");
+            Thread.sleep(900);
+        } finally {
             driver.quit();
         }
     }
