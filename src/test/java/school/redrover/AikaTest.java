@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+import school.redrover.runner.JenkinsUtils;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
@@ -13,34 +14,30 @@ import static org.openqa.selenium.support.locators.RelativeLocator.with;
 public class AikaTest extends BaseTest {
 
     @Test
-    public void testRelativeLocationToLeftOf() {
-        String categoriesOpt = "Categories";
+    public void testAdminUserDisplayed() {
         JenkinsUtils.login(getDriver());
-        
-        getDriver().get("https://mvnrepository.com/");
-        WebElement popularOpt = getDriver().findElement(By.xpath("//a[text()= 'Popular']"));
-
-        Assert.assertEquals(getDriver().findElement(with(By.tagName("a"))
-                .toLeftOf(popularOpt)).getText(), categoriesOpt);
+        getDriver().findElement(By.xpath("//span[text()='People']/parent::a")).click();
+        Assert.assertTrue(getDriver().findElement(By.linkText("admin")).isDisplayed());
     }
 
     @Test
-    public void testRelativeLocationBelow() {
-        getDriver().get("https://mvnrepository.com/");
-        WebElement siteDeveloped = getDriver().findElement(By.xpath("//span[contains(text(), 'developed')]"));
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(siteDeveloped).perform();
+    public void testVerifyJenkinsVersion() {
+        String  expectedJenkinsVersion = "2.414.2";
 
-        Assert.assertEquals(getDriver().findElement(with(By.tagName("a")).below(siteDeveloped))
-                .getText(), "Contact Us");
+        JenkinsUtils.login(getDriver());
+        String jenkinsVersion = getDriver().findElement(By.xpath("//button[contains(text(), 'Jenkins')]")).getText();
+        Assert.assertEquals(jenkinsVersion.split(" ")[1], expectedJenkinsVersion);
     }
 
     @Test
-    public void testRelativeLocationAbove() {
-        getDriver().get("https://mvnrepository.com/");
-        WebElement whatsNew = getDriver().findElement(By.tagName("h1"));
-        WebElement inputField = getDriver().findElement(with(By.id("query")).above(whatsNew));
+    public void testClickingOnDashboardOpensDashboard() {
+        JenkinsUtils.login(getDriver());
 
-        Assert.assertTrue(inputField.isDisplayed());
+        WebElement newItem = getDriver().findElement(By.xpath("//div[@id='tasks']//a[1]"));
+        newItem.click();
+
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        Assert.assertTrue(getDriver().getTitle().contains("Dashboard"));
     }
 }
