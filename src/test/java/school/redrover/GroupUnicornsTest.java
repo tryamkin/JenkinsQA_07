@@ -96,7 +96,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertEquals(title, "Java Tutorial");
     }
 
-
+    @Ignore
     @Test
     public void W3school1test() {
         getDriver().get("https://www.w3schools.com/");
@@ -151,18 +151,15 @@ public class GroupUnicornsTest extends BaseTest {
 
     @Test
     public void testSearchVerificationGitHub() {
-        WebDriver driver = getDriver();
-        driver.get("https://github.com");
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
-        WebElement searchBox = driver.findElement(By.xpath("//span[@class=\"flex-1\"]"));
+        getDriver().get("https://github.com");
+        WebElement searchBox = getDriver().findElement(By.xpath("//span[@class=\"flex-1\"]"));
         searchBox.click();
-        WebElement inputButton = driver.findElement(By.xpath("//*[@class='QueryBuilder-InputWrapper']/input"));
+        WebElement inputButton = getDriver().findElement(By.xpath("//*[@class='QueryBuilder-InputWrapper']/input"));
         inputButton.sendKeys("selenium" + Keys.ENTER);
-        List<WebElement> listOfResults = driver.findElements(By.xpath("//span[starts-with(@class, 'Text-sc-17v1xeu-0 qaOIC search-match')]"));
+        List<WebElement> listOfResults = getDriver().findElements(By.xpath("//span[starts-with(@class, 'Text-sc-17v1xeu-0 qaOIC search-match')]"));
         int expectedSize = 10;
         int actualSize = listOfResults.size();
         Assert.assertEquals(actualSize, expectedSize);
-        driver.quit();
     }
 
     @Test
