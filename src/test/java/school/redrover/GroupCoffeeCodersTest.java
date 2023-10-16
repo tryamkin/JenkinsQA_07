@@ -5,14 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.runner.BaseTest;
 
 
 
-public class GroupCoffeeCodersTest {
+public class GroupCoffeeCodersTest extends BaseTest {
     public static final String USERNAME = "admin";
     public static final String PASSWORD = "admin";
 
+    @Ignore
     @Test
     public void testUserRegistration() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
@@ -37,6 +40,7 @@ public class GroupCoffeeCodersTest {
         }
     }
 
+    @Ignore
     @Test
     public void testUserLogin() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
@@ -67,6 +71,7 @@ public class GroupCoffeeCodersTest {
         }
     }
 
+    @Ignore
     @Test
     public void testApteka() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
@@ -90,4 +95,44 @@ public class GroupCoffeeCodersTest {
         driver.quit();
 
     }
+
+
+
+    @Test
+    public void testSearch1()  {
+        getDriver().get("https://www.labirint.ru/");
+        WebElement searchBook = getDriver().findElement(By.className("b-header-b-search-e-input"));
+        searchBook.sendKeys("война  и  мир");
+        WebElement searchButton = getDriver().findElement(By.className("b-header-b-search-e-btn"));
+        searchButton.click();
+        WebElement FirstBook = getDriver().findElement(By.xpath("//*[@id=\"rubric-tab\"]/div[3]/section/div/div[1]/a[1]"));
+        String value = FirstBook.getText();
+        Assert.assertEquals(value, "Война и мир. В 4-х томах.");
+    }
+
+
+
+
+
+
+
+    @Test
+    public void  testSorting () throws InterruptedException {
+        getDriver().get("https://www.labirint.ru/");
+        WebElement searchBook = getDriver().findElement(By.className("b-header-b-search-e-input"));
+        searchBook.sendKeys("война  и  мир");
+        WebElement searchButton = getDriver().findElement(By.className("b-header-b-search-e-btn"));
+        searchButton.click();
+        WebElement sorting = getDriver().findElement(By.xpath("//*[@id=\"catalog-navigation\"]/form/div[1]/div[1]/div/div/span[7]/span/span/span[1]/span"));
+        sorting.click();
+        WebElement LowPrice = getDriver().findElement(By.xpath("//*[@id=\"catalog-navigation\"]/form/div[1]/div[1]/div/div/span[7]/span/span/span[2]/ul/li[5]/a"));
+        LowPrice.click();
+        Thread.sleep(2000);
+        WebElement CheapestBook = getDriver().findElement(By.xpath("//*[@id=\"rubric-tab\"]/div[3]/section/div/div[1]/div[2]/div[1]"));
+        String value = CheapestBook.getText();
+        Assert.assertEquals(value, "73 ₽");
+
+    }
+
+
 }

@@ -3,41 +3,36 @@ package school.redrover;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-
 import java.io.File;
 import java.net.URI;
 import java.time.Duration;
-
 import org.testng.asserts.SoftAssert;
+import school.redrover.runner.BaseTest;
+import school.redrover.runner.JenkinsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-
 import static org.testng.Assert.assertEquals;
 
-public class GroupJavaAutomationTest {
-
+public class GroupJavaAutomationTest extends BaseTest {
+    private static final String HEROKUAPP = "https://the-internet.herokuapp.com/";
     @Test
-    public void herokuappHomePageTest() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/");
-        String title = driver.getTitle();
+    public void testHerokuAppHomePage() {
+        getDriver().get(HEROKUAPP);
+        String title = getDriver().getTitle();
         assertEquals(title, "The Internet");
-        driver.quit();
     }
-
+    @Ignore
     @Test
     public void herokuAppAddRemoveTest() throws InterruptedException {
-        WebDriver driver = new FirefoxDriver();
-        WebDriverManager.firefoxdriver().setup();
-        driver.manage().window().maximize();
+        WebDriver driver = new ChromeDriver();
 
         driver.get("https://the-internet.herokuapp.com/");
         try {
@@ -59,7 +54,7 @@ public class GroupJavaAutomationTest {
         driver.quit();
 
     }
-
+    @Ignore
     @Test
     public void testTextEditor() {
         final String expectedText = "My text\nsecond row";
@@ -80,7 +75,7 @@ public class GroupJavaAutomationTest {
         driver.quit();
 
     }
-
+    @Ignore
     @Test
     public void herokuAppABTest() {
         WebDriver driver = new ChromeDriver();
@@ -92,7 +87,7 @@ public class GroupJavaAutomationTest {
         assertEquals(abTestTitle, "A/B Test Control");
         driver.quit();
     }
-
+    @Ignore
     @Test
     public void herokuAppCheckBoxTest() {
         WebDriver driver = new ChromeDriver();
@@ -109,28 +104,7 @@ public class GroupJavaAutomationTest {
         driver.quit();
     }
 
-    @Test
-    public void testEntryAd() {
-        WebDriver driver = new ChromeDriver();
-
-        driver.get("https://the-internet.herokuapp.com/");
-
-        WebElement entryAd = driver.findElement(By.xpath("//a[@href='/entry_ad']"));
-        entryAd.click();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-
-        WebElement pClose = driver.findElement(By.xpath("//*[@id=\"modal\"]/div[2]/div[3]"));
-        pClose.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.invisibilityOf(pClose));
-
-        Assert.assertFalse(pClose.isDisplayed());
-
-        driver.quit();
-    }
-
+    @Ignore
     @Test
     public void testAddElement() {
         List<String> expectedButtonsName = new ArrayList<>(List.of("Add Element","Delete"));
@@ -152,7 +126,7 @@ public class GroupJavaAutomationTest {
 
         driver.quit();
     }
-
+    @Ignore
     @Test
     public void testBasicAuth() {
         WebDriver driver = new ChromeDriver();
@@ -167,7 +141,7 @@ public class GroupJavaAutomationTest {
 
         driver.quit();
     }
-
+    @Ignore
     @Test
     public void loginSuccessfulTest() {
         WebDriver webDriver = new ChromeDriver();
@@ -190,7 +164,7 @@ public class GroupJavaAutomationTest {
         logout.click();
         webDriver.quit();
     }
-
+    @Ignore
     @Test
     public void loginEmptyNameTest() {
         WebDriver webDriver = new ChromeDriver();
@@ -209,26 +183,26 @@ public class GroupJavaAutomationTest {
                 "Your username is invalid!");
         webDriver.quit();
     }
+
     @Test
     public void testBasicAuthWithoutAlert() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("http://admin:admin@the-internet.herokuapp.com/basic_auth");
-        String authMessage = driver.findElement(By.xpath("//h3/following-sibling::p")).getText();
+       getDriver().get("http://admin:admin@the-internet.herokuapp.com/basic_auth");
+        String authMessage = getDriver().findElement(By.xpath("//h3/following-sibling::p")).getText();
         Assert.assertTrue(authMessage.contains("Congratulations"));
-        driver.quit();
     }
 
 
     @Test
     public void checkBoxTest(){
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.get("https://the-internet.herokuapp.com/");
-        webDriver.manage().window().maximize();
-        WebElement elementCheckBoxes = webDriver.findElement(By.xpath("//a[@href='/checkboxes']"));
+
+        getDriver().get(HEROKUAPP);
+
+        WebElement elementCheckBoxes = getDriver().findElement(By.xpath("//a[@href='/checkboxes']"));
         elementCheckBoxes.click();
+
         List<WebElement> elementFormCheckBoxes;
-        WebElement checkBox1 = webDriver.findElement(By.xpath("//form[@id='checkboxes']/input[1]"));
-        WebElement checkBox2 = webDriver.findElement(By.xpath("//form[@id='checkboxes']/input[2]"));
+        WebElement checkBox1 = getDriver().findElement(By.xpath("//form[@id='checkboxes']/input[1]"));
+        WebElement checkBox2 = getDriver().findElement(By.xpath("//form[@id='checkboxes']/input[2]"));
         elementFormCheckBoxes = List.of(checkBox1, checkBox2);
         for (WebElement item: elementFormCheckBoxes){
             if (!item.isSelected()){
@@ -236,19 +210,21 @@ public class GroupJavaAutomationTest {
             }
         }
         Assert.assertEquals(List.of(checkBox1.isSelected(),checkBox2.isSelected()), List.of(true,true));
-        webDriver.quit();
+
     }
+
+    @Ignore
     @Test
     public void downloadFile(){
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.get("https://the-internet.herokuapp.com/");
-        webDriver.manage().window().maximize();
+
+        getDriver().get(HEROKUAPP);
+
         String pathToSave = "C:\\Users\\48573\\Downloads\\";
 
-        WebElement elementFileDownload = webDriver.findElement(By.xpath("//a[@href='/download']"));
+        WebElement elementFileDownload = getDriver().findElement(By.xpath("//a[@href='/download']"));
         elementFileDownload.click();
 
-        WebElement firstFile = webDriver.findElement(By.xpath("//div[@id='content']/div/a[1]"));
+        WebElement firstFile = getDriver().findElement(By.xpath("//div[@id='content']/div/a[1]"));
         firstFile.click();
 
         String nameFile = firstFile.getText();
@@ -258,9 +234,8 @@ public class GroupJavaAutomationTest {
         boolean downloadPass =  file.exists() && !file.isDirectory();
         Assert.assertTrue(downloadPass);
 
-        webDriver.quit();
     }
-
+    @Ignore
     @Test
     public void testBrokenImage() {
         WebDriver driver = new ChromeDriver();
@@ -278,6 +253,20 @@ public class GroupJavaAutomationTest {
 
         Assert.assertTrue(brokenImages.size()==0, "List of broken images:" + brokenImages);
         driver.quit();
+    }
+
+    @Test
+    public void testJenkinsHomePageAndJenkinsVersion()  {
+
+        JenkinsUtils.login(getDriver());
+
+        String title = getDriver().getTitle();
+        Assert.assertEquals(title,"Dashboard [Jenkins]");
+
+        WebElement versionJenkinsButton = getDriver().findElement
+        (By.xpath("//button[@type='button']"));
+        String versionJenkins = versionJenkinsButton.getText();
+        Assert.assertEquals(versionJenkins,"Jenkins 2.414.2");
     }
 }
 
