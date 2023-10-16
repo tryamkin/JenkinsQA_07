@@ -298,18 +298,18 @@ public class GroupUnderdogsTest extends BaseTest {
     @Test
     public void testKristinaNameAuthorSite() {
         getDriver().get(MAIN_PAGE_URL_99BOTTLES);
-        WebElement button = driver.findElement(By.xpath("//*[@id='main']/p[4]/a[2]"));
+        WebElement button = getDriver.findElement(By.xpath("//*[@id='main']/p[4]/a[2]"));
         button.click();
 
-        WebElement nameOliver = driver.findElement(By.xpath("//div[@id='main']/h3[1]"));
+        WebElement nameOliver = getDriver.findElement(By.xpath("//div[@id='main']/h3[1]"));
         String name1 = nameOliver.getText();
         assertEquals(name1, "Oliver Schade");
 
-        WebElement nameGregor = driver.findElement(By.xpath("//div[@id='main']/h3[2]"));
+        WebElement nameGregor = getDriver.findElement(By.xpath("//div[@id='main']/h3[2]"));
         String name2 = nameGregor.getText();
         assertEquals(name2, "Gregor Scheithauer");
 
-        WebElement nameStefan = driver.findElement(By.xpath("//div[@id='main']/h3[3]"));
+        WebElement nameStefan = getDriver.findElement(By.xpath("//div[@id='main']/h3[3]"));
         String name3 = nameStefan.getText();
         assertEquals(name3, "Stefan Scheler");
     }
@@ -317,7 +317,7 @@ public class GroupUnderdogsTest extends BaseTest {
     @Test
     public void testKristinaNameMenu(){
         getDriver().get(ABC_PAGE_URL_99BOTTLES);
-        WebElement title = driver.findElement(By.xpath("//*[@id='submenu']/li[1]/a"));
+        WebElement title = getDriver.findElement(By.xpath("//*[@id='submenu']/li[1]/a"));
         String value = title.getText();
         Assert.assertEquals(value, "0-9");
     }
@@ -325,9 +325,9 @@ public class GroupUnderdogsTest extends BaseTest {
     @Test
     public void testKristinaTopLists() {
         getDriver().get(MAIN_PAGE_URL_99BOTTLES);
-        WebElement title = driver.findElement(By.xpath("//*[@id='menu']/li[4]/a[@href='/toplist.html']"));
+        WebElement title = getDriver.findElement(By.xpath("//*[@id='menu']/li[4]/a[@href='/toplist.html']"));
         title.click();
-        WebElement language = driver.findElement(By.xpath("//*[@id='category']/tbody/tr[2]/td[2]/a"));
+        WebElement language = getDriver.findElement(By.xpath("//*[@id='category']/tbody/tr[2]/td[2]/a"));
         String title1 = language.getText();
         assertEquals(title1, "Malbolge (real loop version)");
     }
@@ -336,10 +336,10 @@ public class GroupUnderdogsTest extends BaseTest {
     public void testKristinaSubmitLanguage(){
         getDriver().get(SUBMIT_PAGE_URL_99BOTTLES);
 
-        WebElement button = driver.findElement(By.xpath("//*[@id='addlanguage']/p/input[8]"));
+        WebElement button = getDriver.findElement(By.xpath("//*[@id='addlanguage']/p/input[8]"));
         button.click();
 
-        WebElement alert = driver.findElement(By.xpath("//*[@id='main']/p"));
+        WebElement alert = getDriver.findElement(By.xpath("//*[@id='main']/p"));
         String title = alert.getText();
         Assert.assertEquals(title, "Error: Precondition failed - Incomplete Input.");
     }
