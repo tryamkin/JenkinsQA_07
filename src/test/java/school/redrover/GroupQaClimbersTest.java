@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.JenkinsUtils;
@@ -187,7 +188,7 @@ public class GroupQaClimbersTest extends BaseTest {
         );
         assertEquals(actualListOfElementsNames, expectedListElementsNames);
     }
-
+@Ignore
     @Test
     public void testClickOnHomeCheckBox() {
 

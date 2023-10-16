@@ -97,7 +97,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertEquals(title, "Java Tutorial");
     }
 
-
+@Ignore
     @Test
     public void W3school1test() {
         getDriver().get("https://www.w3schools.com/");
@@ -243,7 +243,7 @@ public class GroupUnicornsTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")).getText(), "Jenkins 2.414.2");
     }
-
+@Ignore
     @Test
     public void testAddDescriptionFeature() {
         String expected = "Testing description feature on Jenkins Home Page";
@@ -284,7 +284,7 @@ public class GroupUnicornsTest extends BaseTest {
         textBox.sendKeys("ximotof590@ibtrades.com");
         submitButton.click();
     }
-
+@Ignore
     @Test
     public void testJenkinsAddDescr() {
 

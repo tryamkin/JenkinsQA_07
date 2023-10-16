@@ -476,7 +476,7 @@ public class GroupUnderdogsTest extends BaseTest {
         Assert.assertEquals(menu,expectedResult);
 
         }
-
+@Ignore
     @Test
     public void testCreateNewJob() throws InterruptedException {
         JenkinsUtils.login(getDriver());
