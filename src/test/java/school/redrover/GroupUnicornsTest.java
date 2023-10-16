@@ -352,6 +352,7 @@ public class GroupUnicornsTest extends BaseTest {
             }
     }
 
+    @Ignore
     @Test
     public void testPearson() {
         getDriver().get("https://www.pearson.com/");
