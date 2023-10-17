@@ -11,7 +11,7 @@ import school.redrover.runner.JenkinsUtils;
 public class PavTomakTest extends BaseTest {
 
     @Test
-    public void testTypeIn() throws InterruptedException {
+    public void testTypeIn() {
 
         getDriver().get("https://ymcacapecod.org/");
 
