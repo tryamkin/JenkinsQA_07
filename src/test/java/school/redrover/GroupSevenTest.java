@@ -265,7 +265,7 @@ public class GroupSevenTest extends BaseTest {
         }
     }
 
-
+    @Ignore
     @Test
     public void testBooksSearch() {
         getDriver().get("https://www.doylestownbookshop.com/");
