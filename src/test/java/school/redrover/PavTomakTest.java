@@ -13,14 +13,13 @@ public class PavTomakTest extends BaseTest {
 
         getDriver().get("https://ymcacapecod.org/");
 
-        WebElement textBox = getDriver().findElement(By.className("field"));
+        WebElement textBox = getDriver().findElement(By.id("s"));
         textBox.sendKeys("Eastham");
 
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
 
-        WebElement searchButton = getDriver().findElement(By.className("submit"));
+        WebElement searchButton = getDriver().findElement(By.id("searchsubmit"));
         searchButton.click();
-
 
         WebElement title = getDriver().findElement(By.className("breadcrumb"));
         String value = title.getText();
@@ -30,19 +29,21 @@ public class PavTomakTest extends BaseTest {
 
     @Test
     public void testMacsShack() {
-
-
         getDriver().get("https://macsseafood.com/restaurant/macs-shack-wellfleet/");
-
-        WebElement viewMenu = getDriver().findElement(By.xpath("//*[@id='menu-link']/span[2]"));
-        viewMenu.click();
-
         WebElement orderOnline = getDriver().findElement(By.xpath("//*[text() = 'Order Online']"));
         orderOnline.click();
-
         WebElement macsFishHouse = getDriver().findElement(By.xpath("//main//a[text() = 'Mac’s Fish House Provincetown']"));
         Assert.assertTrue(macsFishHouse.isDisplayed());
+    }
 
+    @Test
+    public void testCheckMenu() {
+        getDriver().get("https://macsseafood.com/restaurant/macs-shack-wellfleet/");
 
+        WebElement viewMenu = getDriver().findElement(By.id("menu-link"));
+        viewMenu.click();
+
+        WebElement aboutThisLocationButton = getDriver().findElement(By.xpath("//span[text() = 'About This Location']"));
+        Assert.assertTrue(aboutThisLocationButton.isDisplayed());
     }
 }
