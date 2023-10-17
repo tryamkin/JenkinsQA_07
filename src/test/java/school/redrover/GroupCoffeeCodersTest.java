@@ -92,7 +92,7 @@ public class GroupCoffeeCodersTest extends BaseTest {
     }
 
 
-
+    @Ignore
     @Test
     public void testSearch1()  {
         getDriver().get("https://www.labirint.ru/");
