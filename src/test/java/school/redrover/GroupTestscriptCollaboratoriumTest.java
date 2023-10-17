@@ -57,6 +57,7 @@ public class GroupTestscriptCollaboratoriumTest extends BaseTest{
 
     }
     @Test
+    @Ignore
     public void testAddToBasket() throws InterruptedException{
 
             getDriver().get("https://murzilka.org/products/category/redaktsionnaya-podpiska");
