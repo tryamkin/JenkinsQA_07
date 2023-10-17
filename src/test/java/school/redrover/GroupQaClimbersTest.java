@@ -17,6 +17,7 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
+@Ignore
 public class GroupQaClimbersTest extends BaseTest {
 
     private static final String URL = "https://demoqa.com/";

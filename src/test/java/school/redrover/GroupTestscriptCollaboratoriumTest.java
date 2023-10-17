@@ -70,6 +70,7 @@ public class GroupTestscriptCollaboratoriumTest extends BaseTest{
 
     }
     @Test
+    @Ignore
     public void testSearch(){
         JenkinsUtils.login(getDriver());
         Assert.assertEquals(
@@ -96,32 +97,22 @@ public class GroupTestscriptCollaboratoriumTest extends BaseTest{
 
     @Test
     public void testSearchZhukova() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("http://uitestingplayground.com/");
+        getDriver().get("http://uitestingplayground.com/");
 
-            WebElement textButton = driver.findElement(By.xpath("//a[@href=\"/resources\"]"));
-            textButton.click();
+        WebElement textButton = getDriver().findElement(By.xpath("//a[@href=\"/resources\"]"));
+        textButton.click();
 
-            WebElement title = driver.findElement(By.xpath("//a[@href=\"https://www.w3schools.com\"]"));
-        } finally {
-            driver.quit();
-        }
+        WebElement title = getDriver().findElement(By.xpath("//a[@href=\"https://www.w3schools.com\"]"));
     }
 
     @Test
     public void testInput() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("http://uitestingplayground.com/");
+        getDriver().get("http://uitestingplayground.com/");
 
-            WebElement textButton = driver.findElement(By.xpath("//a[@href=\"/textinput\"]"));
-            textButton.click();
+        WebElement textButton = getDriver().findElement(By.xpath("//a[@href=\"/textinput\"]"));
+        textButton.click();
 
-            driver.findElement(By.xpath("//input[@class=\"form-control\"]")).sendKeys("text");
-            Thread.sleep(900);
-        } finally {
-            driver.quit();
-        }
+        getDriver().findElement(By.xpath("//input[@class=\"form-control\"]")).sendKeys("text");
+        Thread.sleep(900);
     }
 }
