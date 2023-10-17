@@ -16,8 +16,6 @@ public class PavTomakTest extends BaseTest {
         WebElement textBox = getDriver().findElement(By.id("s"));
         textBox.sendKeys("Eastham");
 
-//        Thread.sleep(1000);
-
         WebElement searchButton = getDriver().findElement(By.id("searchsubmit"));
         searchButton.click();
 
