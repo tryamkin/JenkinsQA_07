@@ -332,8 +332,7 @@ public class GroupUnicornsTest extends BaseTest {
     }
 
     @Test
-    public void testTasksInSideNavigation()
-    {
+    public void testTasksInSideNavigation() {
         JenkinsUtils.login(getDriver());
         WebElement newItem = getDriver().findElement(By.xpath("//a[contains(@href, 'view/all/newJob')]"));
         Assert.assertEquals(newItem.getText(), "New Item");
@@ -341,7 +340,7 @@ public class GroupUnicornsTest extends BaseTest {
         newItem.click();
         Assert.assertEquals(getDriver().getCurrentUrl(), "http://localhost:8080/view/all/newJob");
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//label[@for='name']")).getText(),"Enter an item name");
+        Assert.assertEquals(getDriver().findElement(By.xpath("//label[@for='name']")).getText(), "Enter an item name");
 
         getDriver().findElement(By.xpath("//label[@for='name']")).click();
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id='itemname-required']")).getText(), "» This field cannot be empty, please enter a valid name");
@@ -361,4 +360,34 @@ public class GroupUnicornsTest extends BaseTest {
 
         Assert.assertEquals(listOfExpectedItems, extractedTexts);
     }
+
+    @Test
+    public void testMyStudyingPage()  {
+
+        String url = "https://power.arc.losrios.edu/~suleymanova/cisw300/";//url
+
+        getDriver().get(url); //open page
+        WebElement logo = getDriver().findElement(By.xpath("//span[@class='light' and text()='SULEYMANOV']")); //check logo
+        Assert.assertEquals(logo.getText(),"SULEYMANOV");  //check logo text
+
+        getDriver().findElement(By.xpath("//a[@href='about.html']")).click();//click about button
+        WebElement aboutMe =getDriver().findElement(By.xpath("//h3[@class='footer-header' and text()='ABOUT ME']"));//check about page
+        Assert.assertEquals(aboutMe.getText(), "ABOUT ME");//check title
+
+        getDriver().findElement(By.xpath("//a[@href='contact.html']")).click();//click contact button
+        WebElement email = getDriver().findElement(By.xpath("//a[@href='mailto:w2029557@apps.losrios.edu' and text()='w2029557@apps.losrios.edu']"));//check email
+        Assert.assertEquals(email.getText(), "w2029557@apps.losrios.edu");//check email text
+
+        getDriver().findElement(By.xpath("//a[@href='projects.html']")).click();// click projects button
+        getDriver().findElement(By.xpath("//h1[text()='PROJECTS ']"));//check projects page
+        Assert.assertEquals(getDriver().getTitle(), "Projects");//check title
+
+        getDriver().findElement(By.xpath("//a[@href='book.html']")).click();//click book button
+        getDriver().findElement(By.xpath("//h1[text()='TUTORIALS ']"));//check book page
+        Assert.assertEquals(getDriver().getTitle(), "Book");//check title
+
+        getDriver().findElement(By.xpath("//a[@href='https://arc.losrios.edu']")).click();// click ARC button
+
+    }
+
 }

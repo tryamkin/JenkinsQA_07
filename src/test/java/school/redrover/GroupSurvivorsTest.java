@@ -44,24 +44,29 @@ public class GroupSurvivorsTest extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void testIuliaRadioGarden() throws InterruptedException {
 
         getDriver().get("https://radio.garden/");
         String title = getDriver().getTitle();
+        Assert.assertTrue(title.contains("Radio Garden"));
 
         WebElement searchButton = getDriver().findElement(By.cssSelector("a[href='/search']"));
         searchButton.click();
 
+        Thread.sleep(1000);
+
         WebElement textBox = getDriver().findElement(By.cssSelector("#search-input"));
         textBox.sendKeys("radiojazz\r\n");
 
-        WebElement searchResult = getDriver().findElement(By.xpath("//a[contains(@data-jest-id, 'rowButtonLink')]"));
+        Thread.sleep(1000);
+
+        WebElement searchResult = getDriver().findElement(By.xpath("//a[contains(@class, 'linkContainer')]"));
         searchResult.click();
+
+        Thread.sleep(1000);
 
         WebElement channelBox = getDriver().findElement(By.xpath("//div[contains(@class, 'channelTitle')]"));
         String value = channelBox.getText();
         Assert.assertTrue(value.contains("RadioJAZZ.FM"));
-
     }
 }
