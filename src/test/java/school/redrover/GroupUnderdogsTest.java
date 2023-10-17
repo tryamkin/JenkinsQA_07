@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-@Ignore
+
 public class GroupUnderdogsTest extends BaseTest {
 
     // the next line will be deleted as soon as all methods within the class are refactored and driver is changed to getDriver()
@@ -496,7 +496,7 @@ public class GroupUnderdogsTest extends BaseTest {
         Assert.assertEquals(menu,expectedResult);
 
         }
-@Ignore
+    @Ignore
     @Test
     public void testCreateNewJob() throws InterruptedException {
         JenkinsUtils.login(getDriver());
@@ -520,7 +520,9 @@ public class GroupUnderdogsTest extends BaseTest {
         WebElement title = getDriver().findElement(By.xpath("//*[@class = 'job-index-headline page-headline']"));
         String value = title.getText();
         Assert.assertEquals(value, "Project My Job");
+
     }
+
     @Test
     public void testDescription() {
         JenkinsUtils.login(getDriver());
@@ -538,6 +540,15 @@ public class GroupUnderdogsTest extends BaseTest {
         String value = title.getText();
         Assert.assertEquals(value, "Test Description");
 
+    }
+
+
+    @Test
+    public void testSearchSeleniumOB() {
+        getDriver().get("https://www.selenium.dev");
+        String title = getDriver().getTitle();
+
+        Assert.assertEquals(title, "Selenium");
     }
 
 }
