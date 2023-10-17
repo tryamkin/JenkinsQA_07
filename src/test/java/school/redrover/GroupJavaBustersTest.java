@@ -1,9 +1,7 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -87,33 +85,31 @@ public class GroupJavaBustersTest extends BaseTest {
         }
     }
 
-    @Ignore
+
     @Test
     public void testFillUserName() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://testpages.eviltester.com/styled/basic-html-form-test.html");
 
-        WebElement fieldUsername = driver.findElement(By.name("username"));
-        WebElement submitButton = driver.findElement(By.xpath("//*[@value='submit']"));
+        getDriver().get("https://testpages.eviltester.com/styled/basic-html-form-test.html");
+
+        WebElement fieldUsername = getDriver().findElement(By.name("username"));
+        WebElement submitButton = getDriver().findElement(By.xpath("//*[@value='submit']"));
 
         fieldUsername.sendKeys("Evgeniia");
         submitButton.click();
 
-        WebElement message = driver.findElement(By.id("_valueusername"));
+        WebElement message = getDriver().findElement(By.id("_valueusername"));
         String value = message.getText();
         assertEquals(value, "Evgeniia");
 
-        driver.quit();
     }
 
-    @Ignore
     @Test
     public void testCancelFillingUserName() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://testpages.eviltester.com/styled/basic-html-form-test.html");
 
-        WebElement fieldUsername = driver.findElement(By.name("username"));
-        WebElement cancelButton = driver.findElement(By.xpath("//*[@value='cancel']"));
+        getDriver().get("https://testpages.eviltester.com/styled/basic-html-form-test.html");
+
+        WebElement fieldUsername = getDriver().findElement(By.name("username"));
+        WebElement cancelButton = getDriver().findElement(By.xpath("//*[@value='cancel']"));
 
         fieldUsername.sendKeys("Evgeniia");
         cancelButton.click();
@@ -121,7 +117,6 @@ public class GroupJavaBustersTest extends BaseTest {
         String value = fieldUsername.getText();
         assertEquals(value, "");
 
-        driver.quit();
     }
 
 
