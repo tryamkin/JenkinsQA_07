@@ -69,20 +69,12 @@ public class PavTomakTest extends BaseTest {
         WebElement statusInfo = getDriver().findElement(By.xpath("//h2[text()='Status Information']"));
         WebElement troubleshooting = getDriver().findElement(By.xpath("//h2[text()='Troubleshooting']"));
         WebElement toolsAndActions = getDriver().findElement(By.xpath("//h2[text()='Tools and Actions']"));
-//        SoftAssert softAssert = new SoftAssert();
-//        softAssert.assertTrue(systemConfig.isDisplayed());
-//        softAssert.assertTrue(security.isDisplayed());
-//        softAssert.assertTrue(statusInfo.isDisplayed());
-//        softAssert.assertTrue(troubleshooting.isDisplayed());
-//        softAssert.assertTrue(toolsAndActions.isDisplayed());
-//        softAssert.assertAll();
-        Assert.assertTrue(systemConfig.isDisplayed());
-        Assert.assertTrue(security.isDisplayed());
-        Assert.assertTrue(statusInfo.isDisplayed());
-        Assert.assertTrue(troubleshooting.isDisplayed());
-        Assert.assertTrue(toolsAndActions.isDisplayed());
-
-
-
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(systemConfig.isDisplayed());
+        softAssert.assertTrue(security.isDisplayed());
+        softAssert.assertTrue(statusInfo.isDisplayed());
+        softAssert.assertTrue(troubleshooting.isDisplayed());
+        softAssert.assertTrue(toolsAndActions.isDisplayed());
+        softAssert.assertAll();
     }
 }
