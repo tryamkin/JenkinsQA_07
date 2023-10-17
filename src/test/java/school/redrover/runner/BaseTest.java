@@ -14,7 +14,7 @@ import java.time.Duration;
 @Listeners({FilterForTests.class})
 public abstract class BaseTest {
 
-    protected WebDriver driver;
+    private WebDriver driver;
 
     @BeforeMethod
     protected void beforeMethod(Method method) {
