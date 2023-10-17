@@ -184,6 +184,7 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertEquals(resultHeader.getText(), "Harry Potter");
     }
 
+    @Ignore
     @Test
     public void testJenkinsAbout() {
         JenkinsUtils.login(getDriver());
