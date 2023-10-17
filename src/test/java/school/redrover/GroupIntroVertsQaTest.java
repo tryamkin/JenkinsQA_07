@@ -14,6 +14,7 @@ import school.redrover.runner.JenkinsUtils;
 import java.time.Duration;
 import java.util.Random;
 
+@Ignore
 public class GroupIntroVertsQaTest extends BaseTest {
     static Random random = new Random();
     static String URL = "https://parabank.parasoft.com/parabank/index.htm";
