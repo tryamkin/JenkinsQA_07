@@ -224,4 +224,14 @@ public class GroupHighwayToAqaTest extends BaseTest {
         WebElement addInstallerIsVisible = getDriver().findElement(By.xpath("//button[.='Add Installer']"));
         Assert.assertTrue(addInstallerIsVisible.isDisplayed());
     }
+
+    @Test
+    public void testComparisonManageSystem(){
+        JenkinsUtils.login(getDriver());
+
+        getDriver().findElement(By.xpath("//*[@id='tasks']/div[4]/span/a")).click();
+        getDriver().findElement(By.xpath("//*[@id='main-panel']/section[2]/div/div[1]/a")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/div[1]/div[1]/h1"))
+                .getText(), "System");
+    }
 }
