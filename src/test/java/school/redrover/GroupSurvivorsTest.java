@@ -44,7 +44,6 @@ public class GroupSurvivorsTest extends BaseTest {
     }
 
     @Test
-    //@Ignore
     public void testIuliaRadioGarden() throws InterruptedException {
 
         getDriver().get("https://radio.garden/");
