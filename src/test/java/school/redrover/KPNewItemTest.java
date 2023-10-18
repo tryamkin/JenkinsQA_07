@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,7 +20,7 @@ public class KPNewItemTest extends BaseTest {
 
 
     @Test
-    public void projectNameMissingMassage (){
+    public void testProjectNameMissingMassage (){
         WebElement newItem =  getDriver().findElement(
                 By.xpath("//div[@id='tasks']//a[1]"));
         newItem.click();
@@ -43,7 +42,7 @@ public class KPNewItemTest extends BaseTest {
     }
 
     @Test
-    public void OkButtonIsBlocked (){
+    public void testOkButtonIsBlocked (){
          boolean okButtonIsClickable = false;
 
         WebElement newItem =  getDriver().findElement(
