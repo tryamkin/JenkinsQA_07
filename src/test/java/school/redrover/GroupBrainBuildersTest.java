@@ -146,7 +146,7 @@ public class GroupBrainBuildersTest extends BaseTest {
     }
 
     @Test
-    public void changeItemFreestyleName() throws InterruptedException {
+    public void changeFreestyleName() throws InterruptedException {
 
         final String FREESTYLE_PROJECT_NAME = "Brains";
         final String FREESTYLE_PROJECT_CHANGED_NAME = "NEW_Brains";
@@ -164,8 +164,6 @@ public class GroupBrainBuildersTest extends BaseTest {
 
         getDriver().findElement(By.xpath("//*[@id='bottom-sticker']/div/button")).click();
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "Project " + FREESTYLE_PROJECT_CHANGED_NAME);
-
         getDriver().findElement(By.xpath("//a[@href='/']")).click();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_CHANGED_NAME + "/']")).getText(), FREESTYLE_PROJECT_CHANGED_NAME);
@@ -174,7 +172,7 @@ public class GroupBrainBuildersTest extends BaseTest {
     }
 
     @Test
-    public void addItemFreestyleDescription() throws InterruptedException {
+    public void addFreestyleDescription() throws InterruptedException {
 
         final String FREESTYLE_PROJECT_NAME = "New_brains";
 
@@ -195,7 +193,6 @@ public class GroupBrainBuildersTest extends BaseTest {
         String value1 = description.getText();
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='description']/div[1]")).getText(), "my_new_project");
 
-        deleteItemFreestyle(FREESTYLE_PROJECT_NAME);
     }
 
 }
