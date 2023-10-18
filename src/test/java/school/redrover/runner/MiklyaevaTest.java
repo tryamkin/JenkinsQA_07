@@ -75,4 +75,50 @@ public class MiklyaevaTest {
       driver.quit();
     }
   }
+  @Test
+  public void fillingOutTheRegistrationForm() throws InterruptedException {
+    WebDriver driver = new ChromeDriver();
+    try { //Зайти на сайт
+      driver.get("https://www.vivi-cosmetics.ru/");
+
+      //Найти раздел "Личный кабинет" и кликнуть
+      WebElement personalAccount = driver.findElement(By.linkText("Личный кабинет"));
+      String value = personalAccount.getText();
+      Assert.assertEquals(value, "Личный кабинет");
+      personalAccount.click();
+
+      //Найти на странице кнопку зарегистрироваться
+      WebElement buttonRegistration = driver.findElement(By.linkText("Зарегистрироваться"));
+      String value2 = buttonRegistration.getText();
+      Assert.assertEquals(value2, "Зарегистрироваться");
+      buttonRegistration.click();
+
+      //Проверить, что открылась страница регистрации
+      WebElement listRegistration = driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div/div/div[1]/h1"));
+      String value3 = listRegistration.getText();
+      Assert.assertEquals(value3, "Регистрация");
+
+      //Заполнить поля для регистрации
+      WebElement surname = driver.findElement(By.id("client_surname"));
+      surname.sendKeys("Кристина");
+
+      WebElement name = driver.findElement(By.id("client_name"));
+      name.sendKeys("Петрова");
+
+      WebElement telephone = driver.findElement(By.id("client_phone"));
+      telephone.sendKeys("79514682923");
+
+      WebElement email = driver.findElement(By.id("client_email"));
+      email.sendKeys("miklyaeva99@mail.ru");
+
+      WebElement password = driver.findElement(By.id("client_password"));
+      password.sendKeys("1234567890");
+
+      WebElement repeatPassword = driver.findElement(By.id("client_password_confirmation"));
+      repeatPassword.sendKeys("1234567890");
+    }
+    finally {
+      driver.quit();
+    }
+  }
 }
