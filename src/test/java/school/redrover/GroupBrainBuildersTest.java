@@ -1,5 +1,6 @@
 package school.redrover;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -118,4 +119,83 @@ public class GroupBrainBuildersTest extends BaseTest {
         WebElement tooltip = getDriver().findElement(By.xpath("//img[@aria-describedby = 'tippy-10']"));
         Assert.assertTrue(tooltip.isDisplayed());
     }
+
+
+    private void createNewItemFreestyle(String freestyleName) throws InterruptedException {
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+
+        getDriver().findElement(By.className("jenkins-input")).sendKeys(freestyleName);
+
+        getDriver().findElement(By.xpath("//*[@id='j-add-item-type-standalone-projects']/ul/li[1]")).click();
+        getDriver().findElement(By.xpath("//*[@id='ok-button']")).click();
+
+        getDriver().findElement(By.xpath("//*[@class='jenkins-button jenkins-button--primary ']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "Project " + freestyleName);
+    }
+
+    private void deleteItemFreestyle(String freestyleName) throws InterruptedException {
+
+        getDriver().findElement(By.xpath("//a[@href='job/" + freestyleName + "/']")).click();
+
+        getDriver().findElement(By.xpath("//*[@id='tasks']/div[6]/span/a/span[1]")).click();
+
+        Alert alert = getDriver().switchTo().alert();
+        alert.accept();
+    }
+
+    @Test
+    public void changeItemFreestyleName() throws InterruptedException {
+
+        final String FREESTYLE_PROJECT_NAME = "Brains";
+        final String FREESTYLE_PROJECT_CHANGED_NAME = "NEW_Brains";
+
+        createNewItemFreestyle(FREESTYLE_PROJECT_NAME);
+
+        getDriver().findElement(By.xpath("//a[@href='/']")).click();
+
+        getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_NAME + "/']")).click();
+
+        getDriver().findElement(By.xpath("//a[@href='/job/" + FREESTYLE_PROJECT_NAME + "/confirm-rename']")).click();
+
+        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input")).clear();
+        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input")).sendKeys(FREESTYLE_PROJECT_CHANGED_NAME);
+
+        getDriver().findElement(By.xpath("//*[@id='bottom-sticker']/div/button")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "Project " + FREESTYLE_PROJECT_CHANGED_NAME);
+
+        getDriver().findElement(By.xpath("//a[@href='/']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_CHANGED_NAME + "/']")).getText(), FREESTYLE_PROJECT_CHANGED_NAME);
+
+        deleteItemFreestyle(FREESTYLE_PROJECT_CHANGED_NAME);
+    }
+
+    @Test
+    public void addItemFreestyleDescription() throws InterruptedException {
+
+        final String FREESTYLE_PROJECT_NAME = "New_brains";
+
+        createNewItemFreestyle(FREESTYLE_PROJECT_NAME);
+
+        getDriver().findElement(By.xpath("//a[@href='/']")).click();
+
+        getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_NAME + "/']")).click();
+
+        getDriver().findElement(By.xpath("//a[@href='editDescription']")).click();
+
+        getDriver().findElement(By.xpath("//*[@id='description']/form/div[1]/div[1]/textarea")).clear();
+        getDriver().findElement(By.xpath("//*[@id='description']/form/div[1]/div[1]/textarea")).sendKeys("my_new_project");
+        getDriver().findElement(By.xpath("//*[@id='description']/form/div[2]/button")).click();
+
+        WebElement description = getDriver().findElement(By.xpath("//*[@id='description']/div[1]"));
+        Thread.sleep(2000);
+        String value1 = description.getText();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='description']/div[1]")).getText(), "my_new_project");
+
+        deleteItemFreestyle(FREESTYLE_PROJECT_NAME);
+    }
+
 }
