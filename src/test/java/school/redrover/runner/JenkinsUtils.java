@@ -4,9 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.net.URI;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -98,7 +101,9 @@ public class JenkinsUtils {
 
             // Поле sessionId используется внутри postHttp
             HttpResponse<String> indexPage = postHttp(ProjectUtils.getUrl() + "j_spring_security_check",
-                    String.format("j_username=%s&j_password=%s&from=%%2F&Submit=", ProjectUtils.getUserName(), ProjectUtils.getPassword()));
+                    String.format("j_username=%s&j_password=%s&from=%%2F&Submit=",
+                            URLEncoder.encode(ProjectUtils.getUserName(), StandardCharsets.UTF_8),
+                            URLEncoder.encode(ProjectUtils.getPassword(), StandardCharsets.UTF_8)));
             sessionId = indexPage.headers().firstValue(HEAD_COOKIE).orElse("");
 
             page = getHttp(ProjectUtils.getUrl() + uri);
