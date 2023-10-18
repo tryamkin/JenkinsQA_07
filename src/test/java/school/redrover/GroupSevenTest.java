@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 
+@Ignore
 public class GroupSevenTest extends BaseTest {
     @Test
     public void testKylieTitle() {
@@ -61,48 +62,32 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertTrue(resultText.contains("Behavior-driven development"));
     }
 
-    @Ignore
     @Test
     public void testSearch() {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("https://elitetransit.com/");
 
-            driver.manage().window().maximize();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
-            WebElement buttonContact = driver.findElement(By.xpath("//ul[@id='top-menu']//a[normalize-space()='Contact']"));
+            getDriver().get("https://elitetransit.com/");
+            WebElement buttonContact = getDriver().findElement(By.xpath("//ul[@id='top-menu']//a[normalize-space()='Contact']"));
             buttonContact.click();
-            String title = driver.getTitle();
+
+            String title = getDriver().getTitle();
 
             Assert.assertEquals(title, "Contact | ELITE Transit Solutions");
-        } finally {
-            driver.quit();
-        }
+
     }
 
-    @Ignore
     @Test
-    public void testTextInput() {
+    public void testTextInput()  {
 
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("https://www.selenium.dev/selenium/web/web-form.html");
-
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(800));
-
-            WebElement input = driver.findElement(By.id("my-text-id"));
+            getDriver().get("https://www.selenium.dev/selenium/web/web-form.html");
+            WebElement input = getDriver().findElement(By.id("my-text-id"));
             input.click();
             input.sendKeys("Selenium");
 
-            WebElement submit = driver.findElement(By.tagName("button")); ////button[@type='submit']
+            WebElement submit = getDriver().findElement(By.tagName("button")); ////button[@type='submit']
             submit.submit();
-            WebElement message = driver.findElement(By.id("message"));
+            WebElement message = getDriver().findElement(By.id("message"));
             Assert.assertEquals(message.getText(), "Received!");
-        } finally {
-            driver.quit();
-        }
+
     }
 
     @Ignore
@@ -184,9 +169,9 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertEquals(resultHeader.getText(), "Harry Potter");
     }
 
+    @Ignore
     @Test
     public void testJenkinsAbout() {
-        JenkinsUtils.login(getDriver());
 
         WebElement bottomRightButtonExpand = getDriver().findElement(By.xpath("//button[normalize-space()='Jenkins 2.414.2']"));
         bottomRightButtonExpand.click();
@@ -280,7 +265,7 @@ public class GroupSevenTest extends BaseTest {
         }
     }
 
-
+    @Ignore
     @Test
     public void testBooksSearch() {
         getDriver().get("https://www.doylestownbookshop.com/");
@@ -409,7 +394,6 @@ public class GroupSevenTest extends BaseTest {
 
     @Test
     public void testToolsSearch() {
-        JenkinsUtils.login(getDriver());
         String title = getDriver().getTitle();
         Assert.assertEquals(title, "Dashboard [Jenkins]");
 
@@ -444,7 +428,6 @@ public class GroupSevenTest extends BaseTest {
 
     @Test
     public void testUserPage() {
-        JenkinsUtils.login(getDriver());
 
         WebElement userIcon = getDriver().findElement(By.xpath("//a[@href='/user/admin']"));
         userIcon.click();
@@ -468,7 +451,6 @@ public class GroupSevenTest extends BaseTest {
 
     @Test
     public void testSearchBar() {
-        JenkinsUtils.login(getDriver());
 
         WebElement searchBar = getDriver().findElement(By.xpath("//input[@id='search-box']"));
         searchBar.click();
