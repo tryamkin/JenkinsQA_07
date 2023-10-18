@@ -1,4 +1,4 @@
-package school.redrover.runner;
+package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -76,7 +76,7 @@ public class MiklyaevaTest {
     }
   }
   @Test
-  public void fillingOutTheRegistrationForm() throws InterruptedException {
+  public void fillingOutTheRegistrationForm() {
     WebDriver driver = new ChromeDriver();
     try { //Зайти на сайт
       driver.get("https://www.vivi-cosmetics.ru/");
