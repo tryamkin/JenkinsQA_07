@@ -10,84 +10,30 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.JenkinsUtils;
 
-import static org.testng.Assert.assertEquals;
-
-
-public class GroupTestscriptCollaboratoriumTest extends BaseTest{
-    @Ignore
+public class GroupTestscriptCollaboratoriumTest extends BaseTest {
     @Test
-    public void getGuru() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.guru99.com/");
+    public void testVersion() {
 
-        String title = driver.getTitle();
-        assertEquals("Meet Guru99 – Free Training Tutorials & Video for IT Courses", title);
+        getDriver().findElement(By.xpath("//*[@id = 'jenkins']/footer/div/div[2]/button")).click();
+        getDriver().findElement(By.xpath("//a[@href = '/manage/about']")).click();
 
+        WebElement version = getDriver().findElement(By.xpath("//p[@class = 'app-about-version']"));
 
-        WebElement JUnitButton = driver.findElement(By.xpath("//*[@data-lasso-id='147439']"));
-        JUnitButton.click();
-
-        Thread.sleep(900);
-
-        WebElement textButton = driver.findElement(By.xpath("//*[@id='post-862']/div/div/h2[2]"));
-        Assert.assertEquals(textButton.getText(),"JUnit Tutorial Syllabus");
-
-        driver.quit();
+        Assert.assertEquals(version.getText(), "Version 2.414.2");
     }
+
     @Test
-    public void testSubscription(){
+    public void testCreateNewPipelineProject() {
 
-            getDriver().get("https://murzilka.org/");
+        final String projectName = "TestNew";
 
-            String title = getDriver().getTitle();
-            Assert.assertEquals(title, "Журнал \"Мурзилка\"");
-
-            WebElement textButton = getDriver().findElement(By.xpath("//*[@class='mrb-btn-item-text']"));
-            String valueButton = textButton.getText();
-            Assert.assertEquals(valueButton, "Подписаться на журнал");
-
-
-            textButton.click();
-            WebElement message = getDriver().findElement(By.xpath("//h1[@class='category-name']"));
-            String valueH1 = message.getText();
-            Assert.assertEquals(valueH1, "РЕДАКЦИОННАЯ ПОДПИСКА");
-
+        getDriver().findElement(By.xpath("//a[@href='newJob']")).click();
+        getDriver().findElement(By.id("name")).sendKeys(projectName);
+        getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.name("Submit")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id='main-panel']/h1")).getText(),
+                String.format("Pipeline %s", projectName));
     }
-    @Test
-    public void testAddToBasket() throws InterruptedException{
 
-            getDriver().get("https://murzilka.org/products/category/redaktsionnaya-podpiska");
-            WebElement addButton = getDriver().findElement(By.xpath("//button[@class='button product-item__button button_for_product-card cart-btn js-order-product js-cart-btn']"));
-            addButton.click();
-            Thread.sleep(200);
-
-            WebElement inBasket = getDriver().findElement(By.xpath("//*[@class='quantity-items top-cart__quantity']"));
-            String valueBasket = inBasket.getText();
-            Assert.assertEquals(valueBasket, "1");
-
-    }
-    @Test
-    public void testSearch(){
-        JenkinsUtils.login(getDriver());
-        Assert.assertEquals(
-                getDriver().findElement(By.cssSelector(".empty-state-block > h1")).getText(),
-                "Welcome to Jenkins!");
-    }
-    @Test
-    public void testVersion(){
-
-        JenkinsUtils.login(getDriver());
-
-        WebElement buttonVersion = getDriver().findElement(By.xpath("//*[@id='jenkins']/footer/div/div[2]/button"));
-        buttonVersion.click();
-
-        WebElement buttonVersionNext = getDriver().findElement(By.xpath("//a[@href='/manage/about']"));
-        buttonVersionNext.click();
-
-        WebElement version = getDriver().findElement(By.xpath("//p[@class='app-about-version']"));
-        String valueVersion = version.getText();
-        Assert.assertEquals(valueVersion, "Version 2.414.2");
-
-
-    }
 }
