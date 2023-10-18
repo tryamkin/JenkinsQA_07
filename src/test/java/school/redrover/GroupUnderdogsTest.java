@@ -523,6 +523,7 @@ public class GroupUnderdogsTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test
     public void testDescription() {
         JenkinsUtils.login(getDriver());

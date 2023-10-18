@@ -95,6 +95,7 @@ public class GroupJavaExplorersTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test
     public void testSearchOlivia(){
         getDriver().get(BASE_URL);

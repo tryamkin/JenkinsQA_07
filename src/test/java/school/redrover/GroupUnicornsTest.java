@@ -5,8 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -14,8 +12,10 @@ import school.redrover.runner.BaseTest;
 import school.redrover.runner.JenkinsUtils;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -345,6 +345,20 @@ public class GroupUnicornsTest extends BaseTest {
         getDriver().findElement(By.xpath("//label[@for='name']")).click();
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id='itemname-required']")).getText(), "» This field cannot be empty, please enter a valid name");
 
+    }
+
+    @Test
+    public void testDashboardItems()
+    {
+        JenkinsUtils.login(getDriver());
+        List<String> listOfExpectedItems = Arrays.asList("New Item", "People", "Build History", "Manage Jenkins", "My Views");
+        List<WebElement> listOfDashboardItems = getDriver().findElements(By.xpath("//span[@class='task-link-text' and contains(., '')]"));
+
+        List<String> extractedTexts = listOfDashboardItems.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+
+        Assert.assertEquals(listOfExpectedItems, extractedTexts);
     }
 
     @Test
