@@ -437,4 +437,34 @@ public class GroupUnicornsTest extends BaseTest {
 
         Assert.assertEquals(projectDescription, previewProjectDescription);
     }
+
+    @Test
+    public void testDiscardOldBuildsCheckStrategyVisible() throws InterruptedException {
+        createNewProject();
+        getDriver().findElement(By.xpath("//input[@id='cb4']/parent::span")).click();
+
+        boolean strategyIsVisible = getDriver().findElement(By.xpath("//div[@class='optionalBlock-container jenkins-form-item jenkins-form-item--tight']//div[@class='form-container tr']")).isDisplayed();
+        assertTrue(strategyIsVisible);
+    }
+
+    @Test
+    public void testDiscardOldBuildsCheckDaysToKeepBuildsClickableAndSaves() throws InterruptedException {
+
+        String sendKeys = "120";
+
+        createNewProject();
+        getDriver().findElement(By.xpath("//input[@id='cb4']/parent::span")).click();
+        getDriver().findElement(By.xpath("//div[@class='setting-main']/input[@name= '_.daysToKeepStr']")).sendKeys(sendKeys);
+        getDriver().findElement(By.xpath("//div[@class='setting-main']/input[@name= '_.numToKeepStr']")).sendKeys(sendKeys);
+
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        getDriver().findElement(By.xpath("//div[@id='tasks']/div[5]")).click();
+
+        String resultAfterSaving1 = getDriver().findElement(By.xpath("//div[@class='setting-main']/input[@name= '_.daysToKeepStr']")).getAttribute("value");
+        String resultAfterSaving2 = getDriver().findElement(By.xpath("//div[@class='setting-main']/input[@name= '_.numToKeepStr']")).getAttribute("value");
+
+        Assert.assertEquals(resultAfterSaving1, sendKeys);
+        Assert.assertEquals(resultAfterSaving2, sendKeys);
+    }
 }
