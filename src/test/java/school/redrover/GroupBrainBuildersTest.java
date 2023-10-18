@@ -121,7 +121,7 @@ public class GroupBrainBuildersTest extends BaseTest {
     }
 
 
-    private void createNewItemFreestyle(String freestyleName) throws InterruptedException {
+    private void createNewItemFreestyle(String freestyleName) {
 
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
 
@@ -135,7 +135,7 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "Project " + freestyleName);
     }
 
-    private void deleteItemFreestyle(String freestyleName) throws InterruptedException {
+    private void deleteItemFreestyle(String freestyleName) {
 
         getDriver().findElement(By.xpath("//a[@href='job/" + freestyleName + "/']")).click();
 
@@ -148,51 +148,47 @@ public class GroupBrainBuildersTest extends BaseTest {
     @Test
     public void changeFreestyleName() throws InterruptedException {
 
-        final String FREESTYLE_PROJECT_NAME = "Brains";
-        final String FREESTYLE_PROJECT_CHANGED_NAME = "NEW_Brains";
+        final String freestyleProjectName = "Brains";
+        final String freestyleChangedProjectName = "NEW_Brains";
 
-        createNewItemFreestyle(FREESTYLE_PROJECT_NAME);
+        createNewItemFreestyle(freestyleProjectName);
 
         getDriver().findElement(By.xpath("//a[@href='/']")).click();
 
-        getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_NAME + "/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='job/" + freestyleProjectName + "/']")).click();
 
-        getDriver().findElement(By.xpath("//a[@href='/job/" + FREESTYLE_PROJECT_NAME + "/confirm-rename']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/" + freestyleProjectName + "/confirm-rename']")).click();
 
-        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input")).clear();
-        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input")).sendKeys(FREESTYLE_PROJECT_CHANGED_NAME);
-
+        WebElement newNameField = getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input"));
+        newNameField.clear();
+        newNameField.sendKeys(freestyleChangedProjectName);
         getDriver().findElement(By.xpath("//*[@id='bottom-sticker']/div/button")).click();
 
         getDriver().findElement(By.xpath("//a[@href='/']")).click();
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_CHANGED_NAME + "/']")).getText(), FREESTYLE_PROJECT_CHANGED_NAME);
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/" + freestyleChangedProjectName + "/']")).getText(), freestyleChangedProjectName);
 
-        deleteItemFreestyle(FREESTYLE_PROJECT_CHANGED_NAME);
+        deleteItemFreestyle(freestyleChangedProjectName);
     }
 
     @Test
     public void addFreestyleDescription() throws InterruptedException {
 
-        final String FREESTYLE_PROJECT_NAME = "New_brains";
+        final String freeStyleProjectName = "New_brains";
 
-        createNewItemFreestyle(FREESTYLE_PROJECT_NAME);
+        createNewItemFreestyle(freeStyleProjectName);
 
         getDriver().findElement(By.xpath("//a[@href='/']")).click();
 
-        getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_PROJECT_NAME + "/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='job/" + freeStyleProjectName + "/']")).click();
 
         getDriver().findElement(By.xpath("//a[@href='editDescription']")).click();
 
-        getDriver().findElement(By.xpath("//*[@id='description']/form/div[1]/div[1]/textarea")).clear();
-        getDriver().findElement(By.xpath("//*[@id='description']/form/div[1]/div[1]/textarea")).sendKeys("my_new_project");
+        WebElement descriptionField = getDriver().findElement(By.xpath("//*[@id='description']/form/div[1]/div[1]/textarea"));
+        descriptionField.clear();
+        descriptionField.sendKeys("my_new_project");
         getDriver().findElement(By.xpath("//*[@id='description']/form/div[2]/button")).click();
 
-        WebElement description = getDriver().findElement(By.xpath("//*[@id='description']/div[1]"));
-        Thread.sleep(2000);
-        String value1 = description.getText();
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='description']/div[1]")).getText(), "my_new_project");
-
     }
-
 }
