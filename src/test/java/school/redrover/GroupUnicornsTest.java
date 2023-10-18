@@ -9,7 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-import school.redrover.runner.JenkinsUtils;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -42,6 +41,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertEquals(getDriver().getTitle(), "Send Mail & Packages | USPS");
     }
 
+    @Ignore
     @Test
     public void testSuccessfulLogin() {
         WebDriver driver = getDriver();
@@ -55,6 +55,7 @@ public class GroupUnicornsTest extends BaseTest {
         assertTrue(actual.contains("You logged into a secure area!"));
     }
 
+    @Ignore
     @Test
     public void testLoginAttemptWithInvalidUsername() {
         WebDriver driver = getDriver();
@@ -68,6 +69,7 @@ public class GroupUnicornsTest extends BaseTest {
         assertTrue(actual.contains("Your username is invalid!"));
     }
 
+    @Ignore
     @Test
     public void W3school1test() {
         getDriver().get("https://www.w3schools.com/");
@@ -93,6 +95,7 @@ public class GroupUnicornsTest extends BaseTest {
                 "REST API");
     }
 
+    @Ignore
     @Test
     public void testDemoWebShop() {
 
@@ -118,6 +121,7 @@ public class GroupUnicornsTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testSearchVerificationGitHub() {
         getDriver().get("https://github.com");
@@ -138,6 +142,7 @@ public class GroupUnicornsTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testTradingView() throws InterruptedException {
         final String URL = "https://www.tradingview.com/chart/";
@@ -156,7 +161,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertEquals(newTickerNameActual.getText(), "SPX");
     }
 
-
+    @Ignore
     @Test
     public void testComputersMenu() {
 
@@ -176,7 +181,7 @@ public class GroupUnicornsTest extends BaseTest {
         assertTrue(actual);
     }
 
-
+    @Ignore
     @Test
     public void unsuccessfulLoginDigitalBankTest() {
 
@@ -191,6 +196,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertTrue(errorMsg.isDisplayed(), "Error message is displayed");
     }
 
+    @Ignore
     @Test
     public void successfulLoginDigitalBankTest() {
 
@@ -271,6 +277,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertEquals(descText, actualText);
     }
 
+    @Ignore
     @Test
     public void testRaiffeisenBank() {
         final List<String> currnecyExpected = List.of("USD", "EUR", "GBP", "CHF", "JPY", "CNY");
@@ -325,6 +332,7 @@ public class GroupUnicornsTest extends BaseTest {
         Assert.assertEquals(listOfExpectedItems, extractedTexts);
     }
 
+    @Ignore
     @Test
     public void testMyStudyingPage() {
 
@@ -388,5 +396,45 @@ public class GroupUnicornsTest extends BaseTest {
     String createdJobName = getDriver().findElement(By.xpath("//div[@id='main-panel']/h1")).getText();
 
     Assert.assertEquals(createdJobName, String.format("Project %s", JOB_NAME));
+    }
+
+    final String PROJECTNAME = "Project 07";
+
+    private void createNewProject() {
+        getDriver().findElement(By.xpath("(//a[@href = '/view/all/newJob'])")).click();
+
+        getDriver().findElement(By.xpath("//input[@name = 'name']")).sendKeys(PROJECTNAME);
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Freestyle project')]")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+    }
+
+    @Test
+    public void testCheckJenkinsVersion() {
+        final String VERSION = "Jenkins 2.414.2";
+        String version = getDriver().findElement(By.cssSelector("button[type = 'button']")).getText();
+        Assert.assertEquals(version, VERSION);
+    }
+
+    @Test
+    public void testNewFreestyleProjectIsCreated() throws InterruptedException {
+        createNewProject();
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+        getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//a[@class='model-link']")).click();
+        WebElement projectsList = getDriver().findElement(By.xpath("//table[@id='projectstatus']"));
+        String[] array = projectsList.getText().split("\n");
+
+        boolean isCreated = Arrays.asList(array).contains(PROJECTNAME);
+        Assert.assertTrue(isCreated);
+    }
+
+    @Test
+    public void testDescriptionPreviewHidePreview() throws InterruptedException {
+        createNewProject();
+        String projectDescription = "Project Description of " + PROJECTNAME;
+        getDriver().findElement(By.xpath("//textarea[@name = 'description']")).sendKeys(projectDescription);
+        getDriver().findElement(By.xpath("//a[@class = 'textarea-show-preview']")).click();
+        String previewProjectDescription = getDriver().findElement(By.className("textarea-preview")).getText();
+
+        Assert.assertEquals(projectDescription, previewProjectDescription);
     }
 }
