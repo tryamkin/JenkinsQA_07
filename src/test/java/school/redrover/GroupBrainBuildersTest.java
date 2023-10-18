@@ -64,32 +64,6 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertEquals(resultName, "МИНИ ПОРТМОНЕ MODULE");
     }
 
-    @Ignore
-    @Test
-    public void testAlcobendasSearch() throws InterruptedException{
-
-        getDriver().get("https://www.alcobendas.org/es");
-
-        String title = getDriver().getTitle();
-        assertEquals(title, "Página Web del Ayuntamiento de Alcobendas");
-
-        Thread.sleep(2000);
-
-        WebElement lupaButton = getDriver().findElement(By.xpath("//*[@id='block-views-block-ayto-vista-lupa-header-block-1']/div/div"));
-        WebElement buscarButton = getDriver().findElement(By.xpath("//*[@id='edit-submit-ayto-resultados-de-busqueda-bloque']"));
-        WebElement searchInput = getDriver().findElement(By.xpath("//*[@id='edit-buscar']"));
-
-        lupaButton.click();
-        searchInput.sendKeys("yoga");
-        buscarButton.click();
-
-        WebElement resultOfSearch = getDriver().findElement(By.xpath("//*[@id='block-contenidoprincipaldelapagina-2']/div/div/div[1]/div[1]/h2"));
-        Thread.sleep(2000);
-        String value = resultOfSearch.getText();
-        Assert.assertEquals(value, "/2 resultados");
-    }
-
-
     @Test
     public void testJenkinsAdminStatus() {
 
