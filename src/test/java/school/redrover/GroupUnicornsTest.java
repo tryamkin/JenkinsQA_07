@@ -84,7 +84,7 @@ public class GroupUnicornsTest extends BaseTest {
        List<WebElement> listOfDashboardItems = getDriver().findElements(By.xpath("//span[@class='task-link-text' and contains(., '')]"));
        List<String> extractedTexts = listOfDashboardItems.stream().map(WebElement::getText).collect(Collectors.toList());
 
-       assertEquals(listOfExpectedItems, extractedTexts);
+       assertEquals(extractedTexts,listOfExpectedItems);
        assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "FolderTest");
        assertEquals(getDriver().findElement(By.xpath("//*[@id='description']/div[1]")).getText(), "Testing folder");
 }
