@@ -100,25 +100,6 @@ public class LocomotiveGroupTest extends BaseTest {
         RadioButton.click();
     }
 
-    @Ignore
-    @Test
-
-    public void DashboardButtonTest() {
-        WebDriver driver = new ChromeDriver();
-        try {
-            driver.get("https://refero.design/");
-            WebElement bentoBox = driver.findElement(By.xpath("//div[@class='xK9VF'][contains(text(),'Dashboard')]"));
-            Actions actions = new Actions(driver);
-            actions.moveToElement(bentoBox);
-            bentoBox.click();
-
-            Assert.assertEquals(driver.getCurrentUrl(), "https://refero.design/search?page_types[id][]=28&order=popular");
-        } finally {
-            driver.quit();
-        }
-      }
-
-
       @Test
     public void testYandexSearchBar(){
         String url = "https://ya.ru/";
@@ -252,6 +233,15 @@ public class LocomotiveGroupTest extends BaseTest {
         // learn how to find a picture on a page
         Assert.assertEquals(getDriver().findElement(By.xpath(
                 "//div[@class='col']/h1")).getText(), "Биоритмы");
+
+    }
+
+    @Test
+    public void testOpenBuildHistory() {
+
+        getDriver().findElement(By.xpath("//*[@href='/view/all/builds']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.className("jenkins-app-bar__content")).getText(), "Build History of Jenkins");
 
     }
 
