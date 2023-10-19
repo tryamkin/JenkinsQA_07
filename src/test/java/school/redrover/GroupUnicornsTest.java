@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-
-//@Ignore
 public class GroupUnicornsTest extends BaseTest {
 
     @Test
@@ -30,18 +28,16 @@ public class GroupUnicornsTest extends BaseTest {
         getDriver().findElement(By.xpath("//label[@for='hudson.slaves.DumbSlave']")).click();
         getDriver().findElement(By.xpath("//button[@id='ok']")).click();
 
-        Assert.assertTrue(getDriver().findElement(By.xpath("//div[contains(text(),'Remote directory is mandatory')]")).isDisplayed());
+        Assert.assertTrue(getDriver().
+                findElement(By.xpath("//div[contains(text(),'Remote directory is mandatory')]")).isDisplayed());
     }
 
-    @Ignore //putting ignore, it's failing during CI check
     @Test
-    public void testUsPsSendMailPackageOpen() {
-        getDriver().get("https://www.usps.com/");
+    public void testVerifyBuildHistoryTabOpens() {
+        getDriver().findElement(By.xpath("//a[@href='/view/all/builds']")).click();
 
-        WebElement send = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
-        send.click();
-
-        Assert.assertEquals(getDriver().getTitle(), "Send Mail & Packages | USPS");
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1[normalize-space()='Build History of Jenkins']"))
+                .getText(), "Build History of Jenkins");
     }
 
     @Ignore
@@ -75,23 +71,23 @@ public class GroupUnicornsTest extends BaseTest {
     @Test
     public void TestCreateNewFolderAndCheckDashboard() {
 
-       getDriver().findElement(By.linkText("New Item")).click();
-       getDriver().findElement(By.id("name")).sendKeys("FolderTest");
-       getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
-       getDriver().findElement(By.id("ok-button")).click();
-       getDriver().findElement(By.name("Submit")).click();
-       getDriver().findElement(By.id("description-link")).click();
-       getDriver().findElement(By.className("jenkins-input")).sendKeys("Testing folder");
-       getDriver().findElement(By.name("Submit")).click();
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.id("name")).sendKeys("FolderTest");
+        getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.name("Submit")).click();
+        getDriver().findElement(By.id("description-link")).click();
+        getDriver().findElement(By.className("jenkins-input")).sendKeys("Testing folder");
+        getDriver().findElement(By.name("Submit")).click();
 
-       List<String> listOfExpectedItems = Arrays.asList("Status", "Configure", "New Item", "Delete Folder", "People", "Build History", "Rename", "Credentials");
-       List<WebElement> listOfDashboardItems = getDriver().findElements(By.xpath("//span[@class='task-link-text' and contains(., '')]"));
-       List<String> extractedTexts = listOfDashboardItems.stream().map(WebElement::getText).collect(Collectors.toList());
+        List<String> listOfExpectedItems = Arrays.asList("Status", "Configure", "New Item", "Delete Folder", "People", "Build History", "Rename", "Credentials");
+        List<WebElement> listOfDashboardItems = getDriver().findElements(By.xpath("//span[@class='task-link-text' and contains(., '')]"));
+        List<String> extractedTexts = listOfDashboardItems.stream().map(WebElement::getText).collect(Collectors.toList());
 
-       assertEquals(extractedTexts,listOfExpectedItems);
-       assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "FolderTest");
-       assertEquals(getDriver().findElement(By.xpath("//*[@id='description']/div[1]")).getText(), "Testing folder");
-}
+        assertEquals(extractedTexts, listOfExpectedItems);
+        assertEquals(getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(), "FolderTest");
+        assertEquals(getDriver().findElement(By.xpath("//*[@id='description']/div[1]")).getText(), "Testing folder");
+    }
 
     @Test
     public void TestJenkins() {
@@ -456,7 +452,7 @@ public class GroupUnicornsTest extends BaseTest {
 
         getDriver().findElement(By.xpath("(//*[@class = 'task-icon-link']) [1]")).click();
         String expectedTitle = "New Item [Jenkins]";
-        
+
         Assert.assertEquals(getDriver().getTitle(), expectedTitle);
     }
 }
