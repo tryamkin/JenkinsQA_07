@@ -69,7 +69,6 @@ public class GroupUnicornsTest extends BaseTest {
         assertTrue(actual.contains("Your username is invalid!"));
     }
 
-    @Ignore
     @Test
     public void TestCreateNewFolderAndCheckDashboard() {
 
