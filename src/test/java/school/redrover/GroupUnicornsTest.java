@@ -22,12 +22,14 @@ import static org.testng.Assert.assertTrue;
 public class GroupUnicornsTest extends BaseTest {
 
     @Test
-    public void testVerifyRemoteDirectoryIsMandatoryForSetUpAnAgent() {
+    public void testVerifyRemoteDirectoryIsMandatoryForSetUpAnAgent() throws InterruptedException {
         getDriver().findElement(By.xpath("//span[normalize-space()='Set up an agent']")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys("PKTest");
         getDriver().findElement(By.xpath("//label[@for='hudson.slaves.DumbSlave']")).click();
         getDriver().findElement(By.xpath("//button[@id='ok']")).click();
 
+        // added  this wait until we implement implicit wait in our Base test
+        Thread.sleep(1000);
         Assert.assertTrue(getDriver().
                 findElement(By.xpath("//div[contains(text(),'Remote directory is mandatory')]")).isDisplayed());
     }
