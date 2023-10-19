@@ -10,13 +10,14 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-import school.redrover.runner.JenkinsUtils;
+
 
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
+
 
 
 public class GroupJavaExplorersTest extends BaseTest {
@@ -318,6 +319,15 @@ public class GroupJavaExplorersTest extends BaseTest {
         String jenkinsJobName = getDriver().findElement(By.xpath("//*[@class='job-index-headline page-headline']")).getText();
 
         Assert.assertTrue(jenkinsJobName.contains(testFreeStyleProjectName));
+
+    }
+
+    @Test
+    public void testVersion() {
+
+        WebElement version = getDriver().findElement(By.xpath("//button[contains(text(), 'Jenkins 2.414.2')]"));
+        String versionName = version.getText();
+        Assert.assertEquals(versionName, "Jenkins 2.414.2");
 
     }
 
