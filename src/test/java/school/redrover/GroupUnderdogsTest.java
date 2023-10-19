@@ -8,6 +8,7 @@ import school.redrover.runner.BaseTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -24,7 +25,7 @@ public class GroupUnderdogsTest extends BaseTest {
 
 
     @Test
-    public void  test99BottlesTitleTest_tereshenkov29() {
+    public void test99BottlesTitleTest_tereshenkov29() {
         getDriver().get(MAIN_PAGE_URL_99BOTTLES);
         WebElement title = getDriver().findElement(By.xpath("//*[@id=\"header\"]/h1"));
         String titleValue = title.getText();
@@ -83,18 +84,9 @@ public class GroupUnderdogsTest extends BaseTest {
         assertEquals(authorNames, expectedAuthorNames);
     }
 
-    @Test
-    public void testInactiveMember_maksin() {
-
-        getDriver().get("http://www.99-bottles-of-beer.net/team.html");
-        WebElement text = getDriver().findElement(By.xpath
-                ("/html/body/div/div[3]/p[7]/font/b"));
-        Assert.assertTrue(text.getText().toLowerCase().equals(text.getText()));
-        assertEquals(text.getCssValue("color"), "rgba(255, 0, 0, 1)");
-    }
 
     @Test
-    public void testJenkinsLogOut_maksin() throws InterruptedException {
+    public void testJenkinsLogOut_maksin() {
 
         getDriver().findElement(By.xpath("//*[@id='page-header']/div[3]/a[2]")).click();
         Assert.assertEquals(getDriver().findElement(By.xpath
@@ -102,7 +94,36 @@ public class GroupUnderdogsTest extends BaseTest {
                 "Sign in to Jenkins");
     }
 
+    @Test
+    public void testVerifyIconSize() {
 
+        final String projectName = "test";
+        final String background = "rgba(175, 175, 207, 0.176)";
+
+        getDriver().findElement(By.xpath("(//a[@href='/view/all/newJob'])[1]")).click();
+        getDriver().findElement(By.xpath("(//input[@id='name'])[1]")).sendKeys(projectName);
+        getDriver().findElement(By.xpath("(//span[normalize-space()='Folder'])[1]")).click();
+        getDriver().findElement(By.xpath("//*[@id=\"ok-button\"]")).click();
+        getDriver().findElement(By.xpath("//*[@id=\"bottom-sticker\"]/div/button[1]")).click();
+        getDriver().findElement(By.xpath("(//a[normalize-space()='Dashboard'])[1]")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.cssSelector(".jenkins-table__link > span")).getText(), projectName);
+
+        getDriver().findElement(By.xpath("//*[@id=\"main-panel\"]/div[2]/div[2]/div/div[1]/ol/li[2]")).click(); // M
+
+        getDriver().findElement(By.linkText("People")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("/html[1]/body[1]/div[2]/div[2]/div[3]/div[1]/ol[1]/li[2]"))
+                .getCssValue("background-color"), background);
+
+        getDriver().findElement(By.linkText("Build History")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("/html[1]/body[1]/div[2]/div[2]/div[6]/div[1]/ol[1]/li[2]"))
+                .getCssValue("background-color"), background);
+
+        getDriver().findElement(By.linkText("My Views")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("/html[1]/body[1]/div[2]/div[2]/div[2]/div[2]/div[1]/div[1]/ol[1]/li[2]"))
+                .getCssValue("background-color"), background);
+
+    }
 
     public void closePromoDrawerIfVisible() {
         WebElement promoDrawer = getDriver().findElement(By.className("promo-drawer__drawer"));
@@ -115,8 +136,9 @@ public class GroupUnderdogsTest extends BaseTest {
             }
         }
     }
+
     @Test
-    public void  testIdAdminArtuom() throws InterruptedException {
+    public void testIdAdminArtuom() throws InterruptedException {
         getDriver().findElement(By.xpath("//a[@href='/user/admin']")).click();
         getDriver().findElement(By.xpath("(//span[@class='task-link-wrapper '])[4]")).click();
 
@@ -152,7 +174,7 @@ public class GroupUnderdogsTest extends BaseTest {
     }
 
     @Test
-    public void testKristinaNameMenu(){
+    public void testKristinaNameMenu() {
         getDriver().get(ABC_PAGE_URL_99BOTTLES);
         WebElement title = getDriver().findElement(By.xpath("//*[@id='submenu']/li[1]/a"));
         String value = title.getText();
@@ -170,7 +192,7 @@ public class GroupUnderdogsTest extends BaseTest {
     }
 
     @Test
-    public void testKristinaSubmitLanguage(){
+    public void testKristinaSubmitLanguage() {
         getDriver().get(SUBMIT_PAGE_URL_99BOTTLES);
 
         WebElement button = getDriver().findElement(By.xpath("//*[@id='addlanguage']/p/input[8]"));
@@ -231,7 +253,7 @@ public class GroupUnderdogsTest extends BaseTest {
         getDriver().get("https://www.reddit.com/?feed=home");
 
         String title = getDriver().getTitle();
-        Assert.assertEquals( title, "Reddit - Dive into anything");
+        Assert.assertEquals(title, "Reddit - Dive into anything");
 
         getDriver().findElement(By.id("login-button")).click();
         getDriver().findElement(By.id("login-username")).sendKeys("test@mail.ru");
@@ -249,9 +271,9 @@ public class GroupUnderdogsTest extends BaseTest {
 
         String expectedResult = "0-9";
 
-        Assert.assertEquals(menu,expectedResult);
+        Assert.assertEquals(menu, expectedResult);
 
-        }
+    }
 
     @Ignore
     @Test
