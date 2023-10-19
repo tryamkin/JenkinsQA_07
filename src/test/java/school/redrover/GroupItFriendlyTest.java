@@ -268,19 +268,39 @@ public class GroupItFriendlyTest extends BaseTest {
 
 
     @Test
-    public void testCreateNewItem() {
-        getDriver().findElement(By.xpath("//*[@id=\"tasks\"]/div[1]/span/a")).click();
+    public void testCreateNewItemFteestyleProject() {
+        final String freestyleProjectName1 = "New Item Name1 Freestyle project";
 
-        getDriver().findElement(By.xpath("//div/input[@class = 'jenkins-input']")).sendKeys("New Item Name1");
+        getDriver().findElement(By.xpath("//*[@id= 'tasks']/div[1]/span/a")).click();
+
+        getDriver().findElement(By.xpath("//div/input[@class = 'jenkins-input']")).sendKeys(freestyleProjectName1);
         getDriver().findElement(By.xpath("//*[@id = 'j-add-item-type-standalone-projects']/ul/li[1]/div[1]")).click();
         getDriver().findElement(By.cssSelector("#ok-button")).click();
 
         getDriver().findElement(By.xpath("//textarea[@class = 'jenkins-input   ']")).sendKeys("Description for New created item");
         getDriver().findElement(By.xpath("//button[@name = 'Submit']")).click();
 
-        WebElement newItemNameIsExist = getDriver().findElement(By.xpath("//*/div/h1[contains(text(),'Project New Item Name1')]"));
+        getDriver().findElement(By.xpath("//*/div/h1[contains(text(),'Project New Item Name1')]"));
 
-       Assert.assertTrue(newItemNameIsExist.isDisplayed());
+        Assert.assertTrue(getDriver().findElement(By.xpath("//*/div/h1[contains(text(),'Project New Item Name1')]")).isDisplayed());
 
     }
+
+    @Test
+    public void testNewItemMultiConfiguration() {
+        final String pipelineName = "New Item Name2 MultiConfiguration";
+
+        getDriver().findElement(By.xpath("//*[@id='tasks']/div[1]/span/a")).click();
+
+        getDriver().findElement(By.xpath("//div/input[@class = 'jenkins-input']")).sendKeys(pipelineName);
+        getDriver().findElement(By.xpath("//*[@id='j-add-item-type-standalone-projects']/ul/li[3]")).click();
+        getDriver().findElement(By.cssSelector("#ok-button")).click();
+
+        getDriver().findElement(By.xpath("//button[@name = 'Submit']")).click();
+        Assert.assertTrue(getDriver().findElement(By.xpath("//*/div/h1[contains(text(),'New Item Name2 MultiConfiguration')]")).isDisplayed(),"Everyrhing is working,dont forget to improve yout test");
+
+
+
+    }
+
 }
