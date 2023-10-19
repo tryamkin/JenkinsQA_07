@@ -42,6 +42,7 @@ public class AfanasiukTest extends BaseTest {
         Assert.assertEquals(
                 getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(),
                 "Pipeline Pipeline");
+
     }
    }
 
