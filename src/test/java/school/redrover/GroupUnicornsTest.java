@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -17,17 +16,21 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 
 //@Ignore
 public class GroupUnicornsTest extends BaseTest {
 
     @Test
-    public void testUsPsPageOpen() {
-        getDriver().get("https://www.usps.com/");
+    public void testVerifyRemoteDirectoryIsMandatoryForSetUpAnAgent() {
+        getDriver().findElement(By.xpath("//span[normalize-space()='Set up an agent']")).click();
+        getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys("PKTest");
+        getDriver().findElement(By.xpath("//label[@for='hudson.slaves.DumbSlave']")).click();
+        getDriver().findElement(By.xpath("//button[@id='ok']")).click();
 
-        Assert.assertEquals(getDriver().getTitle(), "Welcome | USPS");
+        Assert.assertTrue(getDriver().findElement(By.xpath("//div[contains(text(),'Remote directory is mandatory')]")).isDisplayed());
     }
 
     @Ignore //putting ignore, it's failing during CI check
