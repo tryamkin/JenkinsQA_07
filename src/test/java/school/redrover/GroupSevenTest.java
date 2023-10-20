@@ -10,41 +10,33 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-import school.redrover.runner.JenkinsUtils;
 
 import java.time.Duration;
 import java.util.ArrayList;
 
 
 public class GroupSevenTest extends BaseTest {
-    @Ignore
+
     @Test
-    public void testKylieTitle() {
-        getDriver().get("https://kyliecosmetics.com/");
+    public void testJobCreation() {
 
-        String title = getDriver().getTitle();
+        WebElement createJobButton = getDriver().findElement(By.xpath("//a[@href='newJob']"));
+        createJobButton.click();
 
-        Assert.assertEquals(title, "Kylie Cosmetics by Kylie Jenner | Kylie Skin | Kylie Baby");
-    }
+        WebElement itemName = getDriver().findElement(By.xpath("//input[@class='jenkins-input']"));
+        itemName.sendKeys("First test");
 
-    @Ignore
-    @Test
-    public void testSearchField() {
+        WebElement freestyleProject = getDriver().findElement(By.xpath("//li[@class='hudson_model_FreeStyleProject']//label"));
+        freestyleProject.click();
 
-        getDriver().get("https://kyliecosmetics.com/collections/kylie-cosmetics");
+        WebElement submitButton = getDriver().findElement(By.xpath("//button[@id='ok-button']"));
+        submitButton.click();
 
-        WebElement searchButton = getDriver().findElement(By.xpath("//a[@title='Search']"));
-        searchButton.click();
+        WebElement saveButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
+        saveButton.click();
 
-        WebElement searchInput = getDriver().findElement(By.xpath("//input[@id='SearchForm-Header-Query']"));
-        searchInput.sendKeys("lip kit");
-
-        WebElement searchButtonNext = getDriver().findElement(By.xpath("//button[@id='SearchForm-Header-Submit']"));
-        searchButtonNext.click();
-
-        WebElement title = getDriver().findElement(By.xpath("//h1[normalize-space()='Search']"));
-        String value = title.getText();
-        Assert.assertEquals(value, "SEARCH");
+        WebElement projectTitle = getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
+        Assert.assertTrue(projectTitle.isDisplayed());
     }
 
     @Ignore
@@ -66,30 +58,28 @@ public class GroupSevenTest extends BaseTest {
     @Test
     public void testSearch() {
 
-            getDriver().get("https://elitetransit.com/");
-            WebElement buttonContact = getDriver().findElement(By.xpath("//ul[@id='top-menu']//a[normalize-space()='Contact']"));
-            buttonContact.click();
+        getDriver().get("https://elitetransit.com/");
+        WebElement buttonContact = getDriver().findElement(By.xpath("//ul[@id='top-menu']//a[normalize-space()='Contact']"));
+        buttonContact.click();
 
-            String title = getDriver().getTitle();
+        String title = getDriver().getTitle();
 
-            Assert.assertEquals(title, "Contact | ELITE Transit Solutions");
-
+        Assert.assertEquals(title, "Contact | ELITE Transit Solutions");
     }
 
     @Ignore
     @Test
-    public void testTextInput()  {
+    public void testTextInput() {
 
-            getDriver().get("https://www.selenium.dev/selenium/web/web-form.html");
-            WebElement input = getDriver().findElement(By.id("my-text-id"));
-            input.click();
-            input.sendKeys("Selenium");
+        getDriver().get("https://www.selenium.dev/selenium/web/web-form.html");
+        WebElement input = getDriver().findElement(By.id("my-text-id"));
+        input.click();
+        input.sendKeys("Selenium");
 
-            WebElement submit = getDriver().findElement(By.tagName("button")); ////button[@type='submit']
-            submit.submit();
-            WebElement message = getDriver().findElement(By.id("message"));
-            Assert.assertEquals(message.getText(), "Received!");
-
+        WebElement submit = getDriver().findElement(By.tagName("button")); ////button[@type='submit']
+        submit.submit();
+        WebElement message = getDriver().findElement(By.id("message"));
+        Assert.assertEquals(message.getText(), "Received!");
     }
 
     @Ignore
@@ -139,18 +129,6 @@ public class GroupSevenTest extends BaseTest {
 
     @Ignore
     @Test
-    public void testPricePageHeader() {
-        getDriver().get("https://megagroup.by/");
-
-        WebElement price = getDriver().findElement(By.xpath("//nav[@class='mp-header__nav']/a[@href='/price']"));
-        price.click();
-
-        WebElement header = getDriver().findElement(By.xpath("//h1"));
-        Assert.assertEquals(header.getText(), "Стоимость сайтов");
-    }
-
-    @Ignore
-    @Test
     public void testHPSearch() {
         getDriver().get("https://www.wizardingworld.com/");
 
@@ -183,10 +161,10 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertEquals(resultHeader.getText(), "Jenkins");
 
         WebElement version = getDriver().findElement(By.xpath("//p[@class='app-about-version']"));
-        Assert.assertEquals(version.getText(),"Version 2.414.2");
+        Assert.assertEquals(version.getText(), "Version 2.414.2");
 
         WebElement checkOnWhatPage = getDriver().findElement(By.xpath("(//li[@class='jenkins-breadcrumbs__list-item'])[3]"));
-        Assert.assertEquals(checkOnWhatPage.getText(),"About Jenkins");
+        Assert.assertEquals(checkOnWhatPage.getText(), "About Jenkins");
 
     }
 
@@ -411,7 +389,7 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertTrue(productsPageTitle.isDisplayed(), "Not on product page");
 
 
-        }
+    }
 
     @Test
     public void testUserPage() {
@@ -449,5 +427,38 @@ public class GroupSevenTest extends BaseTest {
         WebElement configureTitle = getDriver().findElement(By.xpath("//h1[normalize-space()='System']"));
         String value = configureTitle.getText();
         Assert.assertEquals(value, "System");
+    }
+
+    @Test
+    public void testCreateNewProject() {
+        getDriver().findElement(By.xpath("//a[@href='newJob']")).click();
+
+        WebElement itemName = getDriver().findElement(By.xpath("//input[@class='jenkins-input']"));
+
+        itemName.sendKeys("1st project");
+        getDriver().findElement(By.xpath("//span[contains(text(),'Freestyle project')]")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        WebElement message = getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
+        String value = message.getText();
+        Assert.assertEquals(value, "Project 1st project");
+    }
+
+    @Test
+    public void testCreatePipeline() {
+        final String PIPELINE_NAME = "New_Pipeline";
+        getDriver().findElement(By.xpath("//a[@href='newJob']")).click();
+
+        getDriver().findElement(By.id("name")).sendKeys(PIPELINE_NAME);
+        getDriver().findElement(By.xpath("//span[text() = 'Pipeline']")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+
+        getDriver().findElement(By.name("Submit")).click();
+
+        getDriver().findElement(By.xpath("//li[@class = 'jenkins-breadcrumbs__list-item']/a[@href='/']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@class='jenkins-table__link model-link inside']")).getText(), PIPELINE_NAME);
     }
 }
