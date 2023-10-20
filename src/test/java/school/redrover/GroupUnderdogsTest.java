@@ -116,4 +116,12 @@ public class GroupUnderdogsTest extends BaseTest {
         Assert.assertEquals(value, "Test Description");
 
     }
+
+    @Test
+    public void testKristinaSearchID(){
+
+        getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/asynchPeople/']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//table[@id='people']/thead/tr/th[2]/a")).getText(),"User ID");
+    }
 }
