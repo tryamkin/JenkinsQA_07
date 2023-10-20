@@ -19,6 +19,29 @@ import java.util.List;
 
 public class GroupLetsQATest extends BaseTest {
 
+
+    private void createAnItem(String itemName) {
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+
+        String createdItemName = "New "+ itemName;
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.id("name")).sendKeys(createdItemName);
+    try {
+        List<WebElement> items = getDriver().findElements(By.cssSelector(".label"));
+        for (WebElement el : items){
+            if (itemName.equals(el.getText())){
+                el.click();
+                break;
+            }
+        }
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("ok-button"))).click();
+
+        } catch (Exception timeoutException){
+            System.out.println("Error: Wrong Item name");
+        }
+    }
+
     @Test
     public void testDescriptionTextAreaAppears() {
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
@@ -31,6 +54,7 @@ public class GroupLetsQATest extends BaseTest {
         } catch (Exception TimeoutException) {
             Assert.assertTrue(false);
         }
+
     }
 
     @Test
@@ -46,6 +70,7 @@ public class GroupLetsQATest extends BaseTest {
         } catch (Exception TimeoutException) {
             Assert.assertTrue(false);
         }
+
     }
 
     @Test
@@ -202,4 +227,16 @@ public class GroupLetsQATest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//td[@class = 'jenkins-table__cell--tight jenkins-table__icon healthReport']/div/*")).getAttribute("tooltip"), "100%");
     }
+
+    @Test
+    public void testCreatedFolderIsOpened(){
+        createAnItem("Folder");
+        getDriver().findElement(By.id("jenkins-name-icon")).click();
+        getDriver().findElement(By.cssSelector(".jenkins-table__link.model-link")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("#main-panel h1")).getText(),"New Folder");
+
+    }
+
+
 }
