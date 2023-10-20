@@ -156,4 +156,19 @@ public class GroupHighwayToAqaTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.name("_.description")).getText(),
                 folderDescription);
     }
+
+    @Test
+    public void testAddingDescriptionUser() {
+
+        getDriver().findElement(By.xpath("//a[@href='/asynchPeople/']")).click();
+        getDriver().findElement(By.cssSelector(".jenkins-table__link")).click();
+        getDriver().findElement(By.xpath("//*[(@id = 'description-link')]")).click();
+
+        getDriver().findElement(By.xpath("//textarea[@class='jenkins-input   ']"))
+                .sendKeys("Привет");
+        getDriver().findElement(By.xpath("//a[@class='textarea-show-preview']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@class='textarea-preview']"))
+                .getText(), "Привет");
+    }
 }
