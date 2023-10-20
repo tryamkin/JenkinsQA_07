@@ -124,4 +124,5 @@ public class GroupUnderdogsTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//table[@id='people']/thead/tr/th[2]/a")).getText(),"User ID");
     }
+
 }
