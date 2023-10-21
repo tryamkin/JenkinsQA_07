@@ -21,11 +21,36 @@ import java.util.List;
 
 public class GroupLetsQATest extends BaseTest {
 
+    private boolean isItemTitleExists(String itemName){
+        List<WebElement> itemsList = getDriver().findElements(By.cssSelector(".jenkins-table__link.model-link.inside span"));
+        boolean res = false;
+        if(itemsList.isEmpty()){
+            return res;
+        }else {
+            for (WebElement e : itemsList) {
+                if (e.getText().equals(itemName)) {
+                    res = true;
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
+
 
     private void createAnItem(String itemName) {
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        String createdItemName = "New " + itemName;
 
-        String createdItemName = "New "+ itemName;
+        if(isItemTitleExists(createdItemName)){
+            int randInt =((int)(Math.random()*100));
+            createdItemName = createdItemName +randInt;
+
+        }else{
+            createdItemName = createdItemName;
+
+        }
 
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.id("name")).sendKeys(createdItemName);
@@ -38,6 +63,7 @@ public class GroupLetsQATest extends BaseTest {
             }
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.id("ok-button"))).click();
+        getDriver().findElement(By.id("jenkins-name-icon")).click();
 
         } catch (Exception timeoutException){
             System.out.println("Error: Wrong Item name");
@@ -240,6 +266,19 @@ public class GroupLetsQATest extends BaseTest {
 
     }
 
+    @Test
+    public void testJobAlreadyExists(){
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        createAnItem("Folder");
+        getDriver().findElement(By.id("jenkins-name-icon")).click();
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.id("name")).sendKeys("New Folder");
+
+        Assert.assertEquals(wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.xpath("//div[@id='itemname-invalid']"))).getText(),
+                "» A job already exists with the name ‘New Folder’");
+
+    }
 
     @Test
     public void testEditDescription() throws URISyntaxException {
