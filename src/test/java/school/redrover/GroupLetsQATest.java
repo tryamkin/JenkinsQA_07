@@ -299,4 +299,19 @@ public class GroupLetsQATest extends BaseTest {
 
         Assert.assertEquals(description.getText(), "abc");
     }
+
+    @Test
+    public void testCreateNewItemFromExistingIsDisplayed(){
+        boolean res;
+        try {
+            createAnItem("Pipeline");
+            getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+            getDriver().findElement(By.xpath("//div[@class='add-item-copy yui-ac']//img")).isDisplayed();
+            res = true;
+        } catch (Exception NoSuchElementException){
+            res = false;
+        }
+
+        Assert.assertTrue(res, "'Copy from' is not appears.");
+    }
 }
