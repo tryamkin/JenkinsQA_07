@@ -19,7 +19,7 @@ public class GroupPlusThreeTest extends BaseTest {
     }
 
     // Universal method for creating new different items
-    public String createNewItemTemplate(String name, String radioClassName) {
+    private String createNewItemTemplate(String name, String radioClassName) {
 
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
 
@@ -116,7 +116,7 @@ public class GroupPlusThreeTest extends BaseTest {
         assertEquals(resultHeading, "Project " + jobName);
     }
 
-    public String universalCreateJobMethod(String name, String radioButtonClassName) {
+    private String universalCreateJobMethod(String name, String radioButtonClassName) {
         getDriver().findElement(By.xpath("//*[@class='task '][1]")).click();
 
         getDriver().findElement(By.id("name")).sendKeys(name);
