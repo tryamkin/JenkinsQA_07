@@ -1,11 +1,15 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import school.redrover.runner.BaseTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -180,5 +184,28 @@ public class GroupPlusThreeTest extends BaseTest {
         String result = universalCreateJobMethod(jobName, "jenkins_branch_OrganizationFolder");
 
         assertEquals(result, jobName);
+    }
+
+    @Test
+    public void testSidePanel() {
+        List <String> sidePanel = List.of(
+                "New Item",
+                "People",
+                "Build History",
+                "Manage Jenkins",
+                "My Views"
+        );
+
+        List <WebElement> elementsListSidePanel = getDriver()
+                .findElements(By.cssSelector("#tasks .task"));
+
+        List <String> getElementsListSidePanel = new ArrayList<>();
+
+        for (WebElement task : elementsListSidePanel) {
+            getElementsListSidePanel.add(task.getText());
+        }
+
+        Assert.assertEquals(sidePanel, getElementsListSidePanel);
+
     }
 }
