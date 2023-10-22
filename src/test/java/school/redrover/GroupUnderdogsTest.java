@@ -3,7 +3,6 @@ package school.redrover;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.collections.Lists;
 import org.testng.collections.Sets;
 import school.redrover.runner.BaseTest;
 
@@ -11,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
 
