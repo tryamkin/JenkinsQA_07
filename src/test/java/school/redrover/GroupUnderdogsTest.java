@@ -168,7 +168,6 @@ public class GroupUnderdogsTest extends BaseTest {
         List<WebElement> apiTypes = getDriver().findElements(By.xpath("//div[@id='main-panel']/dl/dt/a"));
         Assert.assertEquals(apiTypes.size(), 3, "REST API page should always have 3 API types");
 
-        // we will need to sort everything as we don't have the order guarantee of all the elements
         Set<String> apiTypeText = new HashSet<>();
         for(WebElement el: apiTypes){
             apiTypeText.add(el.getText());
