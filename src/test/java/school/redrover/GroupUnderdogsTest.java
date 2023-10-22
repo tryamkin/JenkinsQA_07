@@ -3,9 +3,15 @@ package school.redrover;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.collections.Lists;
+import org.testng.collections.Sets;
 import school.redrover.runner.BaseTest;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
 
@@ -151,6 +157,26 @@ public class GroupUnderdogsTest extends BaseTest {
         String value = title.getText();
         Assert.assertEquals(value, "Test Description");
 
+    }
+
+    @Test
+    public void testRestApiPageOpensAndHas3ApiOptions() {
+        getDriver().findElement(
+                By.xpath(
+                        "//*[@id='jenkins']/footer/div/div[contains(@class, 'page-footer__links')]/a[contains(@class, 'rest-api')]"
+                )
+        ).click();
+
+        List<WebElement> apiTypes = getDriver().findElements(By.xpath("//div[@id='main-panel']/dl/dt/a"));
+        Assert.assertEquals(apiTypes.size(), 3, "REST API page should always have 3 API types");
+
+        // we will need to sort everything as we don't have the order guarantee of all the elements
+        Set<String> apiTypeText = new HashSet<>();
+        for(WebElement el: apiTypes){
+            apiTypeText.add(el.getText());
+        }
+        Set<String> expected = Sets.newHashSet("XML API", "JSON API", "Python API");
+        Assert.assertEquals(apiTypeText, expected);
     }
 
     @Test
