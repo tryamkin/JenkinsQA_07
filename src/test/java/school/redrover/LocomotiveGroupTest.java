@@ -173,4 +173,12 @@ public class LocomotiveGroupTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='/job/Folder1/' and @class='model-link']")).getText(),"Folder1");
     }
+
+    @Test
+    public void testClickNewItem() {
+          getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+          String pageCurrentUrl = getDriver().getCurrentUrl();
+          String pageNewJobUrl = "http://localhost:8080/view/all/newJob";
+          Assert.assertEquals(pageCurrentUrl, pageNewJobUrl);
+    }
 }
