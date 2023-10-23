@@ -1,11 +1,15 @@
 package school.redrover;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+
+import java.util.List;
 import java.util.UUID;
+
 import static org.testng.Assert.assertEquals;
 
 public class GroupJavaExplorersTest extends BaseTest {
@@ -126,6 +130,26 @@ public class GroupJavaExplorersTest extends BaseTest {
         final String errorText = getDriver().findElement(By.xpath("//div[@id='itemname-required']")).getText();
         Assert.assertEquals(errorText, "» This field cannot be empty, please enter a valid name");
 
+    }
+
+    @Test
+    public void testCreateItemWithInvalidName() {
+        List<String> listOfSpecialCharacters =
+                List.of("!", "#", "$", "%", "&", "*", "/", ":", ";", "<", ">", "?", "@", "[", "]", "|", "\\", "^");
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+
+        for (String listOfSpecialCharacter : listOfSpecialCharacters) {
+            String errorMessage = "» ‘" + listOfSpecialCharacter + "’ is an unsafe character";
+
+            WebElement fieldInputName = getDriver().findElement(By.id("name"));
+            fieldInputName.clear();
+            fieldInputName.sendKeys(listOfSpecialCharacter);
+
+            String resultMessage = getDriver().findElement(By.id("itemname-invalid")).getText();
+
+            Assert.assertEquals(resultMessage, errorMessage);
+        }
     }
 }
 
