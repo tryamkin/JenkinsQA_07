@@ -26,15 +26,15 @@ public class GroupSurvivorsTest extends BaseTest {
     }
 
     @Test
-    public void testEvgenyCreateJob() {
+    public void testEvgenyCreateFirstProject() {
         getDriver().findElement(By.xpath("//*[@href = 'newJob']")).click();
-        getDriver().findElement(By.xpath("//*[@name = 'name']")).sendKeys("First job test");
+        getDriver().findElement(By.xpath("//*[@name = 'name']")).sendKeys("First project test");
         getDriver().findElement(By.xpath("//*[@class = 'category'][1]//li[1]")).click();
         getDriver().findElement(By.xpath("//*[@id = 'ok-button']")).click();
         getDriver().findElement(By.xpath("//button[contains(text(), 'Save')]")).click();
 
         Assert.assertEquals(getDriver().findElement(By.cssSelector(".job-index-headline.page-headline")).getText(),
-                "Project First job test");
+                "Project First project test");
     }
 }
 
