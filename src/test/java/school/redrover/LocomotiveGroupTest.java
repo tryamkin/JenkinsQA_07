@@ -9,8 +9,6 @@ import org.testng.annotations.Test;
 
 import school.redrover.runner.BaseTest;
 
-import java.util.concurrent.TimeUnit;
-
 public class LocomotiveGroupTest extends BaseTest {
 
       @Test
