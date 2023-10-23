@@ -33,7 +33,7 @@ public class GroupIntroVertsQaTest extends BaseTest {
         Assert.assertEquals(logoutButton, "Sign in to Jenkins");
     }
 
-    @Test(description = "создание новой джобы")
+    @Test(description = "Create new job")
     public void testNewFreeJob(){
         getDriver().findElement(By.xpath("//*[@href = 'newJob']")).click();
         WebElement setJobNames = getDriver().findElement(By.xpath("//input[@name = 'name']"));
