@@ -184,4 +184,34 @@ public class GroupUnderdogsTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//table[@id='people']/thead/tr/th[2]/a")).getText(),"User ID");
     }
 
+    @Test
+    public void testCreateNewItemKristina(){
+        getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']")).click();
+
+        getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys("My project");
+        getDriver().findElement(By.xpath("//span[text()='Folder']")).click();
+        getDriver().findElement(By.xpath("//div[@class='footer']//button")).click();
+
+        String name = "First project";
+        getDriver().findElement(By.xpath("//div[@id='main-panel']//div[@class='setting-main']/input")).sendKeys(name);
+        getDriver().findElement(By.xpath("//div[@id='bottom-sticker']//button[@name='Submit']")).click();
+
+        WebElement findObject = getDriver().findElement(By.xpath("//div[@id='main-panel']//h1"));
+        String actualResult = findObject.getText();
+        Assert.assertEquals(actualResult, name);
+
+        getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//a[text()='Dashboard']")).click();
+
+        String table = getDriver().findElement(By.xpath("//table[@id='projectstatus']/tbody")).getText();
+        String[] wordTable = table.split(" ");
+
+        for (int i = 0; i < wordTable.length; i++){
+            String result = " ";
+            if (result == name){
+                result = name;
+                assertEquals(result, name);
+            }
+        }
+    }
+
 }
