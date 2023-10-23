@@ -69,6 +69,11 @@ public class GroupCarlTheFogTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.cssSelector("div.empty-state-block h1")).getText(),
                 "Welcome to Jenkins!");
     }
+    @Test
+    public void testJenkinsTitle() {
+        String title = getDriver().getTitle();
+        Assert.assertEquals(title, "Dashboard [Jenkins]");
+    }
 
     @Test
     public void testCreateNewPipeline() {
