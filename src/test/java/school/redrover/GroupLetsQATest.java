@@ -379,6 +379,57 @@ public class GroupLetsQATest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.cssSelector("#main-panel p")).getText(),
                 "No such job: Test");
     }
+    @Ignore
+    @Test
+    public void testDashboardDropDownMenuTools() throws InterruptedException {
+        Actions action = new Actions(getDriver());
+        action.moveToElement(
+                getDriver().findElement(By.xpath("//li[@class = 'jenkins-breadcrumbs__list-item']/a[@href = '/']")))
+                .perform();
 
+        Thread.sleep(100);
+        getDriver().findElement(By.xpath("//li[@class = 'jenkins-breadcrumbs__list-item']//button[@class = 'jenkins-menu-dropdown-chevron']")).click();
 
+        action.moveToElement(
+                getDriver().findElement(By.xpath("//a[@class = 'jenkins-dropdown__item' and @href = '/manage']")))
+                .perform();
+
+        getDriver().findElement(By.xpath("//a[@href = '/manage/configureTools']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("h1")).getText(),"Tools");
+    }
+
+    @Ignore
+    @Test
+    public void testUseSearchForCreatedJob() {
+        createAnItem("Freestyle project");
+        String tooltipExpected = getDriver().findElement(By.xpath("//td/a[@class = 'jenkins-table__link model-link inside']")).getText();
+
+        getDriver()
+                .findElement(By.xpath("//input[@role = 'searchbox']"))
+                .sendKeys("new");
+
+        String tooltipActual = getDriver().findElement(By.xpath("//div[@id = 'search-box-completion']//li[1]")).getText();
+        Assert.assertEquals(tooltipActual, tooltipExpected);
+    }
+
+    @Test
+    public void testNewStyleCreation() {
+        createAnItem("Freestyle project");
+
+        getDriver().findElement(By.xpath("//a[@href = '/newView']")).click();
+
+        String styleNameInput = "My new style";
+        getDriver().findElement(By.xpath("//input[@id = 'name']")).sendKeys(styleNameInput);
+
+        getDriver().findElement(By.xpath("//fieldset[@class = 'jenkins-fieldset']//label[@for = 'hudson.model.ListView']")).click();
+
+        getDriver().findElement(By.xpath("//button[@formnovalidate = 'formNoValidate']")).click();
+
+//        getDriver().findElement(By.xpath("//input[@name = 'item_New Freestyle project']")).click(); - the line will be discussed during our team meeting, that's why I left it commented in the code
+
+        getDriver().findElement(By.xpath("//button[@formnovalidate = 'formNoValidate']")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@class = 'tabBar']//a[@href = '/view/My%20new%20style/']")).getText(), styleNameInput);
+    }
 }
