@@ -23,6 +23,90 @@ public class GroupBrainBuildersTest extends BaseTest {
         Assert.assertTrue(getDriver().getPageSource().contains(userName));
     }
 
+    private void folderCreation(String folderName) {
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys(folderName);
+        getDriver().findElement(By.xpath("//*[@id='j-add-item-type-nested-projects']/ul/li[1]")).click();
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+        getDriver().findElement(By.xpath("//input[@name='_.displayNameOrNull']")).sendKeys(folderName);
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+    }
+
+    @Test
+    public void testJenkinsFolderCreationWithValidName() {
+
+        String folderName= "Folder1";
+        folderCreation(folderName);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + folderName + "']")).isDisplayed());
+
+    }
+
+    @Test
+    public void testJenkinsFolderCreationWithEmptyName() {
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//*[@id='j-add-item-type-nested-projects']/ul/li[1]")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//div[@class='input-validation-message']")).isDisplayed());
+    }
+
+    @Test
+    public void testJenkinsFolderRenameWithValidNameFromDropDownMenu() {
+
+        String folderName = "Folder1";
+        String renamedFolder = "Folder111";
+        folderCreation(folderName);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        getDriver().findElement(By.xpath("//*[@id='job_" + folderName + "']/td[3]/a")).click();
+        getDriver().findElement(By.linkText("Rename")).click();
+        getDriver().findElement(By.name("newName")).clear();
+        getDriver().findElement(By.name("newName")).sendKeys(renamedFolder);
+        getDriver().findElement(By.name("Submit")).click();
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + renamedFolder + "']")).isDisplayed());
+
+    }
+
+    @Test
+    public void testJenkinsFolderRenameWithValidNameFromLeftMenu() {
+
+        String folderName = "Folder1";
+        String renamedFolder = "Folder111";
+        folderCreation(folderName);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+        getDriver().findElement(By.xpath("//a[@href='job/" + folderName + "/']")).click();
+        getDriver().findElement(By.linkText("Rename")).click();
+        getDriver().findElement(By.name("newName")).clear();
+        getDriver().findElement(By.name("newName")).sendKeys(renamedFolder);
+        getDriver().findElement(By.name("Submit")).click();
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + renamedFolder + "']")).isDisplayed());
+
+    }
+
+    @Test
+    public void testJenkinsTwoFoldersCreationWithValidNames() {
+
+        String folderName1= "Folder11";
+        folderCreation(folderName1);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        String folderName2= "Folder22";
+        folderCreation(folderName2);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + folderName1 + "']")).isDisplayed());
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + folderName2 + "']")).isDisplayed());
+
+    }
+
+
     @Test
     public void testJenkinsCredentialsTooltip() {
 
