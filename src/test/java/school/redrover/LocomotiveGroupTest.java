@@ -175,10 +175,23 @@ public class LocomotiveGroupTest extends BaseTest {
     }
 
     @Test
-    public void testClickNewItem() {
+    public void testSearchDocumentationAboutJenkins () {
+        getDriver().findElement(By.xpath
+                ("//div[@class='page-footer__links']/a[@href='api/']")).click();
+        getDriver().findElement(By.xpath
+                ("//a[@href='https://www.jenkins.io/redirect/remote-api']")).click();
+        WebElement searchText = getDriver().findElement(By.xpath("//a[contains(text(),'> User Documentation Home')]"));
+        String ExpectedDocument = searchText.getText();
+
+        Assert.assertEquals(ExpectedDocument, "> User Documentation Home");
+    }
+
+    @Test
+    public void testClickNewItemJenkins() {
           getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
           String pageCurrentUrl = getDriver().getCurrentUrl();
           String pageNewJobUrl = "http://localhost:8080/view/all/newJob";
+
           Assert.assertEquals(pageCurrentUrl, pageNewJobUrl);
     }
 }
