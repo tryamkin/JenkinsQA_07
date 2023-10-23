@@ -9,39 +9,7 @@ import org.testng.annotations.Test;
 
 import school.redrover.runner.BaseTest;
 
-import java.util.concurrent.TimeUnit;
-
 public class LocomotiveGroupTest extends BaseTest {
-
-    @Ignore
-    @Test
-    public void checkRadioButton() throws InterruptedException {
-
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://demoqa.com/radio-button");
-
-
-        selectRadioButton(driver, "Yes");
-        WebElement textRadioButton = driver.findElement(By.xpath("//p[@class='mt-3']"));
-        Assert.assertEquals(textRadioButton.getText(), "You have selected Yes");
-
-        Thread.sleep(3000);
-
-        selectRadioButton(driver, "Impressive");
-        Assert.assertEquals(textRadioButton.getText(), "You have selected Impressive");
-
-        Thread.sleep(3000);
-
-        driver.close();
-    }
-
-    @Ignore
-    public static void selectRadioButton(WebDriver driver, String value) {
-        WebElement RadioButton = driver.findElement(By.xpath("//label[normalize-space()='" + value + "']"));
-        RadioButton.click();
-    }
 
       @Test
     public void testYandexSearchBar(){
