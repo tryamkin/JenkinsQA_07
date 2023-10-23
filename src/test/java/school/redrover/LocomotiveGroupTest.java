@@ -191,6 +191,7 @@ public class LocomotiveGroupTest extends BaseTest {
           getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
           String pageCurrentUrl = getDriver().getCurrentUrl();
           String pageNewJobUrl = "http://localhost:8080/view/all/newJob";
+
           Assert.assertEquals(pageCurrentUrl, pageNewJobUrl);
     }
 }
