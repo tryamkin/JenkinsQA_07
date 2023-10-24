@@ -49,7 +49,7 @@ public class AbramovTest extends BaseTest {
     }
 
     @Test
-    public void testDeleteTheRightJobWithDropdown() {
+    public void testDeleteTheRightJobWithDropdown() throws InterruptedException {
         final String jobNameToDelete = "JobToDelete";
         final String jobNameToKeep = "JobToKeep";
 
@@ -62,6 +62,7 @@ public class AbramovTest extends BaseTest {
 
         WebElement createdJobInTheList = getDriver().findElement(By.xpath("//a[contains(@href, 'job/JobToDelete/')]"));
         action.moveToElement(createdJobInTheList).perform();
+        Thread.sleep(300);
         getDriver().findElement(By.xpath("//tbody//button[@class='jenkins-menu-dropdown-chevron']")).click();
         getDriver().findElement(By.xpath("//button[contains(@href, 'doDelete')]")).click();
         getDriver().switchTo().alert().accept();
