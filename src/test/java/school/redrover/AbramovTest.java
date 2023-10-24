@@ -2,7 +2,6 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -49,7 +48,7 @@ public class AbramovTest extends BaseTest {
     }
 
     @Test
-    public void testDeleteTheRightJobWithDropdown() {
+    public void testDeleteTheRightJob() {
         final String jobNameToDelete = "JobToDelete";
         final String jobNameToKeep = "JobToKeep";
 
@@ -58,13 +57,8 @@ public class AbramovTest extends BaseTest {
         createNewJob(jobNameToDelete);
         goHome();
 
-        Actions action = new Actions(getDriver());
-
-        WebElement createdJobInTheList = getDriver().findElement(By.xpath("//a[contains(@href, 'job/JobToDelete/')]"));
-        action.moveToElement(createdJobInTheList).build().perform();
-        //Thread.sleep(10000);
-        getDriver().findElement(By.xpath("//tbody//button[@class='jenkins-menu-dropdown-chevron']")).click();
-        getDriver().findElement(By.xpath("//button[contains(@href, 'doDelete')]")).click();
+        getDriver().findElement(By.xpath("//a[contains(@href, 'job/JobToDelete/')]")).click();
+        getDriver().findElement(By.xpath("//a[contains(@data-url, 'doDelete')]")).click();
         getDriver().switchTo().alert().accept();
 
         String jobNameInTheList = getDriver().findElement(By.xpath("//a[contains(@href, 'job/JobToKeep/')]")).getText();
