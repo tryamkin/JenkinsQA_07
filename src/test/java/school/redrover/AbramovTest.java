@@ -62,7 +62,7 @@ public class AbramovTest extends BaseTest {
 
         WebElement createdJobInTheList = getDriver().findElement(By.xpath("//a[contains(@href, 'job/JobToDelete/')]"));
         action.moveToElement(createdJobInTheList).perform();
-        Thread.sleep(300);
+        Thread.sleep(10000);
         getDriver().findElement(By.xpath("//tbody//button[@class='jenkins-menu-dropdown-chevron']")).click();
         getDriver().findElement(By.xpath("//button[contains(@href, 'doDelete')]")).click();
         getDriver().switchTo().alert().accept();
