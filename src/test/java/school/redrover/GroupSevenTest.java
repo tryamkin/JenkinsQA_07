@@ -2,11 +2,15 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+
+import java.time.Duration;
+import java.util.ArrayList;
 
 
 public class GroupSevenTest extends BaseTest {
@@ -32,7 +36,6 @@ public class GroupSevenTest extends BaseTest {
         WebElement projectTitle = getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
         Assert.assertTrue(projectTitle.isDisplayed());
     }
-    @Ignore
 
     @Ignore
     @Test
@@ -76,7 +79,6 @@ public class GroupSevenTest extends BaseTest {
         WebElement message = getDriver().findElement(By.id("message"));
         Assert.assertEquals(message.getText(), "Received!");
     }
-
 
 
     @Ignore
@@ -293,7 +295,7 @@ public class GroupSevenTest extends BaseTest {
                 "General");
     }
 
-      @Test
+    @Test
     public void testAddDescription() {
 
         getDriver().findElement(By.xpath("//a[@id='description-link']")).click();
@@ -305,6 +307,7 @@ public class GroupSevenTest extends BaseTest {
         Assert.assertTrue(getDriver().
                 findElement(By.xpath("//div[normalize-space()='Description about my first project will be here']")).isDisplayed());
     }
+
     @Test
     public void testCreateJenkinsJob() {
 
@@ -325,6 +328,7 @@ public class GroupSevenTest extends BaseTest {
 
 
     }
+
     @Test
     public void testCreateJenkinsJob1() {
 
