@@ -8,11 +8,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.runner.BaseTest;
 
 import static org.openqa.selenium.By.className;
 
-@Ignore
-public class IronTeamGroupTest {
+
+public class IronTeamGroupTest extends BaseTest {
+    @Ignore
     @Test
     public void w3schoolTest() throws InterruptedException {
         // Check Title of site
@@ -28,7 +30,7 @@ public class IronTeamGroupTest {
             driver.quit();
         }
     }
-
+    @Ignore
     @Test
     public void javaPageTest() throws InterruptedException {
         // Check Java page of site
@@ -49,7 +51,7 @@ public class IronTeamGroupTest {
             driver.quit();
         }
     }
-
+    @Ignore
     @Test
     public void testCustomerLogin() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
@@ -71,6 +73,7 @@ public class IronTeamGroupTest {
             driver.quit();
         }
     }
+    @Ignore
     @Test
     public void testFerosorSearch() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
@@ -87,6 +90,7 @@ public class IronTeamGroupTest {
             driver.quit();
         }
     }
+    @Ignore
     @Test
     public void testFerosorLogin() throws InterruptedException{
         WebDriverManager.chromedriver().setup();
@@ -102,5 +106,21 @@ public class IronTeamGroupTest {
         }finally{
             driver.quit();
         }
+    }
+
+    @Test
+    public void testJenkinsNewFolder() {
+        String folderName= "NewNew";
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys(folderName);
+        getDriver().findElement(By.xpath("//*[@id='j-add-item-type-nested-projects']/ul/li[1]")).click();
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+        getDriver().findElement(By.xpath("//input[@name='_.displayNameOrNull']")).sendKeys(folderName);
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + folderName + "']")).isDisplayed());
     }
 }
