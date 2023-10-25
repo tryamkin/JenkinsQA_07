@@ -36,7 +36,7 @@ public class FolderTest extends BaseTest {
         getDriver().findElement(By.linkText("Dashboard")).click();
 
         getDriver().findElement(By.xpath("//*[@id='job_" + folderName + "']/td[3]/a")).click();
-        getDriver().findElement(By.linkText("Rename")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/Folder1/confirm-rename']")).click();
         getDriver().findElement(By.name("newName")).clear();
         getDriver().findElement(By.name("newName")).sendKeys(renamedFolder);
         getDriver().findElement(By.name("Submit")).click();
