@@ -7,7 +7,7 @@ import school.redrover.runner.BaseTest;
 
 public class OrganizationFolder2Test extends BaseTest {
 
-    public void createOrganizationFolder() {
+    private void createOrganizationFolder() {
 
         final String folderName = "OrganizationFolder";
 
