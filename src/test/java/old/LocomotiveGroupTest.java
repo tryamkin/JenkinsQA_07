@@ -1,6 +1,7 @@
 package old;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -108,5 +109,34 @@ public class LocomotiveGroupTest extends BaseTest {
           String pageNewJobUrl = "http://localhost:8080/view/all/newJob";
 
           Assert.assertEquals(pageCurrentUrl, pageNewJobUrl);
+    }
+
+    @Test
+    public void testForToolTipInNodeMonitoringPage() {
+        Actions action = new Actions(getDriver());
+
+        getDriver().findElement(By.xpath("//div[@id='executors']/div[@class='pane-header']")).click();
+        getDriver().findElement(By.xpath("//span[text()='Node Monitoring']/ancestor::span")).click();
+
+        WebElement toolTipForArchitect = getDriver().findElement(By.xpath("//a[@helpurl='/descriptor/hudson.node_monitors.ArchitectureMonitor/help']"));
+        WebElement toolTipForAnswerTime = getDriver().findElement(By.xpath("//a[@helpurl='/descriptor/hudson.node_monitors.ResponseTimeMonitor/help']"));
+        WebElement toolDiffForSystemTime = getDriver().findElement(By.xpath("//a[@helpurl='/descriptor/hudson.node_monitors.ClockMonitor/help']"));
+        WebElement toolFreeTimeSpace = getDriver().findElement(By.xpath("//a[@helpurl='/descriptor/hudson.node_monitors.TemporarySpaceMonitor/help']"));
+        WebElement toolFreeDiscSpace = getDriver().findElement(By.xpath("//a[@helpurl='/descriptor/hudson.node_monitors.DiskSpaceMonitor/help']"));
+
+        action.moveToElement(toolTipForArchitect).perform();
+        Assert.assertTrue(toolTipForArchitect.getAttribute("aria-describedby").contains("tippy"), "Параметры различаются");
+
+        action.moveToElement(toolTipForAnswerTime).perform();
+        Assert.assertTrue(toolTipForAnswerTime.getAttribute("aria-describedby").contains("tippy"), "Параметры различаются");
+
+        action.moveToElement(toolDiffForSystemTime).perform();
+        Assert.assertTrue(toolDiffForSystemTime.getAttribute("aria-describedby").contains("tippy"), "Параметры различаются");
+
+        action.moveToElement(toolFreeTimeSpace).perform();
+        Assert.assertTrue(toolFreeTimeSpace.getAttribute("aria-describedby").contains("tippy"), "Параметры различаются");
+
+        action.moveToElement(toolFreeDiscSpace).perform();
+        Assert.assertTrue(toolFreeDiscSpace.getAttribute("aria-describedby").contains("tippy"), "Параметры различаются");
     }
 }
