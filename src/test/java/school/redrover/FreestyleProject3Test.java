@@ -8,7 +8,7 @@ import school.redrover.runner.BaseTest;
 public class FreestyleProject3Test extends BaseTest {
 
     @Test
-    public void createFreestyleProject() {
+    public void testCreateFreestyleProject() {
         final String projectName = "Test Project";
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
 
