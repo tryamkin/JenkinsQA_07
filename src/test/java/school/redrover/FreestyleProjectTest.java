@@ -115,4 +115,29 @@ public class FreestyleProjectTest extends BaseTest {
         assertFalse(isProjectExist(initialProjectName));
     }
 
+    @Test
+    public void testAddDescriptionFreestyleProject() {
+        final String projectName = "FreestyleProject";
+        final String descriptionText = "Description";
+
+        createFreeStyleProject(projectName);
+
+        getDriver().findElement(By.xpath("//textarea[@class='jenkins-input   ']")).click();
+        getDriver().findElement(By.cssSelector("textarea[name='description']")).sendKeys(descriptionText);
+        getDriver().findElement(By.cssSelector("button[class='jenkins-button jenkins-button--primary ']")).click();
+
+        assertEquals(getDriver().findElement(By.xpath("//div[@id='description']/div[1]")).getText(),
+                descriptionText);
+    }
+
+    @Test
+    public void testCreateNew() {
+        final String projectName = "New Test Project1";
+        createFreeStyleProject(projectName);
+        goToJenkinsHomePage();
+
+        assertEquals(
+                getDriver().findElement(By.xpath("//a[@class='jenkins-table__link model-link inside']")).getText(),
+                projectName);
+    }
 }
