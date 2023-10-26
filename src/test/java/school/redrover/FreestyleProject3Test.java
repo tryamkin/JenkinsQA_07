@@ -24,13 +24,6 @@ public class FreestyleProject3Test extends BaseTest {
         Assert.assertEquals(
                 getDriver().findElement(By.xpath("//h1")).getText(),
                 "Project " + projectName);
-
-
-
-
-
-
-
     }
 
 }
