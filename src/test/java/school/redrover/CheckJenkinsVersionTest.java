@@ -25,6 +25,7 @@ public class CheckJenkinsVersionTest extends BaseTest {
 
     @Test
     public void testJenkinsVersion() {
+
         Assert.assertEquals(getDriver().findElement
                         (By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")).getText(),
                 "Jenkins 2.414.2");
