@@ -129,4 +129,15 @@ public class FreestyleProjectTest extends BaseTest {
         assertEquals(getDriver().findElement(By.xpath("//div[@id='description']/div[1]")).getText(),
                 descriptionText);
     }
+
+    @Test
+    public void testCreateNew() {
+        final String projectName = "New Test Project1";
+        createFreeStyleProject(projectName);
+        goToJenkinsHomePage();
+
+        assertEquals(
+                getDriver().findElement(By.xpath("//a[@class='jenkins-table__link model-link inside']")).getText(),
+                projectName);
+    }
 }
