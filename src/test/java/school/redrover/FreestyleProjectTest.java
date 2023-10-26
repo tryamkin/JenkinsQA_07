@@ -31,6 +31,18 @@ public class FreestyleProjectTest extends BaseTest {
         getDriver().findElement(By.id("ok-button")).click();
     }
 
+    private void addDescriptionInConfiguration(String text) {
+        getDriver().findElement(By.xpath("//textarea[@name = 'description']")).sendKeys(text);
+        getDriver().findElement(By.xpath("//button[@name ='Submit']")).click();
+    }
+
+    private void changeDescriptionTextInStatus(String text) {
+        getDriver().findElement(By.id("description-link")).click();
+        getDriver().findElement(By.xpath("//textarea[@name = 'description']")).clear();
+        getDriver().findElement(By.xpath("//textarea[@name = 'description']")).sendKeys(text);
+        getDriver().findElement(By.xpath("//button[contains(text(),'Save')]")).click();
+    }
+
     private List<String> getAllProjectsNames() {
         return getDriver()
                 .findElements(By.xpath("//a[@class='jenkins-table__link model-link inside']"))
@@ -159,6 +171,26 @@ public class FreestyleProjectTest extends BaseTest {
 
         assertTrue(getDriver().findElement(By.xpath("//div[contains(text(), description)]")).isDisplayed());
         assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(), description);
+    }
+
+    @Test
+    public void testEditDescription() {
+        String projectName = "Hello";
+        String descriptionText = "Project freestyle";
+        String descriptionEditText = "Welcome";
+
+        createFreeStyleProject(projectName);
+
+        addDescriptionInConfiguration(descriptionText);
+
+        goToJenkinsHomePage();
+
+        getDriver().findElement(By.xpath("//td/a[@href= 'job/"+ projectName +"/']")).click();
+
+        changeDescriptionTextInStatus(descriptionEditText);
+
+        assertTrue(getDriver().findElement(By.xpath("//div[contains(text(), descriptionAfterEdit)]")).isDisplayed());
+        assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(), descriptionEditText);
 
     }
 
