@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 import java.util.List;
@@ -230,6 +231,28 @@ public class FreestyleProjectTest extends BaseTest {
        Assert.assertTrue(tioltopIsVisible, "The tooltip is not displayed.");
 
 
+
+    }
+
+    @DataProvider(name = "ValidName")
+    public String[][] validCredentials() {
+        return new String[][] {
+                { "\'Акико\'" }, { "Ак,ко" }, { "Акико" }, { "Akiko" }, { "12345`67890" }
+        };
+    }
+
+    @Test(description = "Creating new Freestyle project using valid data", dataProvider = "ValidName")
+    public void testFreestyleProjectWithValidData(String name) {
+
+        getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
+        getDriver().findElement(By.id("name")).sendKeys(name);
+        getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.name("Submit")).click();
+        getDriver().findElement(By.id("jenkins-home-link")).click();
+
+        String result = getDriver().findElement(By.xpath("//*[@id =\"job_" + name + "\"]/td[3]/a/span")).getText();
+        Assert.assertEquals(result, name);
 
     }
 }
