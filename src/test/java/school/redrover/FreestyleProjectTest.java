@@ -144,6 +144,25 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
+    public void testAddDescription() {
+        String projectName = "Hello";
+        String description = "My description";
+        createFreeStyleProject(projectName);
+
+        getDriver().findElement(By.id("jenkins-name-icon")).click();
+
+        getDriver().findElement(By.xpath("//td/a[@href= 'job/"+ projectName +"/']")).click();
+
+        getDriver().findElement(By.cssSelector("#description-link")).click();
+        getDriver().findElement(By.xpath("//textarea[@name ='description']")).sendKeys(description);
+        getDriver().findElement(By.xpath("//button[contains(text(),'Save')]")).click();
+
+        assertTrue(getDriver().findElement(By.xpath("//div[contains(text(), description)]")).isDisplayed());
+        assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(), description);
+
+    }
+
+    @Test
     public  void testTooltipDiscardOldBuildsIsVisible() {
         createFreeStyleProject("New Freestyle Project");
         WebElement helpButton = getDriver().findElement(By.cssSelector("a[helpurl='/descriptor/jenkins.model.BuildDiscarderProperty/help']"));
