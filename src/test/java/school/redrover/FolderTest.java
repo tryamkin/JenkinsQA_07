@@ -6,6 +6,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
+import static java.sql.DriverManager.getDriver;
+import static org.testng.AssertJUnit.assertEquals;
+
 
 public class FolderTest extends BaseTest {
 
@@ -70,5 +73,35 @@ public class FolderTest extends BaseTest {
 
     }
 
+    private void creatNewFolder(String folderName) {
+
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.id("name")).sendKeys(folderName);
+        getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.name("Submit")).click();
+    }
+    @Test
+    public void TestMoveFolder() {
+        final String firstFolderName = "Original Folder";
+        final String secondFolderName = "Inserted Folder";
+
+        creatNewFolder(firstFolderName);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        creatNewFolder(secondFolderName);
+        getDriver().findElement(By.linkText("Dashboard")).click();
+
+        getDriver().findElement(By.xpath("//*[@id='job_" + secondFolderName + "']/td[3]/a")).click();
+        getDriver().findElement(By.xpath("//*[@href='/job/Inserted%20Folder/move']")).click();
+        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/select")).click();
+        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/select/option[2]")).click();
+        getDriver().findElement(By.xpath("//*[@id='main-panel']/form/button")).click();
+
+        getDriver().findElement(By.linkText("Dashboard")).click();
+        getDriver().findElement(By.xpath("//*[@id= 'job_" + firstFolderName + "']/td[3]/a")).click();
+
+        assertEquals(getDriver().findElement(By.xpath("//*[@id='job_" + secondFolderName + "']/td[3]/a/span")).getText(), secondFolderName);
+    }
 }
 
