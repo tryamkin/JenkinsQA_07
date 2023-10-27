@@ -7,7 +7,7 @@ import school.redrover.runner.BaseTest;
 
 
 
-public class FreestyleProject6Test extends BaseTest {
+public class FreestyleProject9Test extends BaseTest {
 
     @Test
     public void testCreat() {
