@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-public class PipelineDeleteTest extends BaseTest {
+public class Pipeline5Test extends BaseTest {
 
     private boolean isElementExist(String xpath) {
         By locator = By.xpath(xpath);
