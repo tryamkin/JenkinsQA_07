@@ -393,4 +393,25 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id='main-panel']/p")).getText(),
                 "No name is specified");
     }
+
+    @Test
+    public void testDisable() {
+        createFreeStyleProject("FSProject");
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        getDriver().findElement(By.xpath("//form[@action='disable']/button")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//form[@action='enable']/button")).isEnabled());
+    }
+
+    @Test
+    public void testEnable() {
+        createFreeStyleProject("FSProject");
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        getDriver().findElement(By.xpath("//form[@action='disable']/button")).click();
+        getDriver().findElement(By.xpath("//form[@action='enable']/button")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//form[@action='disable']")).isEnabled());
+    }
 }
