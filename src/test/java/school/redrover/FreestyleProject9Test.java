@@ -32,22 +32,6 @@ public class FreestyleProject9Test extends BaseTest {
                         "Project FreeStyleProjectName");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 }
