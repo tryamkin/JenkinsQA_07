@@ -12,6 +12,11 @@ public class RestApiLink2Test extends BaseTest {
       getDriver().findElement(By.xpath("//a[@href='api/']")).click();
 
       Assert.assertEquals(
+        getDriver().getTitle(),
+        "Remote API [Jenkins]"
+      );
+
+      Assert.assertEquals(
         getDriver().findElement(By.xpath("//*[@id='main-panel']/h1")).getText(),
         "REST API"
       );
