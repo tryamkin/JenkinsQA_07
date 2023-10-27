@@ -5,11 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-import static old.PetrovTest.projectName;
-
 public class FreestyleProject4Test extends BaseTest {
 
-    public void createFreestyleProject(String projectName) {
+    private void createFreestyleProject(String projectName) {
 
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
 
@@ -20,7 +18,7 @@ public class FreestyleProject4Test extends BaseTest {
     }
 
     @Test
-    public void testFreestyleProjectAddDescription() {
+    private void testFreestyleProjectAddDescription() {
         final String descriptionForFreestyleProject = "It s a description adding test";
 
         createFreestyleProject("FREE");
