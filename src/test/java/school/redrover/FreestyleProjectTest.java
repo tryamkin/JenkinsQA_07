@@ -426,6 +426,19 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
+    public void testNewFreestyleProjectWithEmptyName() {
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//li[@class='hudson_model_FreeStyleProject']")).click();
+
+        String expectedNotice = "» This field cannot be empty, please enter a valid name";
+        WebElement actualNotice = getDriver().findElement(By.xpath("//div[@id='itemname-required']"));
+
+        Assert.assertEquals(actualNotice.getText(), expectedNotice);
+        Assert.assertFalse(getDriver().findElement(By.xpath("//button[@id='ok-button']"))
+                .isEnabled());
+    }
+
+    @Test
     public void testDisable() {
         createFreeStyleProject("FSProject");
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
