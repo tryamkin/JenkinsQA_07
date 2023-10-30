@@ -1,0 +1,23 @@
+5669271c91e34c989fbb10a57328f1d1
+
+
+public void aboutUsTest() {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get(PAGE_URL);
+
+
+            WebElement closeCookieWindow = driver.findElement(By.xpath("//button[@aria-label = 'Close']"));
+            closeCookieWindow.click();
+            WebElement aboutUsLink = driver.findElement(By.xpath("//a[text()='About LDOCE']"));
+
+            aboutUsLink.click();
+
+            Assert.assertEquals(driver.getCurrentUrl(), "https://www.ldoceonline.com/about.html");
+            WebElement title = driver.findElement(By.xpath("//h1[@class='about_title']"));
+            String value = title.getText();
+
+            Assert.assertEquals(value,"About LDOCE Online");
+
+        } finally {
+            driver.quit();
