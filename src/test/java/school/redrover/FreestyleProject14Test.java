@@ -32,6 +32,9 @@ Can go to created project configuration page
 
 
     }
+
+
+    @Test
     public void testCreateFreestyleProject() {
         final String projectName = "Test Project";
 
