@@ -20,6 +20,15 @@ public class FooterTest extends BaseTest {
         Assert.assertEquals(getDriver().getTitle(), "About Jenkins 2.414.2 [Jenkins]");
     }
 
+    @Test
+    //https://trello.com/c/taPPdMEU/400-tc1200105-footer-jenkins-version-viewing-the-jenkins-version
+    public void testJenkinsVersion() {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);",
+                getDriver().findElement(By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")));
+        Assert.assertEquals(getDriver().findElement(By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")).getText(),
+                "Jenkins 2.414.2");
+    }
+
     private void clickRestApi() {
         getDriver().findElement(By.xpath("//a[@href='api/']")).click();
     }
