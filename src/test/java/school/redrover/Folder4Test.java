@@ -32,6 +32,27 @@ public class Folder4Test extends BaseTest {
     }
 
     @Test
+    public void testCreateJobInsideFolder() {
+        final String folderName = "NewFolder";
+        final String jobName = "NewProject";
+
+        createFolder(folderName);
+
+        getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/newJob']",folderName))).click();
+
+        getDriver().findElement(By.className("jenkins-input")).sendKeys(jobName);
+        getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.className("jenkins-button--primary")).click();
+
+        navigateToDashboard();
+        getDriver().findElement(By.xpath(String.format("//*[@id='job_%s']/td[3]/a",folderName))).click();
+
+        String jobNameInFolder = getDriver().findElement((By.xpath("//table[@id='projectstatus']//td[3]"))).getText();
+        assertEquals(jobNameInFolder, jobName);
+    }
+
+    @Test
     public void testAddDescriptionToFolder() {
         final String folderName = "NewFolder";
         final String descriptionText = "This is Folder's description";
