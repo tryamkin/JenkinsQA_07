@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-
 public class CheckJenkinsVersionTest extends BaseTest {
 
     @Test
@@ -33,12 +32,29 @@ public class CheckJenkinsVersionTest extends BaseTest {
 
 
     @Test
-
     public void testVersion() {
 
         getDriver().findElement(By.xpath("//button[@class='jenkins-button jenkins-button--tertiary jenkins_ver']")).click();
         getDriver().findElement(By.xpath("//a[@href='/manage/about']")).click();
         Assert.assertEquals(getDriver().findElement(By.cssSelector(".app-about-version")).getText(),"Version 2.414.2");
+    }
+
+    @Test
+    void testMenuOnJenkinsVersion() throws InterruptedException {
+
+        getDriver().findElement(By.xpath("//div/button[contains(@data-dropdown,'true')] ")).click();
+
+        Thread.sleep(1000);
+
+        Assert.assertTrue(
+                getDriver().findElement(By.xpath("//a[@href='/manage/about']")).isDisplayed(), "About isDisplayed");
+
+        Assert.assertTrue(
+                getDriver().findElement(By.xpath("//a[@href='https://www.jenkins.io/participate/']")).isDisplayed(), "Get involved isDisplayed");
+
+        Assert.assertTrue(
+                getDriver().findElement(By.xpath("//a[@href='https://www.jenkins.io/']")).isDisplayed(), "Website isDisplayed");
+
     }
 }
 
