@@ -71,7 +71,7 @@ public class Pipeline9Test extends BaseTest {
     }
 
     @Test
-    public void testPermalinksContainsInfo() {
+    public void testPermalinksContainsInfo() throws InterruptedException {
         final String pipelineName = "Pipeline_Test";
         final List<String> permalinksInfo = List.of(
                 "Last build (#1)",
@@ -83,6 +83,8 @@ public class Pipeline9Test extends BaseTest {
         createPipeline(pipelineName);
 
         getDriver().findElement(By.xpath("//td//a[@title = 'Schedule a Build for " + pipelineName + "']")).click();
+        Thread.sleep(2000);
+
         getDriver().findElement(By.xpath("//td//a[@href = 'job/" + pipelineName + "/']")).click();
 
         List<WebElement> permalinks = getDriver().findElements(By.className("permalink-item"));
