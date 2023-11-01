@@ -14,13 +14,13 @@ public class CheckJenkinsVersionTest extends BaseTest {
         getDriver().findElement(By.xpath("//div/button")).click();
         Assert.assertEquals(
                 getDriver().findElement(By.xpath("//div/button")).getText(),
-                "Jenkins 2.414.3");
+                "Jenkins 2.414.2");
 
         getDriver().findElement(By.xpath("//a[@href = '/manage/about']")).click();
 
         Assert.assertEquals(
                 getDriver().findElement(By.className("page-footer__links")).getText(),
-                "Jenkins 2.414.3");
+                "Jenkins 2.414.2");
     }
 
     @Test
