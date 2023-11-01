@@ -28,5 +28,21 @@ public class Pipeline9Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "Pipeline " + pipelineName);
     }
 
+    @Test
+    public void testAddDescriptionPipeline() {
+        final String pipelineName = "Test Pipeline";
+        final String description = "This is Test Pipeline";
 
+        createPipeline(pipelineName);
+
+        getDriver().findElement(By.xpath("//td//a[@href = 'job/Test%20Pipeline/']")).click();
+
+        getDriver().findElement(By.id("description-link")).click();
+        getDriver().findElement(By.xpath("//textarea[@name = 'description']")).sendKeys(description);
+        getDriver().findElement(By.xpath("//div[@id = 'description']//button[@name = 'Submit']")).click();
+
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//div[@class = 'jenkins-!-margin-bottom-0']//child::div[1]")).getText(), description);
+    }
 }
+
