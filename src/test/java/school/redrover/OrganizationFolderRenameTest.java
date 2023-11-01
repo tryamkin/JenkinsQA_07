@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 public class OrganizationFolderRenameTest extends BaseTest {
-
     private void createOrgFolder() {
         String folderName = "Test";
         getDriver().findElement(By.linkText("New Item")).click();

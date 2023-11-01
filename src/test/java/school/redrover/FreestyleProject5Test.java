@@ -8,16 +8,16 @@ import school.redrover.runner.BaseTest;
 import java.util.List;
 
 public class FreestyleProject5Test extends BaseTest {
-    private void createProject(String projectName) {
+    private void createProject() {
         getDriver().findElement(By.linkText("New Item")).click();
-        getDriver().findElement(By.id("name")).sendKeys(projectName);
+        getDriver().findElement(By.id("name")).sendKeys("Dead project");
         getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
         getDriver().findElement(By.id("ok-button")).click();
     }
     @Test
     public void deleteProject() {
         final String projectName1 = "Dead project";
-        createProject(projectName1);
+        createProject();
 
         getDriver().findElement(By.linkText("Dashboard")).click();
         getDriver().findElement(By.xpath("//span[text()='" + projectName1 + "']")).click();
