@@ -51,6 +51,7 @@ public class Breadcrumb2Test extends BaseTest {
         assertTrue(thisIsDashboardPage());
     }
     @Ignore
+
     @Test
     public void testReturnToDashboardFromMenuPages() {
         List<By> menuPages = List.of(
