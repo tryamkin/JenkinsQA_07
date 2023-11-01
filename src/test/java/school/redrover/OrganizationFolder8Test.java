@@ -19,10 +19,6 @@ public class OrganizationFolder8Test extends BaseTest {
         getDriver().findElement(By.id("ok-button")).click();
     }
 
-    private void clickSaveButton() {
-        getDriver().findElement(By.xpath("//button[contains(text(), 'Save')]")).click();
-    }
-
     private void setFolderName(String name) {
         getDriver().findElement(By.name("name")).sendKeys(name);
     }
@@ -36,12 +32,12 @@ public class OrganizationFolder8Test extends BaseTest {
         setFolderName(folderName);
         clickOrganizationFolderButton();
         clickOkButton();
-        clickSaveButton();
     }
 
     @Test
     public void testCreateOrganizationFolderWithValidName() {
         createOrganizationFolder("organization folder test");
+        getDriver().findElement(By.xpath("//button[contains(text(), 'Save')]")).click();
 
         Assert.assertEquals(getDriver().findElement(By.tagName("h1")).getText(),
                 "organization folder test");
@@ -54,6 +50,16 @@ public class OrganizationFolder8Test extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//span[contains(text(), 'organization folder test')]")).getText(),
                 "organization folder test");
+    }
+
+    @Test
+    public void testCreateOrganizationFolderWithEmptyName() {
+        clickNewJobButton();
+        clickOrganizationFolderButton();
+
+        Assert.assertEquals(getDriver().findElement(By.id("itemname-required")).getText(),
+                "» This field cannot be empty, please enter a valid name");
+        Assert.assertFalse(getDriver().findElement(By.id("ok-button")).isEnabled(), "OK button should NOT be enabled");
     }
 
 }
