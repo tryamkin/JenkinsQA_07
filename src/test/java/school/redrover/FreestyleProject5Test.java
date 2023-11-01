@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-
 import java.util.List;
+
 public class FreestyleProject5Test extends BaseTest {
     private void createProject() {
         getDriver().findElement(By.linkText("New Item")).click();
