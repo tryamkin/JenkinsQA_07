@@ -47,4 +47,13 @@ public class OrganizationFolder8Test extends BaseTest {
                 "organization folder test");
     }
 
+    @Test
+    public void testNewOrganizationFolderAppearedOnDashboard() {
+        createOrganizationFolder("organization folder test");
+        openDashboard();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//span[contains(text(), 'organization folder test')]")).getText(),
+                "organization folder test");
+    }
+
 }
