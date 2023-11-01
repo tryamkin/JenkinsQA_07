@@ -93,4 +93,12 @@ public class OrganizationFolder8Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.id("itemname-invalid")).getText(),
                 "» A name cannot end with ‘.’");
     }
+
+    @Test
+    public void testCreateOrganizationFolderWithInvalidNameOnlyWithSpace() {
+        createOrganizationFolder(" ");
+
+        Assert.assertEquals(getDriver().findElement(By.tagName("p")).getText(),
+                "No name is specified");
+    }
 }
