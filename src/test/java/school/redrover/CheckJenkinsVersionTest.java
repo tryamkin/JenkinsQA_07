@@ -46,9 +46,9 @@ public class CheckJenkinsVersionTest extends BaseTest {
     private void testJenkinsVersionCheck() {
 
         Assert.assertEquals(
-        getDriver().findElement(By.xpath("//button[contains(text(),'Jenkins 2.414.3')]")).
+        getDriver().findElement(By.xpath("//button[contains(text(),'Jenkins 2.414.2')]")).
                 getAttribute("innerText").trim(),
-                "Jenkins 2.414.3");
+                "Jenkins 2.414.2");
 
         getDriver().findElement((By.className("page-footer__links"))).click();
 
@@ -56,11 +56,11 @@ public class CheckJenkinsVersionTest extends BaseTest {
 
         Assert.assertEquals(
                 getDriver().findElement(By.className("app-about-version")).getText(),
-                "Version 2.414.3");
+                "Version 2.414.2");
 
         Assert.assertEquals(
                 getDriver().findElement(By.className("page-footer__links")).getText(),
-                "Jenkins 2.414.3");
+                "Jenkins 2.414.2");
     }
 }
 
