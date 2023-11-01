@@ -83,4 +83,14 @@ public class OrganizationFolder8Test extends BaseTest {
                 "» “..” is not an allowed name");
         Assert.assertFalse(getDriver().findElement(By.id("ok-button")).isEnabled(), "OK button should NOT be enabled");
     }
+
+    @Test
+    public void testCreateOrganizationFolderWithInvalidNameWithDotAtEnd() {
+        clickNewJobButton();
+        setFolderName("name.");
+        clickOrganizationFolderButton();
+
+        Assert.assertEquals(getDriver().findElement(By.id("itemname-invalid")).getText(),
+                "» A name cannot end with ‘.’");
+    }
 }
