@@ -59,10 +59,10 @@ public class Pipeline9Test extends BaseTest {
 
     @Test
     public void testPermalinksIsEmpty() {
-        final String pipelineName = "Test Pipeline";
+        final String pipelineName = "Pipeline1";
         createPipeline(pipelineName);
 
-        getDriver().findElement(By.xpath("//td//a[@href = 'job/Test%20Pipeline/']")).click();
+        getDriver().findElement(By.xpath("//td//a[@href = 'job/"+ pipelineName +"/']")).click();
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//ul[@class = 'permalinks-list']")).getText().isEmpty());
     }
