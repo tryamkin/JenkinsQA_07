@@ -43,7 +43,7 @@ public class CheckJenkinsVersionTest extends BaseTest {
 
     @Test
 
-    private void testJenkinsVersionCheck() {
+    public void testJenkinsVersionCheck() {
 
         Assert.assertEquals(
         getDriver().findElement(By.xpath("//button[contains(text(),'Jenkins 2.414.2')]")).
