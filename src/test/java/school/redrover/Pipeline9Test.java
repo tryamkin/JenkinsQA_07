@@ -1,9 +1,12 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+
+import java.util.List;
 
 public class Pipeline9Test extends BaseTest {
 
@@ -65,6 +68,31 @@ public class Pipeline9Test extends BaseTest {
         getDriver().findElement(By.xpath("//td//a[@href = 'job/"+ pipelineName +"/']")).click();
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//ul[@class = 'permalinks-list']")).getText().isEmpty());
+    }
+
+    @Test
+    public void testPermalinksContainsInfo() throws InterruptedException {
+        final String pipelineName = "Pipeline_Test";
+        final List<String> permalinksInfo = List.of(
+                "Last build (#1)",
+                "Last stable build (#1)",
+                "Last successful build (#1)",
+                "Last completed build (#1)"
+        );
+
+        createPipeline(pipelineName);
+
+        getDriver().findElement(By.xpath("//td//a[@title = 'Schedule a Build for " + pipelineName + "']")).click();
+        Thread.sleep(2000);
+
+        getDriver().findElement(By.xpath("//td//a[@href = 'job/" + pipelineName + "/']")).click();
+
+        List<WebElement> permalinks = getDriver().findElements(By.className("permalink-item"));
+
+        Assert.assertEquals(permalinks.size(), 4);
+        for (int i = 0; i < permalinks.size(); i++) {
+            Assert.assertTrue(permalinks.get(i).getText().contains(permalinksInfo.get(i)));
+        }
     }
 }
 
