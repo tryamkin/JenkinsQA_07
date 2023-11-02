@@ -169,5 +169,53 @@ public class PipelineTest extends BaseTest {
                 getDriver().findElement(By.cssSelector("#main-panel > h1")).getText(),
                 "Pipeline MyPipeline");
     }
+    @Test
+    public void testCreatePipelineValidName() {
+        final String validPipelineName = "NewPipeline";
+        getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
+
+        getDriver().findElement(By.xpath("//input[@id ='name']")).sendKeys(validPipelineName);
+        getDriver().findElement(By.xpath("//span[normalize-space()='Pipeline']")).click();
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+        getDriver().findElement(By.xpath("//img[@id='jenkins-name-icon']")).click();
+
+        getDriver().findElement(By.xpath("//td//a[@href = 'job/" + validPipelineName + "/']")).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//div[@id = 'main-panel']/h1")).getText(),
+                "Pipeline " + validPipelineName);
+
+    }
+    @Test
+    public void testCreatePipelineWithValidName() {
+        final String PipelineName = "PipelineProjectName";
+        getDriver().findElement(By.cssSelector("a[href*='/view/all/newJob']")).click();
+        getDriver().findElement(By.cssSelector("input[class ='jenkins-input']")).sendKeys(PipelineName);
+        getDriver().findElement(By.xpath("//span[normalize-space()='Pipeline']")).click();
+        getDriver().findElement(By.cssSelector("button[type = 'submit']")).click();
+        getDriver().findElement(By.cssSelector("button[name = 'Submit']")).click();
+        getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']")).click();
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("a[href = 'job/PipelineProjectName/']")).getText(),PipelineName);
+    }
+    @Test
+    public void testCreatePipelineProject() {
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+
+        WebElement nameField = getDriver().findElement(By.xpath("//input[@name='name']"));
+        nameField.clear();
+        nameField.sendKeys("MyPipeline");
+
+        getDriver().findElement(By.xpath("//span[text()='Pipeline']")).click();
+
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+
+        getDriver().findElement(By.xpath("//li/a[@href='/']")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//a[@href='job/MyPipeline/']")).isDisplayed());
+
+    }
 
 }

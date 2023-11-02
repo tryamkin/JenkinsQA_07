@@ -11,6 +11,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class FolderTest extends BaseTest {
 
+    private static final String FOLDER_NAME = "Folder";
+
     private void creationNewFolder(String folderName) {
 
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
@@ -19,6 +21,15 @@ public class FolderTest extends BaseTest {
         getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
         getDriver().findElement(By.xpath("//input[@name='_.displayNameOrNull']")).sendKeys(folderName);
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+    }
+
+    private void folderCreation(String FOLDER_NAME) {
+
+        getDriver().findElement(By.linkText("Create a job")).click();
+        getDriver().findElement(By.id("name")).sendKeys(FOLDER_NAME);
+        getDriver().findElement(By.xpath("//span[@class='label' and text()='Folder']"))
+                .click();
+        getDriver().findElement(By.id("ok-button")).click();
     }
 
     private void getDashboardLink() {
@@ -122,6 +133,7 @@ public class FolderTest extends BaseTest {
 
         assertEquals(getDriver().findElement(By.xpath("//*[@id='job_" + secondFolderName + "']/td[3]/a/span")).getText(), secondFolderName);
     }
+
     @Test
     public void testCreatingNewFolder() {
         final String folderName = "TestFolder";
@@ -140,8 +152,6 @@ public class FolderTest extends BaseTest {
 
     }
 
-
-
     @Test
     public void testCreatingNewFolder1 () {
        final String folderName = "My new project";
@@ -157,6 +167,48 @@ public class FolderTest extends BaseTest {
                 (getDriver().findElement(By.xpath("//span[text()='My new project']")).getText(),
                         folderName);
 
+    }
+
+    @Test
+    public void testRenameFolderUsingBreadcrumbDropdownOnFolderPage() {
+
+        final String NEW_FOLDER_NAME = "FolderNew";
+
+        folderCreation(FOLDER_NAME);
+
+        getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//li[3]")).click();
+
+        getDriver().findElement(By.xpath("//a[@href='/job/" + FOLDER_NAME + "/confirm-rename']")).click();
+
+        getDriver().findElement(By.name("newName")).clear();
+        getDriver().findElement(By.name("newName")).sendKeys(NEW_FOLDER_NAME);
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), NEW_FOLDER_NAME,
+                FOLDER_NAME + " is not equal " + NEW_FOLDER_NAME);
+    }
+
+    @Test
+    public void testErrorMessageIsDisplayedWithoutFolderName() {
+        String expectedErrorMessage = "» This field cannot be empty, please enter a valid name";
+
+        getDriver().findElement(By.xpath("//a[@href='newJob']")).click();
+        getDriver().findElement(By.xpath("//li[@class='com_cloudbees_hudson_plugins_folder_Folder']")).click();
+        boolean errorMessageDisplayed = getDriver().findElement(By.id("itemname-required")).isDisplayed();
+        String actualErrorMessage = getDriver().findElement(By.id("itemname-required")).getText();
+
+        Assert.assertTrue(errorMessageDisplayed, "Error message for empty name is not displayed!");
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, "The error message does not match the expected message!");
+    }
+
+    @Test
+    public void testOKbuttonIsNotClickableWithoutFolderName() {
+        getDriver().findElement(By.xpath("//a[@href='newJob']")).click();
+        getDriver().findElement(By.xpath("//li[@class='com_cloudbees_hudson_plugins_folder_Folder']")).click();
+        WebElement okButton = getDriver().findElement(By.id("ok-button"));
+        boolean okButtonDisabled = "true".equals(okButton.getAttribute("disabled"));
+
+        Assert.assertTrue(okButtonDisabled, "OK button is clickable when it shouldn't be!");
     }
 }
 
