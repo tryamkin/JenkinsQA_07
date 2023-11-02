@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 public class PipelineGoryankaTest extends BaseTest {
-
     private void createApiPipeline(String jobName) {
         getDriver().findElement(By.xpath("//span[@class = 'task-icon-link']")).click();
 
