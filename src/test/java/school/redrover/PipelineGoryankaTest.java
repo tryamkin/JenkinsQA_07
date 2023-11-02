@@ -14,7 +14,6 @@ public class PipelineGoryankaTest extends BaseTest {
 
         getDriver().findElement(By.id("ok-button")).click();
         getDriver().findElement(By.name("Submit")).click();
-
     }
 
     private void goToDashBoard() {
@@ -40,15 +39,15 @@ public class PipelineGoryankaTest extends BaseTest {
         final String jobName = "myJob";
 
         createApiPipeline(jobName);
+
         goToDashBoard();
+
         getDriver().findElement(By.xpath("//span[normalize-space()='" + jobName + "']")).click();
 
-        getDriver().findElement(By.xpath("//button[@href = '/job/myJob/doDelete']")).click();
+        getDriver().findElement(By.xpath("//button[normalize-space()='Delete Pipeline']")).click();
 
         getDriver().switchTo().alert().accept();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//h1[normalize-space()='Welcome to Jenkins!']")).getText(), "Welcome to Jenkins!");
     }
-
-
 }

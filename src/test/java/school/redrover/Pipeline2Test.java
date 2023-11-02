@@ -58,7 +58,7 @@ public class Pipeline2Test extends BaseTest {
 
         getDriver().findElement(By.xpath("//li[@class = 'jenkins-breadcrumbs__list-item']/a[@href ='/']")).click();
 
-        getDriver().findElement(By.xpath("//td/a[@href ='job/" + jobName + "/']")).click();
+        getDriver().findElement(By.xpath("//span[normalize-space()='"+ jobName +"']")).click();
         getDriver().findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
 
         getDriver().switchTo().alert().accept();
