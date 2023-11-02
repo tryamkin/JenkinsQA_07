@@ -688,6 +688,19 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
+    public void testDeleteFreestyleProjectSideMenu() {
+        createFreeStyleProject(PROJECT_NAME);
+        goToJenkinsHomePage();
+
+        getDriver().findElement(By.xpath("//span[contains(text(), '" + PROJECT_NAME + "')]/..")).click();
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Delete Project')]/..")).click();
+        getDriver().switchTo().alert().accept();
+
+        Assert.assertTrue(getDriver().findElements(By.id("job_" + PROJECT_NAME)).isEmpty());
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("h1")).getText(), "Welcome to Jenkins!");
+    }
+
+    @Test
     public void testEditDescriptionFreestyleProject() {
         final String editedDescriptionText = "New description text";
         final String descriptionText = "Description";
