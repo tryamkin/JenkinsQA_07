@@ -26,7 +26,7 @@ public class CreateNevViewTest extends BaseTest {
         getDriver().findElement(By.xpath("//label[@for='hudson.model.MyView']")).click();
         getDriver().findElement(By.xpath("//button[@name = 'Submit']")).click();
 
-        String nameView = getDriver().findElement(By.cssSelector("#projectstatus-tabBar > div > div.tabBar > div.tab.active > a")).getText();
+        String nameView = getDriver().findElement(By.xpath("//a[contains(text(), 'My view')]")).getText();
 
         Assert.assertEquals(nameView, "My view");
 
