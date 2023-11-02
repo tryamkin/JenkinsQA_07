@@ -8,9 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Folder6Test extends BaseTest {
 
     private static final String VALID_NAME = "Folder1";
@@ -42,7 +39,23 @@ public class Folder6Test extends BaseTest {
         getDriver().findElement(By.xpath("//li[@class = 'com_cloudbees_hudson_plugins_folder_Folder']")).click();
 
         getDriver().findElement(By.xpath("//input[@class = 'jenkins-input']")).sendKeys(EMPTY_NAME);
+
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'itemname-required']")).getText(), "» This field cannot be empty, please enter a valid name");
+    }
+
+    @Test
+    public void testCreateValidName() {
+        getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//li[@class = 'com_cloudbees_hudson_plugins_folder_Folder']")).click();
+
+        getDriver().findElement(By.xpath("//input[@class = 'jenkins-input']")).sendKeys(VALID_NAME);
+        getDriver().findElement(By.xpath("//button[@type = 'submit']")).click();
+
+        utilsGoDashboard();
+
+        Assert.assertEquals(getDriver()
+                .findElement(By.xpath("//a[@class = 'jenkins-table__link model-link inside']"))
+                .getText(), VALID_NAME);
     }
 
     @Test
