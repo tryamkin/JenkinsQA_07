@@ -43,7 +43,7 @@ public class PipelineGoryankaTest extends BaseTest {
 
         getDriver().findElement(By.xpath("//span[normalize-space()='" + jobName + "']")).click();
 
-        getDriver().findElement(By.xpath("//button[normalize-space()='Delete Pipeline']")).click();
+        getDriver().findElement(By.xpath("//button[@href = '/job/myJob/doDelete']")).click();
 
         getDriver().switchTo().alert().accept();
 
