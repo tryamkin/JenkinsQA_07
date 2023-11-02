@@ -39,7 +39,6 @@ public class PipelineGoryankaTest extends BaseTest {
         final String jobName = "myJob";
 
         createApiPipeline(jobName);
-
         goToDashBoard();
 
         getDriver().findElement(By.xpath("//span[normalize-space()='" + jobName + "']")).click();
