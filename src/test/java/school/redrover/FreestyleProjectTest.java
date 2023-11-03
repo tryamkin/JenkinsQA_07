@@ -5,12 +5,16 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-import org.testng.annotations.Ignore;
 
+import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.*;
@@ -28,7 +32,7 @@ public class FreestyleProjectTest extends BaseTest {
         return !getDriver().findElements(By.id("job_" + projectName)).isEmpty();
     }
 
-       private void disableProjectByName(String projectName) {
+    private void disableProjectByName(String projectName) {
         getDriver().findElement(By.xpath("//span[contains(text(),'" + projectName + "')]")).click();
         getDriver().findElement(By.name("Submit")).click();
     }
@@ -50,6 +54,14 @@ public class FreestyleProjectTest extends BaseTest {
         getDriver().findElement(By.xpath("//textarea[@name = 'description']")).clear();
         getDriver().findElement(By.xpath("//textarea[@name = 'description']")).sendKeys(text);
         getDriver().findElement(By.xpath("//button[contains(text(),'Save')]")).click();
+    }
+
+    private void clickBuildNow() {
+        getDriver().findElement(By.xpath("//a[@class='task-link ' and contains(@href, 'build')]")).click();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOfAllElements(
+                        getDriver().findElements(By.xpath("//a[@class='model-link inside build-link display-name']"))
+                ));
     }
 
     @Test
@@ -369,6 +381,25 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.fail();
     }
 
+    @Test
+    public void testRedirectionToStatusPageAfterRenaming() {
+        final String initialProjectName = "Test Project";
+        final String newProjectName = "New Test Project";
+        createFreeStyleProject(initialProjectName);
+        goToJenkinsHomePage();
+
+        getDriver().findElement(By.xpath("//span[contains(text(),'" + initialProjectName + "')]")).click();
+        getDriver().findElement(By.xpath("//a[contains(@href,'rename')]")).click();
+        getDriver().findElement(By.name("newName")).sendKeys(Keys.CONTROL + "a");
+        getDriver().findElement(By.name("newName")).sendKeys(newProjectName);
+        getDriver().findElement(By.name("Submit")).click();
+
+        boolean isStatusPageSelected = getDriver()
+                .findElement(By.linkText("Status"))
+                .getAttribute("class")
+                .contains("active");
+        assertTrue(isStatusPageSelected);
+    }
 
     @DataProvider(name = "ValidName")
     public String[][] validCredentials() {
@@ -631,5 +662,59 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(
                 getDriver().findElement(By.xpath("//label[contains(text(), 'This project is parameterized')]/../input"))
                         .isSelected());
+    }
+
+    @Test
+    public void testOldBuildsAreDiscarded() {
+
+        final int numOfBuildNowClicks = 2;
+
+        createFreeStyleProject(PROJECT_NAME);
+        getDriver().findElement(By.xpath("//label[text()='Discard old builds']")).click();
+        getDriver().findElement(By.name("_.numToKeepStr")).sendKeys(String.valueOf(numOfBuildNowClicks));
+        getDriver().findElement(By.name("Submit")).click();
+
+        for (int i = 0; i < numOfBuildNowClicks + 1; i++) {
+            clickBuildNow();
+        }
+
+        getDriver().navigate().refresh();
+
+        List<String> buildsList = getDriver().findElements(
+                        By.xpath("//a[@class='model-link inside build-link display-name']"))
+                .stream().map(WebElement::getText).toList();
+
+        Assert.assertEquals(buildsList.get(buildsList.size() - 1), "#2");
+    }
+
+    @Test
+    public void testDeleteFreestyleProjectSideMenu() {
+        createFreeStyleProject(PROJECT_NAME);
+        goToJenkinsHomePage();
+
+        getDriver().findElement(By.xpath("//span[contains(text(), '" + PROJECT_NAME + "')]/..")).click();
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Delete Project')]/..")).click();
+        getDriver().switchTo().alert().accept();
+
+        Assert.assertTrue(getDriver().findElements(By.id("job_" + PROJECT_NAME)).isEmpty());
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("h1")).getText(), "Welcome to Jenkins!");
+    }
+
+    @Test
+    public void testEditDescriptionFreestyleProject() {
+        final String editedDescriptionText = "New description text";
+        final String descriptionText = "Description";
+
+        createFreeStyleProject(PROJECT_NAME);
+        getDriver().findElement(By.xpath("//textarea[@class='jenkins-input   ']")).click();
+        getDriver().findElement(By.cssSelector("textarea[name='description']")).sendKeys(descriptionText);
+        getDriver().findElement(By.cssSelector("button[class='jenkins-button jenkins-button--primary ']")).click();
+        getDriver().findElement(By.cssSelector("a[id='description-link']")).click();
+        getDriver().findElement(By.cssSelector("textarea[name='description']")).clear();
+        getDriver().findElement(By.cssSelector("textarea[name='description']")).sendKeys(editedDescriptionText);
+        getDriver().findElement(By.cssSelector("button[class='jenkins-button jenkins-button--primary ']")).click();
+
+        assertEquals(getDriver().findElement(By.xpath("//div[@id='description']//div[1]")).getText(),
+                editedDescriptionText);
     }
 }

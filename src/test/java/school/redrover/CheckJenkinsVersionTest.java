@@ -40,7 +40,7 @@ public class CheckJenkinsVersionTest extends BaseTest {
     }
 
     @Test
-    void testMenuOnJenkinsVersion() throws InterruptedException {
+    public void testMenuOnJenkinsVersion() throws InterruptedException {
 
         getDriver().findElement(By.xpath("//div/button[contains(@data-dropdown,'true')] ")).click();
 
@@ -55,6 +55,26 @@ public class CheckJenkinsVersionTest extends BaseTest {
         Assert.assertTrue(
                 getDriver().findElement(By.xpath("//a[@href='https://www.jenkins.io/']")).isDisplayed(), "Website isDisplayed");
 
+
+    @Test
+    public void testJenkinsVersionCheck() {
+
+        Assert.assertEquals(
+        getDriver().findElement(By.xpath("//button[contains(text(),'Jenkins 2.414.2')]")).
+                getAttribute("innerText").trim(),
+                "Jenkins 2.414.2");
+
+        getDriver().findElement((By.className("page-footer__links"))).click();
+
+        getDriver().findElement((By.className("jenkins-dropdown__item"))).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.className("app-about-version")).getText(),
+                "Version 2.414.2");
+
+        Assert.assertEquals(
+                getDriver().findElement(By.className("page-footer__links")).getText(),
+                "Jenkins 2.414.2");
     }
 }
 
