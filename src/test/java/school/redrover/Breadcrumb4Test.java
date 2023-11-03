@@ -26,11 +26,8 @@ public class Breadcrumb4Test extends BaseTest {
         new Actions(getDriver())
                 .moveToElement(dashboardChevron, 7, 7)
                 .pause(500)
+                .click()
                 .perform();
-        dashboardChevron.sendKeys(Keys.RETURN);
-
-        Wait<WebDriver> wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
-        wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='tippy-3']")));
 
         List<WebElement> itemsListBreadcrumb = getDriver().findElements(By.xpath("//div[@id='tippy-3']//a"));
 
