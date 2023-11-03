@@ -76,12 +76,12 @@ public class OrganizationFolder9Test extends BaseTest {
     }
 
     @Test
-    public void testCreateFolderFirst () {
+    public void testCreateOrganizationFolderWithValidNameNew () {
         createFolder();
     }
 
     @Test
-    public void testRenameFolder () {
+    public void testRenameOrganizationFolderNameFromDropDownList () {
         createFolder();
         getDriver().findElement(By.xpath("//*[@id='job_" + folderName + "']/td[3]/a")).click();
         getDriver().findElement(By.xpath("//a[@href='/job/" + folderName + "/confirm-rename']")).click();
