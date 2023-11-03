@@ -63,12 +63,9 @@ public class OrganizationFolder9Test extends BaseTest {
                 OrganizationFolderName);
     }
 
-    @Test
-    public void testRenameWithValidNameFromDropDownMenu() {
-
-        final String folderName = "OrganizationFolder5";
-        final String renamedFolder = "NewOrganizationFolder555";
-
+    final String folderName = "OrganizationFolder5";
+    final String renamedFolder = "NewOrganizationFolder555";
+    private void createFolder () {
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(folderName);
         getDriver().findElement(By.xpath("//li[@class='jenkins_branch_OrganizationFolder']")).click();
@@ -76,6 +73,16 @@ public class OrganizationFolder9Test extends BaseTest {
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
 
         getDriver().findElement(By.linkText("Dashboard")).click();
+    }
+
+    @Test
+    public void testCreateFolderFirst () {
+        createFolder();
+    }
+
+    @Test
+    public void testRenameFolder () {
+        createFolder();
         getDriver().findElement(By.xpath("//*[@id='job_" + folderName + "']/td[3]/a")).click();
         getDriver().findElement(By.xpath("//a[@href='/job/" + folderName + "/confirm-rename']")).click();
         getDriver().findElement(By.name("newName")).clear();
@@ -86,5 +93,4 @@ public class OrganizationFolder9Test extends BaseTest {
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@id='job_" + renamedFolder + "']")).isDisplayed());
     }
-
 }
