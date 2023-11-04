@@ -42,7 +42,7 @@ public class Folder9Test extends BaseTest {
         final String folderName = "FolderTest";
         creationNewFolder(folderName);
 
-        getDriver().findElement(By.xpath("//*[@id='job_TestFolder']/td[3]/a/span")).click();
+        getDriver().findElement(By.xpath("//*[@id='job_FolderTest']/td[3]/a/span")).click();
         getDriver().findElement(By.xpath("//*[@id='tasks']/div[7]/span/a")).click();
         getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input")).clear();
         getDriver().findElement(By.xpath("//*[@id='main-panel']/form/div[1]/div[1]/div[2]/input")).sendKeys("NewName");
