@@ -27,6 +27,7 @@ public class Breadcrumb4Test extends BaseTest {
                 .moveToElement(dashboardChevron)
                 .pause(1000)
                 .click()
+                .build()
                 .perform();
 
         List<WebElement> itemsListBreadcrumb = getDriver().findElements(By.xpath("//div[@id='tippy-3']//a"));
