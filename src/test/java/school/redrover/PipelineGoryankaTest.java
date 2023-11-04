@@ -20,6 +20,7 @@ public class PipelineGoryankaTest extends BaseTest {
         getDriver().findElement(By.xpath("//li[@class= 'jenkins-breadcrumbs__list-item']")).click();
     }
 
+
     @Test
     public void testCreateJob() {
         final String jobName = "Pipeline_1";
