@@ -23,12 +23,12 @@ public class Breadcrumb4Test extends BaseTest {
         new Actions(getDriver()).moveToElement(getDriver().findElement(By.xpath("//a[text()='Dashboard']"))).perform();
 
         WebElement dashboardChevron = getDriver().findElement(By.xpath("//ol[@id='breadcrumbs']//a[text()='Dashboard']/button"));
-        new Actions(getDriver())
-                .moveToElement(dashboardChevron)
-                .pause(1000)
-                .click()
-                .build()
-                .perform();
+        dashboardChevron.click();
+//        new Actions(getDriver())
+//                .moveToElement(dashboardChevron)
+//                .pause(500)
+//                .click()
+//                .perform();
 
         List<WebElement> itemsListBreadcrumb = getDriver().findElements(By.xpath("//div[@id='tippy-3']//a"));
 
