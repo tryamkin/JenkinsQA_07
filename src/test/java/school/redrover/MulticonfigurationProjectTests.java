@@ -45,7 +45,6 @@ public class MulticonfigurationProjectTests extends BaseTest {
 
         new Actions(getDriver()).click(el).perform();
 
-
         Assert.assertEquals(
                 getDriver().findElement(By.cssSelector("#main-panel > h1")).getText(),
                 "Project Test");
