@@ -20,6 +20,7 @@ public class OrganizationFolderTest extends BaseTest {
     }
 
     private void createOrganizationFolder(String name) {
+        returnToJenkinsHomePage();
         getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(name);
         getDriver().findElement(By.xpath("//span[text()='Organization Folder']")).click();
