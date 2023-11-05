@@ -24,5 +24,4 @@ public class MulticonfigurationProject6Test extends BaseTest {
                 getDriver().findElement(By.cssSelector("#main-panel > h1")).getText(),
                 "Project ProjectMulticonfiguration");
     }
-
 }
