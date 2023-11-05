@@ -19,7 +19,7 @@ public class OrganizationFolderTest extends BaseTest {
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
     }
 
-    private void createOrganizationFolderWithValidName(String name) {
+    private void createOrganizationFolder(String name) {
         getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(name);
         getDriver().findElement(By.xpath("//span[text()='Organization Folder']")).click();
