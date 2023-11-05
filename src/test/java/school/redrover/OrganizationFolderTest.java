@@ -206,13 +206,13 @@ public class OrganizationFolderTest extends BaseTest {
     @Test
     public void testVerifyCreatedItem() {
         final String name = "Project";
+        
         createOrganizationFolderWithValidName(name);
-
         returnToJenkinsHomePage();
 
-        Boolean actualResult = getDriver().findElement((By.xpath("//tr[@id='job_" + name + "']"))).getText().contains(name);
+        Boolean actualResult = getDriver().findElement((By.xpath("//tr[@id='job_" + name + "']"))).getText().contains("Project");
 
-        Assert.assertEquals(actualResult, true);
+        Assert.assertTrue(actualResult);
 
     }
 }
