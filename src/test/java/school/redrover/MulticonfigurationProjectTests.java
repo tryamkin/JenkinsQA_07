@@ -32,20 +32,7 @@ public class MulticonfigurationProjectTests extends BaseTest {
 
     @Test
     public void testCreateMCProjectClickingNewItemLeftPanel() {
-        /*
-1.Click the “+ New Item” link shown under “Start building your software project”.
-2.Type name “Test 1” of the new Multiconfiguration project in the input field "Enter an item name".
-3.Select “Multi-configuration project”.
-4.Click “OK” button.
-5.In the “General” view click “Save”
-6. Click “Jenkins” icon to go back to the Dashboard.
-7. Click the project
 
-Expected:
-The Project view should be loaded.
-
-The “Multiconfiguration project“ is displayed in the Project View.
-     */
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys("Test");
         getDriver().findElement(By.cssSelector(".hudson_matrix_MatrixProject")).click();
