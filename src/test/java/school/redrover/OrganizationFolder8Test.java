@@ -106,11 +106,8 @@ public class OrganizationFolder8Test extends BaseTest {
     public void testCreateOrganizationFolderWithExistingName() {
         createOrganizationFolder("Test");
         openDashboard();
-        clickNewJobButton();
-        setFolderName("Test");
-        clickOrganizationFolderButton();
+        createOrganizationFolder("Test");
 
-        Assert.assertEquals(getDriver().findElement(By.id("itemname-invalid")).getText(),
-                "» A job already exists with the name ‘Test’");
+        Assert.assertEquals(getDriver().findElement(By.tagName("p")).getText(),"A job already exists with the name ‘Test’");
     }
 }
