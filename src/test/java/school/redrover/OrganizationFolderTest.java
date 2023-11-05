@@ -24,7 +24,10 @@ public class OrganizationFolderTest extends BaseTest {
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(name);
         getDriver().findElement(By.xpath("//span[text()='Organization Folder']")).click();
         getDriver().findElement(By.xpath("//div[@class='footer']//button")).click();
-        getDriver().findElement(By.xpath("//div[@id='bottom-sticker']//button[@name='Submit']")).click();
+    }
+
+    private void returnToJenkinsHomePage() {
+        getDriver().findElement(By.xpath("//a[@id = 'jenkins-home-link']")).click();
     }
 
     @Test
@@ -205,7 +208,7 @@ public class OrganizationFolderTest extends BaseTest {
         final String name = "Project";
         createOrganizationFolderWithValidName(name);
 
-        getDriver().findElement(By.xpath("//ol[@id='breadcrumbs']/li[1]/a")).click();
+        returnToJenkinsHomePage();
 
         Boolean actualResult = getDriver().findElement((By.xpath("//tr[@id='job_" + name + "']"))).getText().contains(name);
 
