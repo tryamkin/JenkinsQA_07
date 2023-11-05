@@ -35,10 +35,14 @@ public class Nodes4Test extends BaseTest {
         }
 
         List<String> ORIGINAL_TEXT_LIST = new ArrayList<>();
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent1/']")).getText());
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent2/']")).getText());
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent3/']")).getText());
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/(built-in)/']")).getText());
+        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent1/']"))
+                .getText());
+        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent2/']"))
+                .getText());
+        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent3/']"))
+                .getText());
+        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/(built-in)/']"))
+                .getText());
 
         List<String> EXPECTED_SORTED_TEXT_LIST = new ArrayList<>(ORIGINAL_TEXT_LIST);
         Collections.reverse(EXPECTED_SORTED_TEXT_LIST);
