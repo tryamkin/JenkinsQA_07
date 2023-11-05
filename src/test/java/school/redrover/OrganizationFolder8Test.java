@@ -115,4 +115,16 @@ public class OrganizationFolder8Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.tagName("h2")).getText(),
                 "A problem occurred while processing the request.");
     }
+
+    @Test
+    public void testCreateOrganizationFolderWithExistingName() {
+        createOrganizationFolder("Test");
+        openDashboard();
+        clickNewJobButton();
+        setFolderName("Test");
+        clickOrganizationFolderButton();
+
+        Assert.assertEquals(getDriver().findElement(By.id("itemname-invalid")).getText(),
+                "» A job already exists with the name ‘Test’");
+    }
 }
