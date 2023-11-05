@@ -1,31 +1,81 @@
 package school.redrover;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 
 public class FreestyleProject6Test extends BaseTest {
+    private final static String PROJECT_NAME = "FreestyleProject5";
+    private final static String DESCRIPTION_NAME = "Here are the project description!";
+    private final static String EDITED_DESCRIPTION_NAME = "Here is the edited project description!";
+
+    private void createProject(String PROJECT_NAME) {
+
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//input[@class='jenkins-input']")).sendKeys(PROJECT_NAME);
+        getDriver().findElement(By.xpath("//li[@class='hudson_model_FreeStyleProject']")).click();
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        getDriver().findElement(By.xpath("//a[@id='jenkins-home-link']")).click();
+    }
+    private void addDescription() {
+        createProject(PROJECT_NAME);
+
+        getDriver().findElement(By.xpath("//td/a[@href='job/FreestyleProject5/']")).click();
+        getDriver().findElement(By.xpath("(//a[@class='task-link '])[4]")).click();
+        getDriver().findElement(By.xpath("//textarea[@name='description']")).sendKeys(DESCRIPTION_NAME);
+        getDriver().findElement(By.name("Submit")).click();
+        getDriver().findElement(By.xpath("//a[@id='jenkins-home-link']")).click();
+    }
 
     @Test
     public void testCreate() {
-        final String projectName = "FreestyleProject5";
+        String projectName = PROJECT_NAME;
 
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-        getDriver().findElement(By.xpath("//input[@class='jenkins-input']")).sendKeys(projectName);
+        getDriver().findElement(By.xpath("//input[@class='jenkins-input']")).sendKeys(PROJECT_NAME);
         getDriver().findElement(By.xpath("//li[@class='hudson_model_FreeStyleProject']")).click();
         getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
 
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
         getDriver().findElement(By.xpath("//a[@id='jenkins-home-link']")).click();
 
-        getDriver().findElement(By.xpath("//td/a[@href='job/" + projectName + "/']")).click();
+        getDriver().findElement(By.xpath("//td/a[@href='job/FreestyleProject5/']")).click();
 
         Assert.assertEquals(
-                getDriver().findElement(By.xpath("//h1[normalize-space()='Project FreestyleProject5']")).getText(),
-                "Project " + projectName);
+                getDriver().findElement(By.cssSelector(".job-index-headline.page-headline")).getText(),
+                "Project " + PROJECT_NAME);
+    }
+
+    @Test
+    public void testAddDescription() {
+        createProject(PROJECT_NAME);
+
+        getDriver().findElement(By.xpath("//td/a[@href='job/FreestyleProject5/']")).click();
+        getDriver().findElement(By.xpath("(//a[@class='task-link '])[4]")).click();
+        getDriver().findElement(By.xpath("//textarea[@name='description']")).sendKeys(DESCRIPTION_NAME);
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.cssSelector("div[id='description'] div:nth-child(1)")).getText(),
+                DESCRIPTION_NAME);
+    }
+
+    @Test
+    public void testEditDescription() {
+        addDescription();
+
+        getDriver().findElement(By.xpath("//td/a[@href='job/FreestyleProject5/']")).click();
+        getDriver().findElement(By.xpath("(//a[@class='task-link '])[4]")).click();
+        getDriver().findElement(By.xpath("//textarea[@name='description']")).clear();
+        getDriver().findElement(By.xpath("//textarea[@name='description']")).sendKeys(EDITED_DESCRIPTION_NAME);
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.cssSelector("div[id='description'] div:nth-child(1)")).getText(),
+                EDITED_DESCRIPTION_NAME);
     }
 
 
@@ -56,5 +106,28 @@ public class FreestyleProject6Test extends BaseTest {
 
         Assert.assertFalse(isElementPresent);
 
+    }
+    @Test
+    public void testDiscardOldBuildsCheckbox() {
+        final String projectName = "Starlight";
+        final String configureLink = "//a[@href='/job/" + projectName + "/configure']";
+        final String daysToKeepBuildsField = "//input[@name = '_.daysToKeepStr']";
+        final String daysToKeepBuildsFieldValue = "5";
+        final String maxOfBuildsToKeepField = "//input[@name = '_.numToKeepStr']";
+        final String maxOfBuildsToKeepFieldValue = "7";
+
+        createFreestyleProject(projectName);
+        getDriver().findElement(By.xpath("//*[@class = 'jenkins-button jenkins-button--primary ']")).click();
+        getDriver().findElement(By.xpath(configureLink)).click();
+        getDriver().findElement(By.xpath("//label[normalize-space()='Discard old builds']")).click();
+        getDriver().findElement(By.xpath(daysToKeepBuildsField)).sendKeys(daysToKeepBuildsFieldValue);
+        getDriver().findElement(By.xpath(maxOfBuildsToKeepField)).sendKeys(maxOfBuildsToKeepFieldValue);
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+        getDriver().findElement(By.xpath(configureLink)).click();
+        boolean isCheckBoxElementPresent = isElementPresent(getDriver(), By.xpath("//div[@class='rowvg-start tr']"));
+
+        Assert.assertTrue(isCheckBoxElementPresent,"Check-box is not selected");
+        Assert.assertEquals(getDriver().findElement(By.xpath(daysToKeepBuildsField)).getAttribute("value"),daysToKeepBuildsFieldValue);
+        Assert.assertEquals(getDriver().findElement(By.xpath(maxOfBuildsToKeepField)).getAttribute("value"),maxOfBuildsToKeepFieldValue);
     }
 }

@@ -10,10 +10,7 @@ public class Folder5Test extends BaseTest {
     @Test
     public void testMoveFolderToFolder() {
         createFolder("Main");
-        navigateToJenkinsHome();
-
         createFolder("Nested");
-        navigateToJenkinsHome();
 
         getDriver().findElement(By.linkText("Nested")).click();
         getDriver().findElement(By.linkText("Move")).click();
@@ -34,15 +31,73 @@ public class Folder5Test extends BaseTest {
                 .getText(), "Nested");
     }
 
+    @Test
+    public void testCreateJobInsideFolder() {
+        createFolder("Main");
+        getDriver().findElement(By.xpath("//*[@id='job_Main']/td[3]/a")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/Main/newJob']")).click();
+        getDriver().findElement(By.className("jenkins-input")).sendKeys("NewProject");
+        getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.name("Submit")).click();
+
+        getDriver().findElement(By.cssSelector("li[data-href='/job/Main/']")).click();
+        getDriver().findElement(By.className("jenkins-dropdown__item")).click();
+
+        Assert.assertEquals(
+            getDriver()
+                .findElement(By.xpath("//a[@href='job/NewProject/']"))
+                .getText(), "NewProject");
+    }
+
+    @Test
+    public void testAddDescriptionFolder() {
+        createFolder("Main");
+        getDriver().findElement(By.xpath("//*[@id='job_Main']/td[3]/a")).click();
+        getDriver().findElement(By.id("description-link")).click();
+        getDriver().findElement(By.className("jenkins-input")).sendKeys("new description");
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(
+            getDriver()
+                .findElement(By.xpath("//*[@id='description']/div[1]"))
+                .getText(),"new description"
+        );
+    }
+
+    @Test
+    public void testDeleteDescriptionFolder() {
+        createFolder("Main");
+        getDriver().findElement(By.xpath("//*[@id='job_Main']/td[3]/a")).click();
+        addDescription("description");
+        navigateToJenkinsHome();
+
+        getDriver().findElement(By.xpath("//*[@id='job_Main']/td[3]/a")).click();
+        getDriver().findElement(By.id("description-link")).click();
+        getDriver().findElement(By.className("jenkins-input")).clear();
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(
+            getDriver()
+                .findElement(By.xpath("//*[@id='description']/div[1]"))
+                .getText(),""
+        );
+    }
     private void createFolder(String folderName) {
         getDriver().findElement(By.xpath("//a[@href ='/view/all/newJob']")).click();
         getDriver().findElement(By.className("jenkins-input")).sendKeys(folderName);
         getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
         getDriver().findElement(By.id("ok-button")).click();
-        getDriver().findElement(By.name("Submit")).click();
+        navigateToJenkinsHome();
     }
 
     private void navigateToJenkinsHome() {
         getDriver().findElement(By.id("jenkins-home-link")).click();
+    }
+
+    private void addDescription(String text) {
+        getDriver().findElement(By.id("description-link")).click();
+        getDriver().findElement(By.className("jenkins-input")).sendKeys(text);
+        getDriver().findElement(By.name("Submit")).click();
     }
 }
