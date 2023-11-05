@@ -19,6 +19,14 @@ public class OrganizationFolderTest extends BaseTest {
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
     }
 
+    private void createOrganizationFolderWithValidName(String name) {
+        getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']")).click();
+        getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(name);
+        getDriver().findElement(By.xpath("//span[text()='Organization Folder']")).click();
+        getDriver().findElement(By.xpath("//div[@class='footer']//button")).click();
+        getDriver().findElement(By.xpath("//div[@id='bottom-sticker']//button[@name='Submit']")).click();
+    }
+
     @Test
     public void testCreatedNewOrganizationFolder() {
         final String folderName = "Organization_Folder";
@@ -195,19 +203,13 @@ public class OrganizationFolderTest extends BaseTest {
     @Test
     public void testVerifyCreatedItem() {
         final String name = "Project";
+        createOrganizationFolderWithValidName(name);
 
-        getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']")).click();
-        getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(name);
-        getDriver().findElement(By.xpath("//span[text()='Organization Folder']")).click();
-        getDriver().findElement(By.xpath("//div[@class='footer']//button")).click();
         getDriver().findElement(By.xpath("//ol[@id='breadcrumbs']/li[1]/a")).click();
 
-        List<WebElement> tableElement = getDriver().findElements(By.xpath("//tr[@id='job_" + name + "']"));
+        Boolean actualResult = getDriver().findElement((By.xpath("//tr[@id='job_" + name + "']"))).getText().contains(name);
 
-        for (WebElement e : tableElement) {
-            if(e.getText().equals(name)) {
-                Assert.assertTrue(e.getText().equals(name));
-            }
-        }
+        Assert.assertEquals(actualResult, true);
+
     }
 }
