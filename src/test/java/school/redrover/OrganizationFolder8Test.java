@@ -101,4 +101,16 @@ public class OrganizationFolder8Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.tagName("p")).getText(),
                 "No name is specified");
     }
+
+    @Test
+    public void testCreateOrganizationFolderWithExistingName() {
+        createOrganizationFolder("Test");
+        openDashboard();
+        clickNewJobButton();
+        setFolderName("Test");
+        clickOrganizationFolderButton();
+
+        Assert.assertEquals(getDriver().findElement(By.id("itemname-invalid")).getText(),
+                "» A job already exists with the name ‘Test’");
+    }
 }
