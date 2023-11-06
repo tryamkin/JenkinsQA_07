@@ -1,6 +1,7 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -56,6 +58,12 @@ public class FreestyleProjectSeTest extends BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("ok-button"))).click();
     }
 
+    private void createFreeStyleProject(String projectName) {
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
+        getDriver().findElement(By.id("name")).sendKeys(projectName);
+        getDriver().findElement(By.id("ok-button")).click();
+    }
 
     @Test
     public void testSettingsOfDiscardOldBuildsIsDisplayed() {
@@ -93,5 +101,47 @@ public class FreestyleProjectSeTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@nameref='rowSetStart26']//div[@class='jenkins-form-item tr '][1]//div[@class='error']"))
                 .getText(), "Not a positive integer");
+    }
+
+    @Test
+    public void testAddBuildStep() {
+        final String projectName = "FSproject";
+
+        By buildStepInputLocator = By
+                .xpath("//div[@class='CodeMirror-scroll cm-s-default']");
+
+        createFreeStyleProject(projectName);
+        getDriver().findElement(By.xpath("//button[@data-section-id='build-environment']")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        new Actions(getDriver())
+                .moveToElement(getDriver()
+                .findElement(By.xpath("//button[contains(text(), 'Add build step')]")))
+                .click()
+                .perform();
+
+        new Actions(getDriver())
+                .moveToElement(getDriver()
+                .findElement(By.xpath("//a[contains(text(), 'Execute shell')]")))
+                .click()
+                .perform();
+
+        new Actions(getDriver())
+                .moveToElement(getDriver()
+                .findElement(buildStepInputLocator))
+                .click()
+                .sendKeys("buildStep")
+                .perform();
+
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/" + projectName + "/configure']")).click();
+        getDriver().findElement(By.xpath("//button[@data-section-id='build-environment']")).click();
+
+        Assert.assertEquals(getDriver().findElement(buildStepInputLocator).getText(), "buildStep");
     }
 }
