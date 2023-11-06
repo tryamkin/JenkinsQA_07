@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -164,5 +165,24 @@ public class MultibranchPipelineTest extends BaseTest {
         Assert.assertNotEquals(
                 getDriver().findElement(By.xpath("//td//a[@href]/span")).getText(),
                 MULTIBRANCH_PIPELINE_NAME);
+    }
+
+    @Test
+    public void testCreateMultiConfigurationPipeline() {
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+
+        WebElement nameField = getDriver().findElement(By.xpath("//input[@name='name']"));
+        nameField.clear();
+        nameField.sendKeys("MyMultiConfigurationPipeline");
+
+        getDriver().findElement(By.xpath("//span[text()='Multi-configuration project']")).click();
+
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+
+        getDriver().findElement(By.xpath("//li/a[@href='/']")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//a[@href='job/MyMultiConfigurationPipeline/']")).isDisplayed());
+
+
     }
 }
