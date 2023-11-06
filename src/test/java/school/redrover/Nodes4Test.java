@@ -15,8 +15,8 @@ public class Nodes4Test extends BaseTest {
     @Test
     public void testSortNodesInReverseOrder() {
 
-        Actions actions = new Actions(getDriver());
         getDriver().findElement(By.xpath("//a[@href='/manage']")).click();
+        Actions actions = new Actions(getDriver());
         actions.scrollToElement(getDriver().findElement(By.xpath("//a[@href='computer']")))
                 .perform();
         getDriver().findElement(By.xpath("//a[@href='computer']")).click();
@@ -26,36 +26,32 @@ public class Nodes4Test extends BaseTest {
             getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(NODE_NAME);
             getDriver().findElement(By.className("jenkins-radio__label")).click();
             getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
-            getDriver().findElement(By.xpath("//input[@name='_.remoteFS']")).sendKeys("C:\\Users\\galin\\Documents\\QA_courses\\redroverclasses\\Nile_agent");
-            actions.scrollToElement(getDriver().findElement(By.xpath("//input[@name='_.labelString']")))
-                    .perform();
-            getDriver().findElement(By.xpath("//input[@name='_.labelString']")).sendKeys("Label1 Label2");
             getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
 
         }
 
-        List<String> ORIGINAL_TEXT_LIST = new ArrayList<>();
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent1/']"))
+        List<String> originalTextList = new ArrayList<>();
+        originalTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent1/']"))
                 .getText());
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent2/']"))
+        originalTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent2/']"))
                 .getText());
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent3/']"))
+        originalTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent3/']"))
                 .getText());
-        ORIGINAL_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/(built-in)/']"))
+        originalTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/(built-in)/']"))
                 .getText());
 
-        List<String> EXPECTED_SORTED_TEXT_LIST = new ArrayList<>(ORIGINAL_TEXT_LIST);
-        Collections.reverse(EXPECTED_SORTED_TEXT_LIST);
+        List<String> expectedSortedTextList = new ArrayList<>(originalTextList);
+        Collections.reverse(expectedSortedTextList);
 
         getDriver().findElement(By.xpath("//th[@initialsortdir='down']")).click();
 
-        List<String> ACTUAL_SORTED_TEXT_LIST = new ArrayList<>();
-        ACTUAL_SORTED_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/(built-in)/']")).getText());
-        ACTUAL_SORTED_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent3/']")).getText());
-        ACTUAL_SORTED_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent2/']")).getText());
-        ACTUAL_SORTED_TEXT_LIST.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent1/']")).getText());
+        List<String> actualSortedTextList = new ArrayList<>();
+        actualSortedTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/(built-in)/']")).getText());
+        actualSortedTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent3/']")).getText());
+        actualSortedTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent2/']")).getText());
+        actualSortedTextList.add(getDriver().findElement(By.xpath("//a[@href = '../computer/Agent1/']")).getText());
 
-        Assert.assertEquals(ACTUAL_SORTED_TEXT_LIST, EXPECTED_SORTED_TEXT_LIST);
+        Assert.assertEquals(actualSortedTextList, expectedSortedTextList);
 
     }
 }
