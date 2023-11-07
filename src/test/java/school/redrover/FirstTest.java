@@ -17,7 +17,7 @@ public class FirstTest {
 
         WebDriver driver = new ChromeDriver();
         try {
-            driver.get("https://www.google.com/");
+            driver.get("https://toolsqa.com/");
 
             WebElement textBox = driver.findElement(By.className("gLFyf"));
             textBox.sendKeys("Selenium");
