@@ -43,4 +43,21 @@ public class NewItemTest extends BaseTest {
         assertFalse(isCloneItemSectionDisplayed());
     }
 
+    @Test
+    public void testAutocompleteListOfCopyFromFieldWithItemCreated() {
+        final String firstProject = "Test project";
+        final String secondProject = "Test project 2";
+        createFreeStyleProject(firstProject);
+        goToJenkinsHomePage();
+        getDriver().findElement(By.linkText("New Item")).click();
+
+        getDriver().findElement(By.id("name")).sendKeys(secondProject);
+        getDriver().findElement(By.id("from")).sendKeys(firstProject.substring(0, 4));
+
+        boolean isAutocompleteSuggested = !getDriver()
+                .findElements(By.xpath("//li[contains(text(),'" + firstProject + "')]"))
+                .isEmpty();
+        assertTrue(isAutocompleteSuggested);
+    }
+
 }
