@@ -266,6 +266,21 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//pre[@class='console-output']")).getText(),
                 "Hello World");
     }
+    @Test
+    public void testCreatePipelineWithScript(){
+        getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
+        getDriver().findElement(By.id("name")).sendKeys(PIPELINE_NAME);
+        getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+
+        Select select = new Select(getDriver().findElement(By.xpath("//div[@class = 'samples']/select")));
+        select.selectByValue("hello");
+
+        saveConfiguration();
+
+        Assert.assertEquals(getDriver().getTitle(), PIPELINE_NAME + " [Jenkins]");
+
+    }
 
     @Test
     public void testBuildRunTriggeredByAnotherProject() {
