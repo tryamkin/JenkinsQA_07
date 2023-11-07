@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-
 public class FirstTest {
     WebDriver driver;
     String baseUrl = "https://www.georgianholidays.com/ru/attractions/wineries";
@@ -21,8 +20,6 @@ public class FirstTest {
         System.out.println("running @AfterMethod.............");
         driver.quit();
     }
-
-
 
     @BeforeMethod
     public void before() {
