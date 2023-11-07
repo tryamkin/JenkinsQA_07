@@ -281,7 +281,6 @@ public class PipelineTest extends BaseTest {
         saveConfiguration();
 
         Assert.assertEquals(getDriver().getTitle(), pipelineName + " [Jenkins]");
-
     }
 
     @Test
