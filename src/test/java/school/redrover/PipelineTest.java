@@ -268,8 +268,9 @@ public class PipelineTest extends BaseTest {
     }
     @Test
     public void testCreatePipelineWithScript(){
+        String pipelineName = "Railia" + PIPELINE_NAME;
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
-        getDriver().findElement(By.id("name")).sendKeys(PIPELINE_NAME);
+        getDriver().findElement(By.id("name")).sendKeys(pipelineName);
         getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob")).click();
         getDriver().findElement(By.id("ok-button")).click();
 
@@ -278,7 +279,7 @@ public class PipelineTest extends BaseTest {
 
         saveConfiguration();
 
-        Assert.assertEquals(getDriver().getTitle(), PIPELINE_NAME + " [Jenkins]");
+        Assert.assertEquals(getDriver().getTitle(), pipelineName + " [Jenkins]");
 
     }
 
