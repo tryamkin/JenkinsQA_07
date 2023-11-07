@@ -266,6 +266,7 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//pre[@class='console-output']")).getText(),
                 "Hello World");
     }
+
     @Test
     public void testCreatePipelineWithScript(){
         String pipelineName = "Railia" + PIPELINE_NAME;
