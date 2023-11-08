@@ -788,8 +788,9 @@ public class FreestyleProjectTest extends BaseTest {
         Actions actions = new Actions(getDriver());
         List<WebElement> dashBoardMenuItems;
 
-        WebElement BreadCrumbButton = getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']"));
-        actions.moveToElement(BreadCrumbButton).click().perform();
+        WebElement breadCrumbButton = getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']"));
+        actions.moveToElement(breadCrumbButton).perform();
+
 
         WebElement dropDown = getDriver().findElement(By.xpath("/html/body/div[1]/ol/li[1]/a/button"));
         actions.moveToElement(dropDown).perform();
