@@ -784,14 +784,14 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testBreadCrumbMenuEqualsMainPageMenus() {
+    public void testBreadCrumbMenuEqualsMainPageMenus() throws InterruptedException {
         Actions actions = new Actions(getDriver());
         List<WebElement> dashBoardMenuItems;
 
         WebElement breadCrumbButton = getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']"));
         actions.moveToElement(breadCrumbButton).perform();
 
-
+        Thread.sleep(15);
         WebElement dropDown = getDriver().findElement(By.xpath("/html/body/div[1]/ol/li[1]/a/button"));
         actions.moveToElement(dropDown).perform();
         dropDown.click();
@@ -801,14 +801,14 @@ public class FreestyleProjectTest extends BaseTest {
         List<WebElement> dropDownMenuList = getDriver().findElements(
                 By.xpath("//a[@class='jenkins-dropdown__item']"));
 
-        boolean result = true;
+        boolean result = false;
 
         if (dashBoardMenuItems.size() != dropDownMenuList.size()) {
             result = false;
         } else {
             for (int i = 0; i < dashBoardMenuItems.size(); i++) {
-                if (!dashBoardMenuItems.get(i).getText().equals(dropDownMenuList.get(i).getText())) {
-                    result = false;
+                if (dashBoardMenuItems.get(i).getText().equals(dropDownMenuList.get(i).getText())) {
+                    result = true;
                     break;
                 }
             }
