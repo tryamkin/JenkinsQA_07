@@ -779,6 +779,38 @@ public class FreestyleProjectTest extends BaseTest {
         getDriver().findElement(By.cssSelector("button[name = 'Submit']")).click();
         String result = getDriver().findElement(By.cssSelector("form[id='enable-project']")).getText();
 
-        Assert.assertEquals("This project is currently disabled", result.substring(0,34));
+        Assert.assertEquals("This project is currently disabled", result.substring(0, 34));
+    }
+
+    @Test
+    public void testBreadCrumbMenuEqualsMainPageMenus() {
+        Actions actions = new Actions(getDriver());
+        List<WebElement> dashBoardMenuItems;
+
+        WebElement BreadCrumbButton = getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']"));
+        actions.moveToElement(BreadCrumbButton).click().perform();
+
+        WebElement dropDown = getDriver().findElement(By.xpath("/html/body/div[1]/ol/li[1]/a/button"));
+        actions.moveToElement(dropDown).perform();
+        dropDown.click();
+
+        dashBoardMenuItems = getDriver().findElements(By.cssSelector("span[class='task-link-text']"));
+
+        List<WebElement> dropDownMenuList = getDriver().findElements(
+                By.xpath("//a[@class='jenkins-dropdown__item']"));
+
+        boolean result = true;
+
+        if (dashBoardMenuItems.size() != dropDownMenuList.size()) {
+            result = false;
+        } else {
+            for (int i = 0; i < dashBoardMenuItems.size(); i++) {
+                if (!dashBoardMenuItems.get(i).getText().equals(dropDownMenuList.get(i).getText())) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        assertTrue(result);
     }
 }
