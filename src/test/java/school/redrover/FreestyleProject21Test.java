@@ -10,14 +10,6 @@ public class FreestyleProject21Test extends BaseTest {
     private final String PROJECT_NAME = "First Project";
     private final String DESCRIPTION = "Project Description";
 
-
-
-    /*
-        1. add and see a description on Freestyle Status page
-        2. edit the existing description
-        3. delete the existing description
-     */
-
     public void createFirstProject(String projectName) {
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.id("name")).sendKeys(projectName);
@@ -26,13 +18,11 @@ public class FreestyleProject21Test extends BaseTest {
         getDriver().findElement(By.name("Submit")).click();
     }
 
-
     public void addDescription(String DESCRIPTION) {
         getDriver().findElement(By.id("description-link")).click();
         getDriver().findElement(By.xpath("//textarea[@name='description']")).sendKeys(DESCRIPTION);
         getDriver().findElement(By.name("Submit")).click();
     }
-
 
     public void editDescription(String NEW_DESCRIPTION) {
         getDriver().findElement(By.id("description-link")).click();
@@ -40,7 +30,6 @@ public class FreestyleProject21Test extends BaseTest {
         getDriver().findElement(By.xpath("//textarea[@name='description']")).sendKeys(NEW_DESCRIPTION);
         getDriver().findElement(By.xpath("//button[contains(text(),'Save')]")).click();
     }
-
 
     public void deleteDescription() {
         getDriver().findElement(By.id("description-link")).click();
