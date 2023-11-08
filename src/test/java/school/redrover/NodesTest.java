@@ -217,5 +217,22 @@ public class NodesTest extends BaseTest {
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//h1/following-sibling::p")).getText().contains("No such agent"));
     }
+
+    @Test
+    public void testBringNodeBackOnline() {
+        createNewNode(NODE_NAME);
+        goToMainPage();
+
+        getDriver().findElement(By.xpath("//span[text()='" + NODE_NAME +"']")).click();
+        getDriver().findElement(By.xpath("//button[contains(text(),'Mark this node temporarily offline')]")).click();
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        getDriver().findElement(By.xpath("//button[contains(text(),'Bring this node back online')]")).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.name("Submit")).getText(),
+                "Mark this node temporarily offline"
+        );
+    }
 }
 
