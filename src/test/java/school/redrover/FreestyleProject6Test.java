@@ -80,6 +80,32 @@ public class FreestyleProject6Test extends BaseTest {
                 EDITED_DESCRIPTION_NAME);
     }
 
+    @Test
+    public void testDeleteProject() {
+        createProject(PROJECT_NAME);
+
+        getDriver().findElement(By.cssSelector("a[class='jenkins-table__link model-link inside'] span")).click();
+        getDriver().findElement(By.xpath("//a[@class='task-link  confirmation-link']")).click();
+
+        getDriver().switchTo().alert().accept();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.cssSelector("div[class='empty-state-block'] h1")).getText(),
+                "Welcome to Jenkins!");
+    }
+
+    @Test
+    public void testDisableProjectMessage() {
+        createProject(PROJECT_NAME);
+
+        getDriver().findElement(By.cssSelector(".jenkins-table__link.model-link.inside")).click();
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        boolean isMessageVisible = getDriver().findElement(By.className("warning")).isDisplayed();
+
+        Assert.assertTrue(isMessageVisible, "The warning message is not visible.");
+    }
+
 
     private void createFreestyleProject(String projectName) {
         getDriver().findElement(By.xpath("//a[starts-with(@href,'/view/all/newJob') and contains (@class,'task-link')]")).click();
