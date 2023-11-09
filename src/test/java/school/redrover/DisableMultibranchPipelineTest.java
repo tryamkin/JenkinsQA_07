@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-public class DisableMultibranchPipeline extends BaseTest {
+public class DisableMultibranchPipelineTest extends BaseTest {
 
     private void returnToJenkinsHomePage() {
         getDriver().findElement(By.xpath("//a[@id = 'jenkins-home-link']")).click();
