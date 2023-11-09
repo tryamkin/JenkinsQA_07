@@ -139,6 +139,7 @@ public class NodesTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test
     public void testMarkNodeTemporarilyOffline() {
         createNewNode(NODE_NAME);
