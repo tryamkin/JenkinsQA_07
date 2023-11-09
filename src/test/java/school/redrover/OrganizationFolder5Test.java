@@ -4,13 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 public class OrganizationFolder5Test extends BaseTest {
 
     private static final String WELCOME_MESSAGE = "Welcome to Jenkins!";
+    private static final String ORGANIZATION_FOLDER_VALID_NAME = "Organization Folder";
+    private static final String ORGANIZATION_FOLDER_NEW_NAME = "Organization Folder New";
 
     @Test
     public void testVerifyWarningMessageEmptyName() {
@@ -27,7 +28,6 @@ public class OrganizationFolder5Test extends BaseTest {
         Assert.assertEquals(warningMessageTextActual, WARNING_MESSAGE_TEXT_EXPECTED);
     }
 
-    @Ignore
     @Test
     public void testVerifyWarningMessageWithDotName() {
         final String WARNING_MESSAGE_TEXT_EXPECTED = "» A name cannot end with ‘.’";
@@ -36,6 +36,7 @@ public class OrganizationFolder5Test extends BaseTest {
 
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys(ORGANIZATION_FOLDER_WITH_DOT_NAME);
+        getDriver().findElement(By.cssSelector(".jenkins_branch_OrganizationFolder")).click();
 
         String warningMessageTextActual = getDriver().findElement(By.cssSelector("#itemname-invalid")).getText();
         String cssColorWarningMessageActual = getDriver().findElement(By.cssSelector("#itemname-invalid")).getCssValue("color");
@@ -50,16 +51,15 @@ public class OrganizationFolder5Test extends BaseTest {
 
     @Test
     public void testCreateOrganizationFolderWithValidName() {
-        String organizationFolderValidName = "Organization Folder";
 
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
-        getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys(organizationFolderValidName);
+        getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys(ORGANIZATION_FOLDER_VALID_NAME);
         getDriver().findElement(By.cssSelector(".jenkins_branch_OrganizationFolder")).click();
         getDriver().findElement(By.id("ok-button")).click();
         getDriver().findElement(By.name("Submit")).click();
         returnHomeJenkins();
 
-        boolean isDisplayedOnDashboard = getDriver().findElement(By.xpath("//tr[@id='job_" + organizationFolderValidName + "']/td/a/span")).isDisplayed();
+        boolean isDisplayedOnDashboard = getDriver().findElement(By.xpath("//tr[@id='job_" + ORGANIZATION_FOLDER_VALID_NAME + "']/td/a/span")).isDisplayed();
         Assert.assertTrue(isDisplayedOnDashboard);
     }
 
@@ -73,25 +73,21 @@ public class OrganizationFolder5Test extends BaseTest {
         returnHomeJenkins();
     }
 
-    @Test
-    public void RenameOrganizationFolderNameUsingSideBar() {
-        String organizationFolderName = "Organization Folder";
-        String organizationFolderNameNew = "Organization Folder New";
+    @Test(dependsOnMethods = "testCreateOrganizationFolderWithValidName")
+    public void testRenameOrganizationFolderNameUsingSideBar() {
 
-        createOrganizationFolder(organizationFolderName);
-
-        getDriver().findElement(By.xpath("//tr[@id='job_" + organizationFolderName + "']/td/a/span")).click();
+        getDriver().findElement(By.xpath("//tr[@id='job_" + ORGANIZATION_FOLDER_VALID_NAME + "']/td/a/span")).click();
         getDriver().findElement(By.xpath("//a[contains(@href, 'confirm-rename')]")).click();
         getDriver().findElement(By.cssSelector(".jenkins-input")).clear();
-        getDriver().findElement(By.cssSelector(".jenkins-input")).sendKeys(organizationFolderNameNew);
+        getDriver().findElement(By.cssSelector(".jenkins-input")).sendKeys(ORGANIZATION_FOLDER_NEW_NAME);
         getDriver().findElement(By.name("Submit")).click();
 
         String organizationFolderNameNewActual = getDriver().findElement(By.xpath("//div[@id='main-panel']/h1")).getText();
 
-        Assert.assertEquals(organizationFolderNameNewActual, organizationFolderNameNew);
+        Assert.assertEquals(organizationFolderNameNewActual, ORGANIZATION_FOLDER_NEW_NAME);
 
         returnHomeJenkins();
-        boolean isDisplayedOnDashboard = getDriver().findElement(By.xpath("//tr[@id='job_" + organizationFolderNameNew + "']/td/a/span")).isDisplayed();
+        boolean isDisplayedOnDashboard = getDriver().findElement(By.xpath("//tr[@id='job_" + ORGANIZATION_FOLDER_NEW_NAME + "']/td/a/span")).isDisplayed();
         Assert.assertTrue(isDisplayedOnDashboard);
     }
 
