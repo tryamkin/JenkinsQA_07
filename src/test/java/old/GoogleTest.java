@@ -31,6 +31,10 @@ public class GoogleTest {
             String value = title.getText();
             Assert.assertEquals(value,"Selenium");
             driver.quit();
+
+
         }
+
+
     }
 
