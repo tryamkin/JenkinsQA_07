@@ -48,4 +48,15 @@ public class FreestyleProject16Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(),
                 "Edited description");
     }
+
+    @Test(dependsOnMethods = "testEditProjectDescription")
+    public void testDeleteProjectDescription() {
+        getDriver().findElement(By.xpath("//a[@href = 'editDescription']")).click();
+        getDriver().findElement(By.className("jenkins-input")).clear();
+        getDriver().findElement(By.xpath("//button[contains(text(), 'Save')]")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(),
+                "");
+        Assert.assertTrue(getDriver().findElement(By.xpath("//a[text()='Add description']")).isDisplayed());
+    }
 }
