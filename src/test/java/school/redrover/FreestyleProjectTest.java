@@ -786,14 +786,16 @@ public class FreestyleProjectTest extends BaseTest {
     @Test
     public void testBreadCrumbMenuEqualsMainPageMenus() throws InterruptedException {
         Actions actions = new Actions(getDriver());
+        WebDriverWait wait = new WebDriverWait(getDriver(),Duration.ofSeconds(10));
         List<WebElement> dashBoardMenuItems;
+
 
         WebElement breadCrumbButton = getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']"));
         actions.moveToElement(breadCrumbButton).perform();
 
-        Thread.sleep(15);
         WebElement dropDown = getDriver().findElement(By.xpath("/html/body/div[1]/ol/li[1]/a/button"));
-        Thread.sleep(15);
+
+        wait.until(ExpectedConditions.elementToBeClickable(dropDown));
         actions.moveToElement(dropDown).perform();
         dropDown.click();
 
