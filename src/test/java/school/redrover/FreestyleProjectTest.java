@@ -784,7 +784,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testBreadCrumbMenuEqualsMainPageMenus() throws InterruptedException {
+    public void testBreadCrumbMenuEqualsMainPageMenus() {
         Actions actions = new Actions(getDriver());
         WebDriverWait wait = new WebDriverWait(getDriver(),Duration.ofSeconds(10));
         List<WebElement> dashBoardMenuItems;
