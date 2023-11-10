@@ -21,12 +21,8 @@ public class FreestyleProject3Test extends BaseTest {
 
     public void createAndOpenFreestyleProject() {
 
-        getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
-        getDriver().findElement(By.id("name")).sendKeys(PROJECT_NAME);
-        getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
-        getDriver().findElement(By.id("ok-button")).click();
-        getDriver().findElement(By.name("Submit")).click();
-        getDriver().findElement(By.id("jenkins-home-link")).click();
+        createFreestyleProject();
+
         getDriver().findElement(By.xpath("//tr[@id= 'job_" + PROJECT_NAME + "' ] //td[3]/a")).click();
     }
 
