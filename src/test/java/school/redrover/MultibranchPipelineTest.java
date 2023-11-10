@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -166,7 +167,7 @@ public class MultibranchPipelineTest extends BaseTest {
         nameField.clear();
         nameField.sendKeys("MyMultiConfigurationPipeline");
 
-        getDriver().findElement(By.xpath("//span[text()='Multi-configuration project']")).click();
+        getDriver().findElement(By.xpath("//span[text()='Multibranch Pipeline'] ")).click();
 
         getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
 
@@ -195,5 +196,15 @@ public class MultibranchPipelineTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//td[3]/a/span")).getText(), MULTIBRANCH_PIPELINE_NEW_NAME,
                 MULTIBRANCH_PIPELINE_NAME + "is not equal" + MULTIBRANCH_PIPELINE_NEW_NAME);
+    }
+
+    @Test(dependsOnMethods = "testCreateMultiConfigurationPipeline")
+    public void testEnableByDefault() {
+        getDriver().findElement(By.xpath("//a[@href='job/MyMultiConfigurationPipeline/']")).click();
+
+        getDriver().findElement(By.xpath("//*[@id='tasks']/div[2]/span/a")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath(
+                "//*[@id='toggle-switch-enable-disable-project']/label")).getText(), "Enabled");
     }
 }
