@@ -52,7 +52,7 @@ public class Folder3Test extends BaseTest {
                 By.xpath("//td/a[@href='job/" + RENAMED_FOLDER + "/']")).getText(), RENAMED_FOLDER);
     }
 
-       @Test(dependsOnMethods = "testCreate")
+    @Test(dependsOnMethods = "testCreate")
     public void testMoveFolderToFolder() {
         createFolder(NESTED_FOLDER);
 
