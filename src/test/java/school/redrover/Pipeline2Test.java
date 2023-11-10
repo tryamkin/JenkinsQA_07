@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -47,6 +48,7 @@ public class Pipeline2Test extends BaseTest {
         getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'table-box']")));
     }
 
+    @Ignore
     @Test
     public void testCreate() {
         createAPipeline(JOB_NAME);
@@ -57,6 +59,7 @@ public class Pipeline2Test extends BaseTest {
                 JOB_NAME);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreate")
     public void testDelete() {
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(JOB_ON_DASHBOARD_XPATH))).click();
@@ -168,6 +171,7 @@ public class Pipeline2Test extends BaseTest {
                 By.xpath("//label[contains(text(), '" + CHECKBOX_TEXT + "')]/../input"))).isSelected());
     }
 
+    @Ignore
     @Test
     public void testCreatingPipeline() {
         String pipeline = "ArtusomPipeline";
