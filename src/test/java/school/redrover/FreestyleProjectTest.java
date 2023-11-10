@@ -793,6 +793,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         Thread.sleep(15);
         WebElement dropDown = getDriver().findElement(By.xpath("/html/body/div[1]/ol/li[1]/a/button"));
+        Thread.sleep(15);
         actions.moveToElement(dropDown).perform();
         dropDown.click();
 
