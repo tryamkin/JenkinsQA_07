@@ -3,7 +3,6 @@ package school.redrover;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -36,7 +35,7 @@ public class Folder3Test extends BaseTest {
                 By.xpath("//td/a[@href='job/" + FOLDER_NAME + "/']")).getText(), FOLDER_NAME);
     }
 
-    @Ignore
+
     @Test
     public void testRename() {
         createFolder(FOLDER_NAME);
@@ -53,15 +52,14 @@ public class Folder3Test extends BaseTest {
                 By.xpath("//td/a[@href='job/" + RENAMED_FOLDER + "/']")).getText(), RENAMED_FOLDER);
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreate")
+       @Test(dependsOnMethods = "testCreate")
     public void testMoveFolderToFolder() {
         createFolder(NESTED_FOLDER);
 
         getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//td/a[@href='job/" + NESTED_FOLDER + "/']"))).click();
         getDriver().findElement(By.xpath("//a[@href='/job/" + NESTED_FOLDER + "/move']")).click();
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.name("destination"))).click();
-        getWait10().until(ExpectedConditions.elementToBeClickable(
+        getDriver().findElement(By.name("destination")).click();
+        getWait5().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//option[@value='/" + FOLDER_NAME + "']"))).click();
         getDriver().findElement(By.name("Submit")).click();
         returnToJenkinsDashboard();
@@ -77,7 +75,7 @@ public class Folder3Test extends BaseTest {
 
     @Test(dependsOnMethods = "testCreate")
     public void testCreateNewJob() {
-        getWait10().until(ExpectedConditions.visibilityOfElementLocated(
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//td/a[@href='job/" + FOLDER_NAME + "/']"))).click();
         getDriver().findElement(By.xpath("//a[@href='/job/" + FOLDER_NAME + "/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys(JOB_NAME);
