@@ -801,7 +801,7 @@ public class FreestyleProjectTest extends BaseTest {
         List<WebElement> dropDownMenuList = getDriver().findElements(
                 By.xpath("//a[@class='jenkins-dropdown__item']"));
 
-        boolean result = false;
+        boolean result = true;
 
         if (dashBoardMenuItems.size() != dropDownMenuList.size()) {
             result = false;
