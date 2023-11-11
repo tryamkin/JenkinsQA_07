@@ -7,7 +7,7 @@ import school.redrover.runner.BaseTest;
 
 public class FreestyleProject9Test extends BaseTest {
     @Test
-    public void testCreat() {
+    public void testCreate() {
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.cssSelector(".jenkins-input")).sendKeys("FreeStyleProjectName");
         getDriver().findElement(By.cssSelector(".hudson_model_FreeStyleProject")).click();
