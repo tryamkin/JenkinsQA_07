@@ -14,15 +14,13 @@ public class Folder16Test extends BaseTest {
     private final String NESTED_FOLDER_NAME = "Nested_folder_name";
     private final String RENAMED_FOLDER_NAME = "Renamed_folder_name";
 
-    private void rename(String newFolderName)
-    {
+    private void rename(String newFolderName) {
         getDriver().findElement(By.xpath("//input[@name='newName']")).clear();
         getDriver().findElement(By.xpath("//input[@name='newName']")).sendKeys(newFolderName);
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
     }
 
-    private void goTheFolderPage(String folderName)
-    {
+    private void goTheFolderPage(String folderName) {
         getDriver().findElement(By.xpath("//a[@href='job/" + folderName + "/']")).click();
     }
 
@@ -32,8 +30,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test
-    public void testCreate()
-    {
+    public void testCreate() {
         getDriver().findElement(By.linkText("New Item")).click();
         getDriver().findElement(By.id("name")).sendKeys(MAIN_FOLDER_NAME);
         getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
@@ -43,8 +40,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test(dependsOnMethods = {"testCreate"})
-    public void testRenameThroughSidePanel()
-    {
+    public void testRenameThroughSidePanel() {
         goToDashboard();
 
         goTheFolderPage(MAIN_FOLDER_NAME);
@@ -57,8 +53,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test(dependsOnMethods = {"testRenameThroughSidePanel"})
-    public void testRenameThroughContextMenu()
-    {
+    public void testRenameThroughContextMenu() {
         goToDashboard();
 
         getDriver().findElement(By.xpath("//*[@id='job_" + RENAMED_FOLDER_NAME + "']/td[3]/a")).click();
@@ -71,8 +66,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test(dependsOnMethods = {"testRenameThroughContextMenu"})
-    public void testRenameErrorNoNameSpecified()
-    {
+    public void testRenameErrorNoNameSpecified() {
         goToDashboard();
         goTheFolderPage(MAIN_FOLDER_NAME);
         getDriver().findElement(By.xpath("//a[@href='/job/" + MAIN_FOLDER_NAME + "/confirm-rename']")).click();
@@ -84,8 +78,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test(dependsOnMethods = {"testRenameThroughContextMenu"})
-    public void testRenameWithUnsafeCharacter()
-    {
+    public void testRenameWithUnsafeCharacter() {
         char unsafeCharacter = '*'; // $ # / : ? [ \
 
         goToDashboard();
@@ -99,8 +92,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test(dependsOnMethods = {"testRenameThroughContextMenu"})
-    public void testRenameWithEndingPeriod()
-    {
+    public void testRenameWithEndingPeriod() {
         char period = '.';
 
         goToDashboard();
@@ -114,8 +106,7 @@ public class Folder16Test extends BaseTest {
     }
 
     @Test(dependsOnMethods = {"testRenameWithEndingPeriod", "testRenameWithUnsafeCharacter", "testRenameErrorNoNameSpecified"})
-    public void testMoveThroughSidePanel()
-    {
+    public void testMoveThroughSidePanel() {
 
         getDriver().findElement(By.linkText("New Item")).click();
         getDriver().findElement(By.id("name")).sendKeys(NESTED_FOLDER_NAME);
