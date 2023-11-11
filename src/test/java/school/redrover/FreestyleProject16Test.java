@@ -30,6 +30,7 @@ public class FreestyleProject16Test extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateFreestyleProjectWithValidName")
     public void testAddProjectDescription() {
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Freestyle project test')]")).click();
         getDriver().findElement(By.xpath("//a[@href = 'editDescription']")).click();
         getDriver().findElement(By.className("jenkins-input")).sendKeys("description test");
         getDriver().findElement(By.xpath("//button[contains(text(), 'Save')]")).click();
@@ -40,6 +41,7 @@ public class FreestyleProject16Test extends BaseTest {
 
     @Test(dependsOnMethods = "testAddProjectDescription")
     public void testEditProjectDescription() {
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Freestyle project test')]")).click();
         getDriver().findElement(By.xpath("//a[@href = 'editDescription']")).click();
         getDriver().findElement(By.className("jenkins-input")).clear();
         getDriver().findElement(By.className("jenkins-input")).sendKeys("Edited description");
@@ -51,6 +53,7 @@ public class FreestyleProject16Test extends BaseTest {
 
     @Test(dependsOnMethods = "testEditProjectDescription")
     public void testDeleteProjectDescription() {
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Freestyle project test')]")).click();
         getDriver().findElement(By.xpath("//a[@href = 'editDescription']")).click();
         getDriver().findElement(By.className("jenkins-input")).clear();
         getDriver().findElement(By.xpath("//button[contains(text(), 'Save')]")).click();
@@ -58,5 +61,20 @@ public class FreestyleProject16Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(),
                 "");
         Assert.assertTrue(getDriver().findElement(By.xpath("//a[text()='Add description']")).isDisplayed());
+    }
+
+    @Test(dependsOnMethods = "testDeleteProjectDescription")
+    public void testRenameProjectUsingValidName() {
+        String newProjectName = "Renamed freestyle project";
+
+        getDriver().findElement(By.xpath("//span[contains(text(), 'Freestyle project test')]")).click();
+        getDriver().findElement(By.xpath("//*[@id = 'tasks']/div[7]")).click();
+        getDriver().findElement(By.name("newName")).clear();
+        getDriver().findElement(By.name("newName")).sendKeys(newProjectName);
+        getDriver().findElement(By.xpath("//button[contains(text(), 'Rename')]")).click();
+
+        openDashboard();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//*[@class = 'jenkins-table__link model-link inside']/span")).getText(),
+                newProjectName);
     }
 }
