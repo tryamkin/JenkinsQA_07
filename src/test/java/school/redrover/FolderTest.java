@@ -3,18 +3,21 @@ package school.redrover;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 import java.time.Duration;
+
 import static org.testng.AssertJUnit.assertEquals;
 
 
 public class FolderTest extends BaseTest {
 
     private static final String FOLDER_NAME = "Folder";
+    private static final String folderName = "My new project";
 
     private void creationNewFolder(String folderName) {
 
@@ -82,7 +85,7 @@ public class FolderTest extends BaseTest {
 
         findJobByName(oldFolderName).click();
 
-        getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/confirm-rename']",oldFolderName))).click();
+        getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/confirm-rename']", oldFolderName))).click();
         WebElement inputName = getDriver().findElement(By.name("newName"));
         inputName.clear();
         inputName.sendKeys(newFolderName);
@@ -168,13 +171,11 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void testCreatingNewFolder1 () {
-       final String folderName = "My new project";
-
+    public void testCreatingNewFolder1() {
         getDriver().findElement(By.xpath("//*[@id=\"tasks\"]/div[1]/span/a")).click();
         getDriver().findElement(By.xpath("//*[@id=\"name\"]")).sendKeys(folderName);
         getDriver().findElement(By.xpath("//*[@id=\"j-add-item-type-nested-projects\"]/ul/li[1]")).click();
-                getDriver().findElement(By.xpath("//*[@id=\"ok-button\"]")).click();
+        getDriver().findElement(By.xpath("//*[@id=\"ok-button\"]")).click();
         getDriver().findElement(By.xpath("//*[@id=\"bottom-sticker\"]/div/button[1]"));
 
         getDriver().findElement(By.xpath("//*[@id=\"breadcrumbs\"]/li[1]/a")).click();
@@ -229,27 +230,25 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(okButtonDisabled, "OK button is clickable when it shouldn't be!");
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreatingNewFolder1")
     public void testAddDisplayName() {
         final String folderDisplayName = "Best folder";
 
-        createFolderAddReturnToDashboard(FOLDER_NAME);
-
-        WebElement folder = getDriver().findElement(By.xpath("//*[@id='job_" + FOLDER_NAME + "']/td[3]/a"));
+        WebElement folder = getDriver().findElement(By.xpath("//*[@id='job_" + folderName + "']/td[3]/a"));
         new Actions(getDriver())
                 .moveToElement(folder)
                 .click()
                 .perform();
-        getDriver().findElement(By.xpath("//a[@href='/job/" + FOLDER_NAME + "/configure']")).click();
+        getDriver().findElement(By.linkText("Configure")).click();
         getDriver().findElement(By.xpath("//input[@name='_.displayNameOrNull']")).sendKeys(folderDisplayName);
         getDriver().findElement(By.name("Submit")).click();
         getDriver().findElement(By.xpath("//a[text()='Dashboard']")).click();
 
-        String folderName = getDriver()
-                .findElement(By.xpath("//*[@id='job_" + FOLDER_NAME + "']/td[3]/a/span"))
+        String actualFolderName = getDriver()
+                .findElement(By.xpath("//*[@id='job_" + folderName + "']/td[3]/a/span"))
                 .getText();
 
-        Assert.assertEquals(folderName, folderDisplayName);
+        Assert.assertEquals(actualFolderName, folderDisplayName);
     }
 
     @Test
@@ -275,7 +274,7 @@ public class FolderTest extends BaseTest {
 
 
         Assert.assertEquals(getDriver().findElement(
-                By.xpath("//a[@href='/job/Folder/job/Pipeline/1/console']")).getAttribute("tooltip"),
+                        By.xpath("//a[@href='/job/Folder/job/Pipeline/1/console']")).getAttribute("tooltip"),
                 "Success > Console Output");
     }
 
