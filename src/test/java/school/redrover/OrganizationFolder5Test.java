@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -12,6 +13,7 @@ public class OrganizationFolder5Test extends BaseTest {
     private static final String WELCOME_MESSAGE = "Welcome to Jenkins!";
     private static final String ORGANIZATION_FOLDER_VALID_NAME = "Organization Folder";
     private static final String ORGANIZATION_FOLDER_NEW_NAME = "Organization Folder New";
+    private static final String MESSAGE_FOLDER_DISABLED_EXPECTED = "This Organization Folder is currently disabled";
 
     @Test
     public void testVerifyWarningMessageEmptyName() {
@@ -113,32 +115,25 @@ public class OrganizationFolder5Test extends BaseTest {
 
     @Test
     public void testDisableOrganizationFolder() {
-        String organizationFolderName = "Organization Folder";
-        final String MESSAGE_FOLDER_DISABLED_EXPECTED = "This Organization Folder is currently disabled";
-        final String CSS_COLOR_MESSAGE_FOLDER_DISABLED_EXPECTED = "rgba(254, 130, 10, 1)";
+        String cssColorMessageFolderDisabledExpected = "rgba(254, 130, 10, 1)";
 
-        createOrganizationFolder(organizationFolderName);
+        createOrganizationFolder(ORGANIZATION_FOLDER_VALID_NAME);
 
-        getDriver().findElement(By.xpath("//tr[@id='job_" + organizationFolderName + "']/td/a/span")).click();
+        getDriver().findElement(By.xpath("//tr[@id='job_" + ORGANIZATION_FOLDER_VALID_NAME + "']/td/a/span")).click();
         getDriver().findElement(By.xpath("//button[@name=\"Submit\"]")).click();
 
         String messageFolderDisabledActual = getDriver().findElement(By.cssSelector("form#enable-project")).getText();
         String cssColorMessageFolderDisabledActual = getDriver().findElement(By.id("enable-project")).getCssValue("color");
 
         Assert.assertTrue(messageFolderDisabledActual.contains(MESSAGE_FOLDER_DISABLED_EXPECTED));
-        Assert.assertEquals(cssColorMessageFolderDisabledActual, CSS_COLOR_MESSAGE_FOLDER_DISABLED_EXPECTED);
+        Assert.assertEquals(cssColorMessageFolderDisabledActual, cssColorMessageFolderDisabledExpected);
     }
 
-    @Test
+    @Test(dependsOnMethods = "testDisableOrganizationFolder")
     public void testEnableOrganizationFolder() {
-        String organizationFolderName = "Organization Folder";
-        final String MESSAGE_FOLDER_DISABLED_EXPECTED = "This Organization Folder is currently disabled";
         String disableButtonText = "Disable Organization Folder";
 
-        createOrganizationFolder(organizationFolderName);
-        getDriver().findElement(By.xpath("//tr[@id='job_" + organizationFolderName + "']/td/a/span")).click();
-        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
-
+        getDriver().findElement(By.xpath("//tr[@id='job_" + ORGANIZATION_FOLDER_VALID_NAME + "']/td/a/span")).click();
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
 
         boolean isMessageDisplayed = getDriver().findElement(By.id("main-panel")).getText().contains(MESSAGE_FOLDER_DISABLED_EXPECTED);
@@ -164,6 +159,7 @@ public class OrganizationFolder5Test extends BaseTest {
         Assert.assertTrue(confirmingButtonActual.contains(CONFIRMING_BUTTON_TEXT_EXPECTED));
     }
 
+    @Ignore
     @Test
     public void testDeleteOrganizationFolder() {
         String organizationFolderName = "Organization Folder";

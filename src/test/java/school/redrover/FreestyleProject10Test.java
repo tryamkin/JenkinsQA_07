@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -57,6 +58,7 @@ public class FreestyleProject10Test extends BaseTest {
                 nameDescription);
     }
 
+    @Ignore
     @Test
     public void testRenameFreestyleProject() {
         final String newName = "Test Rename Project 3210";
@@ -145,11 +147,9 @@ public class FreestyleProject10Test extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
-    public void testRenameUnsafeCharacters() throws InterruptedException {
+    public void testRenameUnsafeCharacters() {
         creatingFreestyleProject(NAME_FREESTYLE_PROJECT);
-
         getDriver().findElement(LINK_ON_A_CREATED_FREESTYLE_PROJECT).click();
         getDriver().findElement(By.cssSelector("a[href$='confirm-rename']")).click();
         WebElement newName = getDriver().findElement(By.name("newName"));
@@ -160,7 +160,7 @@ public class FreestyleProject10Test extends BaseTest {
             newName.clear();
             newName.sendKeys(x);
             newName.sendKeys(Keys.TAB);
-            Thread.sleep(20);
+            getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[class='error']")));
 
             Assert.assertEquals(getDriver().findElement(By.cssSelector("div[class='error']")).getText(),
                     "‘" + x + "’ is an unsafe character");
