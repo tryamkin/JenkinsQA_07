@@ -741,4 +741,44 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//span[contains(text(),'" + NEW_PROJECT_NAME + "')]")).isDisplayed());
     }
+
+    @Test
+    public void testFreestyleProjectAdvancedSetting() {
+        createFreeStyleProject(PROJECT_NAME);
+
+        getDriver().findElement(By.cssSelector("button[name = 'Submit']")).click();
+        getDriver().findElement(By.cssSelector("li[class = 'jenkins-breadcrumbs__list-item']")).click();
+
+        getDriver().findElement(By.cssSelector("a[class='jenkins-table__link model-link inside']")).click();
+        getDriver().findElement(By.cssSelector("#tasks > div:nth-child(6) > span > a")).click();
+
+        getDriver().findElement(By.xpath("(//button[@type='button'][normalize-space()='Advanced'])[3]")).click();
+        getDriver().findElement(By.cssSelector("a[title='Help for feature: Quiet period']")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//div[@class='tbody dropdownList-container']//div[@class='help']//div")).isDisplayed());
+    }
+
+    @Test
+    public void testFreestyleProjectNavigateToStatusPage() {
+        String editedProjectName = PROJECT_NAME.replace(" ", "%20");
+
+        createFreeStyleProject(PROJECT_NAME);
+        goToJenkinsHomePage();
+
+        getDriver().findElement(By.xpath("//span[contains(text(), '" + PROJECT_NAME + "')]/..")).click();
+
+        Assert.assertTrue(getDriver().getCurrentUrl().contains("/job/" + editedProjectName));
+    }
+
+    @Test
+    public void testDisableFreestyleProject() {
+        createFreeStyleProject(PROJECT_NAME);
+        goToJenkinsHomePage();
+
+        getDriver().findElement(By.cssSelector("a[class='jenkins-table__link model-link inside']")).click();
+        getDriver().findElement(By.cssSelector("button[name = 'Submit']")).click();
+        String result = getDriver().findElement(By.cssSelector("form[id='enable-project']")).getText();
+
+        Assert.assertEquals("This project is currently disabled", result.substring(0,34));
+    }
 }
