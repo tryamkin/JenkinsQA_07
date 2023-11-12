@@ -58,6 +58,17 @@ public class FreestyleProject10Test extends BaseTest {
                 nameDescription);
     }
 
+    @Test(dependsOnMethods = "testFreestyleProjectAddDescription")
+    public void testDeleteTheExistingDescription() {
+        getDriver().findElement(LINK_ON_A_CREATED_FREESTYLE_PROJECT).click();
+        getDriver().findElement(By.cssSelector("#description-link")).click();
+        getDriver().findElement(By.name("description")).clear();
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(),
+                "");
+    }
+
     @Ignore
     @Test
     public void testRenameFreestyleProject() {
@@ -130,7 +141,7 @@ public class FreestyleProject10Test extends BaseTest {
         getDriver().findElement(By.cssSelector("a[onclick^='return build_']")).click();
         getDriver().navigate().refresh();
 
-        getDriver().findElement(By.cssSelector("a[href='lastBuild/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='lastBuild/']")).click();
         getDriver().findElement(By.cssSelector("a[href$='confirmDelete']")).click();
         getDriver().findElement(By.cssSelector("button[formnovalidate]")).click();
 
