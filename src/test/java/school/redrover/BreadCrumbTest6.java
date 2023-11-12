@@ -9,12 +9,12 @@ public class BreadCrumbTest6 extends BaseTest {
 
    @Test
     public void testNavigateToDashboard () {
-        getDriver().findElement(By.xpath("//a[@href='/user/admin']"));
+        getDriver().findElement(By.xpath("//span[text() = 'People']"));
         getDriver().findElement(By.xpath("//div[@id = 'breadcrumbBar']//a[@href ='/']")).click();
 
-        int count = getDriver().findElements(By.xpath("//ol[@id = 'breadcrumbs']//li")).size();
+        String title = getDriver().getTitle();
 
-        Assert.assertEquals(count, 2);
+        Assert.assertEquals(title, "Dashboard [Jenkins]");
     }
 
 }
