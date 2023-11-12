@@ -11,6 +11,9 @@ import java.util.List;
 
     public class CreateUser2Test extends BaseTest {
 
+        public static final String USER_NAME = "Username";
+        public static final String FULL_NAME = "User Full Name";
+
         public void goToUserCreatePage(){
             getDriver().findElement(By.xpath("//a[@href='/manage']")).click();
             getDriver().findElement(By.xpath("//a[@href='securityRealm/']")).click();
@@ -60,19 +63,29 @@ import java.util.List;
         }
         @Test
         public void testVerifyUserCreated() {
-            String username = "Username";
             String password = "qwerty";
             String confirmPassword = "qwerty";
-            String fullName = "User Full Name";
             String eMailAddress = "user@mail.com";
             String usersPageTitleActual = "Users";
 
             goToUserCreatePage();
-            createUser(username, password, confirmPassword, fullName, eMailAddress);
+            createUser(USER_NAME, password, confirmPassword, FULL_NAME, eMailAddress);
 
-            Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), usersPageTitleActual);
-            Assert.assertTrue(getDriver().findElement(By.id("people")).getText().contains(username) && getDriver().findElement(By.id("people")).getText().contains(fullName));
-        }
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), usersPageTitleActual);
+        Assert.assertTrue(getDriver().findElement(By.id("people")).getText().contains(USER_NAME) && getDriver().findElement(By.id("people")).getText().contains(FULL_NAME));
+    }
+
+    @Test(dependsOnMethods = "testVerifyUserCreated")
+    public void testVerifyUserIdButton(){
+        getDriver().findElement(By.xpath("//a[@href='/manage']")).click();
+        getDriver().findElement(By.xpath("//a[@href='securityRealm/']")).click();
+
+        getDriver().findElement(By.xpath("//table[@id='people']//td/a[text()='" + USER_NAME+ "']")).click();
+        String titleOfUserPageActual = getDriver().findElement(By.tagName("h1")).getText();
+
+        Assert.assertEquals(titleOfUserPageActual, FULL_NAME);
+        Assert.assertTrue(getDriver().findElement(By.id("main-panel")).getText().contains("Jenkins User ID: " + USER_NAME));
+    }
 }
 
 
