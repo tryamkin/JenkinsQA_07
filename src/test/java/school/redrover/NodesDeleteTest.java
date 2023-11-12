@@ -22,18 +22,20 @@ public class NodesDeleteTest extends BaseTest {
         getDriver().findElement(By.linkText("Build Executor Status")).click();
     }
 
-
     private boolean elementIsNotPresent(String xpath){
         return getDriver().findElements(By.xpath(xpath)).isEmpty();
     }
 
-     @Test
+    private void clickOnDeleteButton(){
+        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
+        getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
+    }
+
+    @Test
     public void testCheckAlertMessageInDeleteNewNode() {
         createNode();
 
-        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
-
-        getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
+        clickOnDeleteButton();
 
         Assert.assertEquals(getDriver().switchTo().alert().getText(), "Delete the agent ‘"+ NODE_NAME + "’?");
     }
@@ -42,9 +44,7 @@ public class NodesDeleteTest extends BaseTest {
     public void testCancelToDeleteNewNodeFromAgentPage() {
         createNode();
 
-        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
-
-        getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
+        clickOnDeleteButton();
 
         getDriver().switchTo().alert().dismiss();
 
@@ -57,9 +57,7 @@ public class NodesDeleteTest extends BaseTest {
     public void testDeleteNewNodeFromAgentPage() {
         goToNodesPage();
 
-        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
-
-        getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
+        clickOnDeleteButton();
 
         getDriver().switchTo().alert().accept();
 
