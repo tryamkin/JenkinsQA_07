@@ -1,8 +1,5 @@
 package school.redrover;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -30,57 +27,37 @@ public class NodesDeleteTest extends BaseTest {
         return getDriver().findElements(By.xpath(xpath)).isEmpty();
     }
 
-    @Test
+     @Test
     public void testCheckAlertMessageInDeleteNewNode() {
         createNode();
 
-        Actions a = new Actions(getDriver());
-        WebElement dropDownMenu = getDriver().findElement(By.xpath("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
-        a.moveToElement(dropDownMenu).build().perform();
-        getWait10().until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
+        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
 
-        getDriver().findElement(By.xpath("//button[@href='/computer/"+ NODE_NAME +"/doDelete']")).click();
+        getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
 
-        Assert.assertEquals(getDriver().switchTo().alert().getText(), "Delete Agent: are you sure?");
+        Assert.assertEquals(getDriver().switchTo().alert().getText(), "Delete the agent ‘"+ NODE_NAME + "’?");
     }
 
     @Test
-    public void testCancelToDeleteNewNodeFromDropDownMenu() {
+    public void testCancelToDeleteNewNodeFromAgentPage() {
         createNode();
 
-        Actions a = new Actions(getDriver());
-        WebElement dropDownMenu = getDriver().findElement(By.xpath("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
-        a.moveToElement(dropDownMenu).build().perform();
-        getWait10().until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
+        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
 
-        getDriver().findElement(By.xpath("//button[@href='/computer/"+ NODE_NAME +"/doDelete']")).click();
+        getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
 
         getDriver().switchTo().alert().dismiss();
+
+        goToNodesPage();
 
         Assert.assertFalse(elementIsNotPresent("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
     }
 
-    @Test(dependsOnMethods = "testCancelToDeleteNewNodeFromDropDownMenu")
-    public void testDeleteNewNodeFromDropDownMenu() {
+    @Test(dependsOnMethods = "testCancelToDeleteNewNodeFromAgentPage")
+    public void testDeleteNewNodeFromAgentPage() {
         goToNodesPage();
 
-        Actions a = new Actions(getDriver());
-        WebElement dropDownMenu = getDriver().findElement(By.xpath("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
-        a.moveToElement(dropDownMenu).build().perform();
-        getWait10().until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
-
-        getDriver().findElement(By.xpath("//button[@href='/computer/"+ NODE_NAME +"/doDelete']")).click();
-
-        getDriver().switchTo().alert().accept();
-
-        Assert.assertTrue(elementIsNotPresent("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
-    }
-
-    @Test
-    public void testDeleteNewNodeFromAgentPage() {
-        createNode();
-
-        getDriver().findElement(By.xpath("//a[@href='/computer/"+ NODE_NAME +"/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='../computer/"+ NODE_NAME +"/']")).click();
 
         getDriver().findElement(By.xpath("//div[@id='tasks']/div[2]/span/a")).click();
 
