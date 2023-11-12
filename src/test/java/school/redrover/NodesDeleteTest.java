@@ -37,7 +37,7 @@ public class NodesDeleteTest extends BaseTest {
         Actions a = new Actions(getDriver());
         WebElement dropDownMenu = getDriver().findElement(By.xpath("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
         a.moveToElement(dropDownMenu).build().perform();
-        getWait5().until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
+        getWait2().until(ExpectedConditions.visibilityOf(dropDownMenu)).click();
 
         getDriver().findElement(By.xpath("//button[@href='/computer/"+ NODE_NAME +"/doDelete']")).click();
 
@@ -51,7 +51,7 @@ public class NodesDeleteTest extends BaseTest {
         Actions a = new Actions(getDriver());
         WebElement dropDownMenu = getDriver().findElement(By.xpath("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
         a.moveToElement(dropDownMenu).build().perform();
-        getWait5().until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
+        getWait2().until(ExpectedConditions.visibilityOf(dropDownMenu)).click();
 
         getDriver().findElement(By.xpath("//button[@href='/computer/"+ NODE_NAME +"/doDelete']")).click();
 
@@ -67,7 +67,7 @@ public class NodesDeleteTest extends BaseTest {
         Actions a = new Actions(getDriver());
         WebElement dropDownMenu = getDriver().findElement(By.xpath("//tr[@id='node_"+ NODE_NAME +"']//a//button"));
         a.moveToElement(dropDownMenu).build().perform();
-        getWait5().until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
+        getWait2().until(ExpectedConditions.visibilityOf(dropDownMenu)).click();
 
         getDriver().findElement(By.xpath("//button[@href='/computer/"+ NODE_NAME +"/doDelete']")).click();
 
