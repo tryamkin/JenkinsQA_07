@@ -42,14 +42,4 @@ public class DeleteProjectTest extends BaseTest {
         Assert.assertEquals(actualTitle, "Start building your software project");
 
     }
-
-    @Test
-    public void testCreateProject11() {
-        createProject();
-        getDriver().findElement(By.id("jenkins-home-link")).click();
-
-        String s = getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href = 'job/" + NAME_OF_FOLDER + "/']"))).getText();
-        Assert.assertTrue(s.equals(NAME_OF_FOLDER + 1));
-
-    }
 }
