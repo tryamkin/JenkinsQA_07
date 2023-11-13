@@ -1,6 +1,7 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -39,6 +40,16 @@ public class DeleteProjectTest extends BaseTest {
         String actualTitle = getDriver().findElement(By.xpath("//h2[contains(text(),'Start building your software project')]")).getText();
 
         Assert.assertEquals(actualTitle, "Start building your software project");
+
+    }
+
+    @Test
+    public void testCreateProject11() {
+        createProject();
+        getDriver().findElement(By.id("jenkins-home-link")).click();
+
+        String s = getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href = 'job/" + NAME_OF_FOLDER + "/']"))).getText();
+        Assert.assertTrue(s.equals(NAME_OF_FOLDER + 1));
 
     }
 }
