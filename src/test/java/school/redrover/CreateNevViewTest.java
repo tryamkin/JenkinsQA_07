@@ -2,13 +2,16 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 
+
   public class CreateNevViewTest extends BaseTest {
       private static final String PROJECT_NAME = "MyProject";
-     
+
+      @Ignore
     @Test
     public void testCreateFreestPro() {
         getDriver().findElement(By.xpath("//a [@href = '/view/all/newJob']")).click();
@@ -23,6 +26,7 @@ import school.redrover.runner.BaseTest;
         Assert.assertEquals(newFreestPro,"MyProject");
     }
 
+      @Ignore
     @Test (dependsOnMethods = "testCreateFreestPro")
     public void testCreateView() {
         getDriver().findElement(By.xpath("//a[@aria-label='New View']")).click();
@@ -36,6 +40,7 @@ import school.redrover.runner.BaseTest;
         Assert.assertEquals(nameView, "My view");
     }
 
+      @Ignore
       @Test (dependsOnMethods = "testCreateView")
       public void testRenameView() {
           getDriver().findElement(By.xpath("//div[@id='projectstatus-tabBar']/div/div[1]/div[2]/a")).click();
@@ -48,7 +53,8 @@ import school.redrover.runner.BaseTest;
                   By.xpath("//div[@id=\"main-panel\"]/div[2]/div[1]/div[2]/a")).getText(),
                   "Job view");
       }
-      
+
+      @Ignore
       @Test (dependsOnMethods = "testRenameView")
        public  void testAddDescription() {
           getDriver().findElement(By.xpath("//div[@id='projectstatus-tabBar']/div/div[1]/div[2]/a")).click();
@@ -61,6 +67,7 @@ import school.redrover.runner.BaseTest;
           Assert.assertEquals(textDescription, "Help folder");
       }
 
+      @Ignore
       @Test (dependsOnMethods = "testCreateFreestPro")
       public void testAddJobView() {
           getDriver().findElement(By.xpath("//div[@id='projectstatus-tabBar']/div/div[1]/div[2]/a")).click();

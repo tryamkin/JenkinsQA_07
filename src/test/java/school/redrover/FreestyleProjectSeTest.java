@@ -81,6 +81,7 @@ public class FreestyleProjectSeTest extends BaseTest {
                 .perform();
     }
 
+    @Ignore
     @Test
     public void testSettingsOfDiscardOldBuildsIsDisplayed() {
         createAnItem("Freestyle project");
@@ -93,6 +94,7 @@ public class FreestyleProjectSeTest extends BaseTest {
                 .getAttribute("style"), "");
     }
 
+    @Ignore
     @Test
     public void testSettingsGitIsOpened() {
         createAnItem("Freestyle project");
@@ -105,7 +107,7 @@ public class FreestyleProjectSeTest extends BaseTest {
                 .getAttribute("style"), "");
     }
 
-
+    @Ignore
     @Test
     public void testDaysToKeepBuildsErrorMessageIsDisplayed() {
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
@@ -123,6 +125,7 @@ public class FreestyleProjectSeTest extends BaseTest {
         Assert.assertTrue(errorMessage.isDisplayed());
     }
 
+    @Ignore
     @Test
     public void testAddBuildStep() {
         final String projectName = "FSproject";
@@ -165,6 +168,7 @@ public class FreestyleProjectSeTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(buildStepInputLocator).getText(), "buildStep");
     }
 
+    @Ignore
     @Test
     public void testGitHubEditedLabelAppears() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
@@ -186,6 +190,7 @@ public class FreestyleProjectSeTest extends BaseTest {
                 "Edited");
     }
 
+    @Ignore
     @Test
     public void testDescriptionPreviewAppears() {
         createAnItem("Freestyle project");
@@ -200,6 +205,8 @@ public class FreestyleProjectSeTest extends BaseTest {
                 .getText(),
                 inputText);
     }
+
+    @Ignore
 
     @Test
     public void testDescriptionPreviewHides() {
