@@ -211,7 +211,7 @@ public class MultibranchPipelineTest extends BaseTest {
         actions.moveToElement(elementToHover).perform();
         elementToHover.click();
 
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='jenkins-dropdown']/a[@href='/job/" + MULTIBRANCH_PIPELINE_NEW_NAME + "/confirm-rename']"))).click();
+        getWait10().until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='jenkins-dropdown']/a[@href='/job/" + MULTIBRANCH_PIPELINE_NEW_NAME + "/confirm-rename']"))).click();
 
         getDriver().findElement(By.name("newName")).clear();
         getDriver().findElement(By.name("newName")).sendKeys(MULTIBRANCH_PIPELINE_NAME);
