@@ -205,13 +205,13 @@ public class MultibranchPipelineTest extends BaseTest {
     public void testRenameMultibranchDropdownBreadcrumbs() {
         getDriver().findElement(By.xpath("//td[3]/a/span")).click();
 
-        WebElement elementToHover = getDriver().findElement(By.xpath("//li[3]/a/button"));
+        WebElement elementToHover = getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//li[3]/a"));
 
         Actions actions = new Actions(getDriver());
         actions.moveToElement(elementToHover).perform();
-        elementToHover.click();
+        getDriver().findElement(By.xpath("//li[3]/a/button")).click();
 
-        getWait10().until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='jenkins-dropdown']/a[@href='/job/" + MULTIBRANCH_PIPELINE_NEW_NAME + "/confirm-rename']"))).click();
+        getDriver().findElement(By.xpath("//div[@class='jenkins-dropdown']/a[@href='/job/" + MULTIBRANCH_PIPELINE_NEW_NAME + "/confirm-rename']")).click();
 
         getDriver().findElement(By.name("newName")).clear();
         getDriver().findElement(By.name("newName")).sendKeys(MULTIBRANCH_PIPELINE_NAME);
