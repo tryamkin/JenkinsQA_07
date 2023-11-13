@@ -9,10 +9,10 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-import java.time.Duration;
+
 import java.util.List;
 
-import static school.redrover.FreestyleProject4Test.PROJECT_NAME;
+
 
 public class Pipeline1Test extends BaseTest {
     private final static String PIPELINE_NAME = "Pipeline name test";
