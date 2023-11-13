@@ -5,14 +5,14 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-public class FreestyleOmegakotTest extends BaseTest {
+public class FreestyleProject77Test extends BaseTest {
 
-    private static final String NAMEFOLDER = "MyFolder";
+    private static final String NAME_OF_FOLDER = "MyFolder";
 
-    private void createProject(String name) {
+    private void createProject() {
 
         getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
-        getDriver().findElement(By.className("jenkins-input")).sendKeys(name);
+        getDriver().findElement(By.className("jenkins-input")).sendKeys(NAME_OF_FOLDER);
         getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
         getDriver().findElement(By.xpath("//button[@id = 'ok-button']")).click();
         getDriver().findElement(By.xpath("//button[@name = 'Submit']")).click();
@@ -20,11 +20,19 @@ public class FreestyleOmegakotTest extends BaseTest {
     }
 
     @Test
-    public void testaddDescription() {
+    public void testCreateProject() {
+        createProject();
+        getDriver().findElement(By.id("jenkins-home-link")).click();
+        Assert.assertEquals(getDriver()
+                .findElement(By.xpath("//a[@href = 'job/" + NAME_OF_FOLDER + "/']")).getText(), NAME_OF_FOLDER);
+
+    }
+
+    @Test(dependsOnMethods = "testCreateProject")
+    public void testAddDescription() {
 
         String description = "New Description";
 
-        createProject(NAMEFOLDER);
         getDriver().findElement(By.id("description-link")).click();
         getDriver().findElement(By.name("description")).sendKeys(description);
         getDriver().findElement(By.xpath("//button[@name='Submit'][contains(text(), 'Save')]")).click();
