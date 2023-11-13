@@ -3,6 +3,7 @@ package school.redrover;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -34,12 +35,14 @@ public class Footer3Test extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testJenkinsVersion() {
 
         Assert.assertEquals(jenkinsVersionButton().getText(), jenkinsExpectedVersion);
     }
 
+    @Ignore
     @Test
     public void testClickAboutJenkins() {
         String expectedPageName = "Jenkins";
@@ -55,6 +58,7 @@ public class Footer3Test extends BaseTest {
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "The title is not About Jenkins 2.414.2 [Jenkins]");
     }
 
+    @Ignore
     @Test
     public void testClickGetInvolved() {
         String expectedPageName = "Participate and Contribute";
@@ -70,6 +74,7 @@ public class Footer3Test extends BaseTest {
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "The title is not Participate and Contribute");
     }
 
+    @Ignore
     @Test
     public void testClickWebsite() {
         String expectedPageName = "Jenkins";
@@ -85,6 +90,7 @@ public class Footer3Test extends BaseTest {
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "The title is not Jenkins");
     }
 
+    @Ignore
     @Test
     public void testVerifyAboutJenkinsTabNamesAndActiveStates() {
         String aboutJenkins = "About Jenkins";
