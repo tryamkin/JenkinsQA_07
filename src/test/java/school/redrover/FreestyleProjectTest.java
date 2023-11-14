@@ -842,6 +842,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         goToJenkinsHomePage();
         clickScheduleBuildOnDashboard(PROJECT_NAME);
+        getWait10().until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath(String.format("//td[@class='pane']//a[text()='%s']", PROJECT_NAME))));
         clickScheduleBuildOnDashboard(UPSTREAM_PROJECT_NAME);
 
         String tooltipText = getWait10().until(ExpectedConditions.visibilityOfElementLocated(By
