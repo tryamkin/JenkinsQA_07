@@ -66,7 +66,9 @@ public class Delete2UserTest extends BaseTest {
         actions.moveToElement(dropDownArrow).perform();
         WebElement arrow = getDriver().findElement(By.xpath("//a[@href='user/" + USER_VALID_NAME.toLowerCase() + "/']/button"));
 
-        actions.moveToElement(arrow).click().perform();
+        actions.moveToElement(arrow).perform();
+
+        arrow.click();
 
 
 
