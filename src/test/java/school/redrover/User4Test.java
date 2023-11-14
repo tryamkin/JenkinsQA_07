@@ -11,7 +11,6 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class User4Test extends BaseTest {
-    private final static String JENKINS_HOME_ID = "jenkins-home-link";
     private final static String MANAGE_JENKINS_ELEMENT = "//a[@href = '/manage']";
     private final static String SECURITY_ELEMENT = "//a[@href = 'securityRealm/']";
     private final static String ADD_USER_ELEMENT = "//a[@href = 'addUser']";
