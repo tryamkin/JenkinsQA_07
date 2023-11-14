@@ -8,7 +8,7 @@ import school.redrover.runner.BaseTest;
 
 public class MulticonfigurationProject3Test extends BaseTest {
 
-    @Ignore
+
     @Test
     public void testCreateMulticonfiguratiobProject() {
 
