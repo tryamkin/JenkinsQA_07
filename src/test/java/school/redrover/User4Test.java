@@ -8,6 +8,8 @@ import school.redrover.runner.BaseTest;
 
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
+
 public class User4Test extends BaseTest {
 
     @Test
@@ -125,5 +127,27 @@ public class User4Test extends BaseTest {
         }
 
         Assert.assertFalse(doDelete);
+    }
+
+    @Test
+    public void testFullNameAppearsSameAsUserID() {
+        final String username = AdditionalUtils.generateRandomName();
+        final String password = AdditionalUtils.generateRandomPassword(12);
+        final String email = AdditionalUtils.generateRandomName() + "@" + "mail.com";
+
+        getDriver().findElement(By.xpath(MANAGE_JENKINS_ELEMENT)).click();
+        getDriver().findElement(By.xpath(SECURITY_ELEMENT)).click();
+        getDriver().findElement(By.xpath(ADD_USER_ELEMENT)).click();
+
+        getDriver().findElement(By.name("username")).sendKeys(username);
+        getDriver().findElement(By.name("password1")).sendKeys(password);
+        getDriver().findElement(By.name("password2")).sendKeys(password);
+        getDriver().findElement(By.name("email")).sendKeys(email);
+        getDriver().findElement(By.name("Submit")).click();
+
+        String name = getDriver().findElement(By.xpath("(//td/a[@href='user/" + username + "/']/following::td[1])"))
+                .getText();
+
+        assertEquals(name, username);
     }
 }
