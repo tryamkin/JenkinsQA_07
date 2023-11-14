@@ -20,6 +20,7 @@ import static org.testng.Assert.*;
 public class FreestyleProjectTest extends BaseTest {
 
     private final String PROJECT_NAME = "New Freestyle Project";
+    private final String UPSTREAM_PROJECT_NAME = "Upstream Test";
 
     private void goToJenkinsHomePage() {
         getDriver().findElement(By.id("jenkins-name-icon")).click();
@@ -69,6 +70,16 @@ public class FreestyleProjectTest extends BaseTest {
     private void clickProjectOnDashboard(String projectName) {
         getDriver().findElement(By
                 .xpath(String.format("//a[@href='job/%s/']", projectName.replace(" ", "%20")))).click();
+    }
+
+    private void clickConfigure() {
+        getDriver().findElement(By.xpath("//a[@class='task-link ' and contains(@href, 'configure')]"))
+                .click();
+    }
+
+    private void clickScheduleBuildOnDashboard(String projectName) {
+        getDriver().findElement(By.xpath(String
+                .format("//span[text()='%s']/../../..//a[contains(@href,'build?')]", projectName))).click();
     }
 
     @Test
@@ -788,9 +799,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testSetUpstreamProject() {
-        final String upstreamProjectName = "Upstream Test";
-
-        createFreeStyleProject(upstreamProjectName);
+        createFreeStyleProject(UPSTREAM_PROJECT_NAME);
         goToJenkinsHomePage();
         createFreeStyleProject(PROJECT_NAME);
 
@@ -798,7 +807,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .findElement(By.xpath("//label[text()='Build after other projects are built']"));
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].click();", buildAfterOtherProjectsCheckbox);
-        getDriver().findElement(By.name("_.upstreamProjects")).sendKeys(upstreamProjectName);
+        getDriver().findElement(By.name("_.upstreamProjects")).sendKeys(UPSTREAM_PROJECT_NAME);
         js.executeScript("arguments[0].scrollIntoView(true);", buildAfterOtherProjectsCheckbox);
         getDriver().findElement(
                 By.xpath("//label[text()='Always trigger, even if the build is aborted']")).click();
@@ -809,6 +818,35 @@ public class FreestyleProjectTest extends BaseTest {
                 "}, 500);");
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//ul[@style='list-style-type: none;']/li/a")).getText(),
-                upstreamProjectName);
+                UPSTREAM_PROJECT_NAME);
+    }
+
+    @Test(dependsOnMethods = "testSetUpstreamProject")
+    public void testUpstreamProjectBuildIsBlocked() {
+        clickProjectOnDashboard(PROJECT_NAME);
+        clickConfigure();
+
+        getDriver().findElement(By.xpath("//label[@for='radio-block-1']")).click();
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.name("_.url")))
+                .sendKeys("https://github.com/RedRoverSchool/JenkinsQA_07");
+        clickSaveConfiguration();
+        goToJenkinsHomePage();
+
+        clickProjectOnDashboard(UPSTREAM_PROJECT_NAME);
+        clickConfigure();
+
+        getDriver().findElement(By.xpath("(//button[normalize-space(text())='Advanced'])[3]")).click();
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//label[text()='Block build when downstream project is building']"))).click();
+        clickSaveConfiguration();
+        goToJenkinsHomePage();
+
+        clickScheduleBuildOnDashboard(PROJECT_NAME);
+        clickScheduleBuildOnDashboard(UPSTREAM_PROJECT_NAME);
+
+        String tooltipText = getWait10().until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//td[@class='pane pane-grow']/a"))).getAttribute("tooltip");
+
+        assertTrue(tooltipText.contains(String.format("Downstream project ‘%s’ is already building", PROJECT_NAME)));
     }
 }
