@@ -192,4 +192,33 @@ public class FreestyleProjectSeTest extends BaseTest {
                 .getCssValue("display"),
                 "none");
     }
+
+    @Test
+    public void testVerifyValueOfInsertedGitSourceLink() {
+        createFreeStyleProject("FreestyleProject");
+
+        new Actions(getDriver())
+                .moveToElement(getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("label[for='radio-block-1']"))))
+                .click()
+                .perform();
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();",
+                getDriver().findElement(By.cssSelector("label[for='radio-block-1']")));
+
+        new Actions(getDriver())
+                .moveToElement(
+                        getWait5().until(ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//input[@checkdependson='credentialsId']"))))
+                .click()
+                .sendKeys("123")
+                .perform();
+
+        getDriver().findElement(By.xpath("//button[@name='Apply']")).click();
+        getDriver().navigate().refresh();
+
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//input[@checkdependson='credentialsId']")).getAttribute("value"),
+                "123");
+    }
 }
