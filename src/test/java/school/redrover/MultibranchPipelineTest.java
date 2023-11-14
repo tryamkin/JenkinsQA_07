@@ -1,6 +1,7 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -201,15 +202,18 @@ public class MultibranchPipelineTest extends BaseTest {
                 MULTIBRANCH_PIPELINE_NAME + "is not equal" + MULTIBRANCH_PIPELINE_NEW_NAME);
     }
 
-    @Test(dependsOnMethods = "testRenameMultibranchDropdownDashboard")
+    @Test(dependsOnMethods = {"testMultibranchPipelineCreationWithCreateAJob", "testRenameMultibranchDropdownDashboard"})
     public void testRenameMultibranchDropdownBreadcrumbs() {
         getDriver().findElement(By.xpath("//td[3]/a/span")).click();
 
         WebElement elementToHover = getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//li[3]/a"));
-
         Actions actions = new Actions(getDriver());
         actions.moveToElement(elementToHover).perform();
-        getDriver().findElement(By.xpath("//li[3]/a/button")).click();
+
+        WebElement breadcrumbArrow = getDriver().findElement(By.xpath("//li[3]/a/button"));
+        actions.moveToElement(breadcrumbArrow).perform();
+        breadcrumbArrow.click();
+
         getWait2().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.className("tippy-box"))));
 
         getDriver().findElement(By.xpath("//div[@class='jenkins-dropdown']/a[@href='/job/" + MULTIBRANCH_PIPELINE_NEW_NAME + "/confirm-rename']")).click();
