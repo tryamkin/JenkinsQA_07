@@ -830,8 +830,8 @@ public class FreestyleProjectTest extends BaseTest {
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.name("_.url")))
                 .sendKeys("https://github.com/RedRoverSchool/JenkinsQA_07");
         clickSaveConfiguration();
-        goToJenkinsHomePage();
 
+        goToJenkinsHomePage();
         clickProjectOnDashboard(UPSTREAM_PROJECT_NAME);
         clickConfigure();
 
@@ -839,8 +839,8 @@ public class FreestyleProjectTest extends BaseTest {
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath("//label[text()='Block build when downstream project is building']"))).click();
         clickSaveConfiguration();
-        goToJenkinsHomePage();
 
+        goToJenkinsHomePage();
         clickScheduleBuildOnDashboard(PROJECT_NAME);
         clickScheduleBuildOnDashboard(UPSTREAM_PROJECT_NAME);
 
