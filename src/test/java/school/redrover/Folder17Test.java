@@ -46,14 +46,12 @@ public class Folder17Test extends BaseTest {
         creatingNewFolder("SecondFolder");
         comebackToDashboard();
 
-        WebElement element = getDriver().findElement(By.xpath("//*[@id=\"job_SecondFolder\"]/td[3]/a/span"));
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(element).perform();
-        getDriver().findElement(By.xpath("//*[@id=\"job_SecondFolder\"]/td[3]/a/button")).click();
+        getDriver().findElement(By.xpath("//*[@id=\"job_SecondFolder\"]/td[3]/a/span")).click();
         getDriver().findElement(By.xpath("//a[@href='/job/SecondFolder/move']")).click();
         getDriver().findElement(By.xpath("//*[@id=\"main-panel\"]/form/select")).click();
         getDriver().findElement(By.xpath("/html/body/div[2]/div[2]/form/select/option[2]")).click();
         getDriver().findElement(By.xpath("//*[@id=\"main-panel\"]/form/button")).click();
+
 
         comebackToDashboard();
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id=\"job_FirstFolder\"]/td[3]/a/span")).getText(),
