@@ -11,10 +11,7 @@ import java.util.UUID;
 public class AdditionalUtils extends BaseTest{
 
     public static String generateRandomName() {
-        String randomName = UUID.randomUUID()
-                .toString()
-                .substring(0, 5);
-        return randomName;
+        return UUID.randomUUID().toString().substring(0, 5);
     }
 
     public static String generateRandomPassword(int length) {
