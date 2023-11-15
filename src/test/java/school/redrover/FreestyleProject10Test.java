@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -23,6 +24,14 @@ public class FreestyleProject10Test extends BaseTest {
         getDriver().findElement(By.xpath("//li[@class='hudson_model_FreeStyleProject']")).click();
         getDriver().findElement(By.id("ok-button")).click();
         getDriver().findElement(By.id("jenkins-head-icon")).click();
+    }
+
+    private void creatingFolder(String folderName) {
+        getDriver().findElement(By.cssSelector("a[href='/view/all/newJob']")).click();
+        getDriver().findElement(By.cssSelector("#name")).sendKeys(folderName);
+        getDriver().findElement(By.cssSelector("li[class='com_cloudbees_hudson_plugins_folder_Folder']")).click();
+        getDriver().findElement(By.cssSelector("#ok-button")).click();
+        getDriver().findElement(By.cssSelector("#jenkins-head-icon")).click();
     }
 
     @Test
@@ -56,6 +65,17 @@ public class FreestyleProject10Test extends BaseTest {
         Assert.assertEquals(
                 getDriver().findElement(By.xpath("//div[@class='jenkins-!-margin-bottom-0']/div[1]")).getText(),
                 nameDescription);
+    }
+
+    @Test(dependsOnMethods = "testFreestyleProjectAddDescription")
+    public void testDeleteTheExistingDescription() {
+        getDriver().findElement(LINK_ON_A_CREATED_FREESTYLE_PROJECT).click();
+        getDriver().findElement(By.cssSelector("#description-link")).click();
+        getDriver().findElement(By.name("description")).clear();
+        getDriver().findElement(By.name("Submit")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'description']/div[1]")).getText(),
+                "");
     }
 
     @Ignore
@@ -130,9 +150,9 @@ public class FreestyleProject10Test extends BaseTest {
         getDriver().findElement(By.cssSelector("a[onclick^='return build_']")).click();
         getDriver().navigate().refresh();
 
-        getDriver().findElement(By.cssSelector("a[href='lastBuild/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='lastBuild/']")).click();
         getDriver().findElement(By.cssSelector("a[href$='confirmDelete']")).click();
-        getDriver().findElement(By.cssSelector("button[formnovalidate]")).click();
+        getDriver().findElement(By.cssSelector("#jenkins-home-link")).click();
 
         List<By> permaLinks = List.of(
                 By.xpath("//ul[@class='permalinks-list']/li[1]"),
@@ -165,5 +185,48 @@ public class FreestyleProject10Test extends BaseTest {
             Assert.assertEquals(getDriver().findElement(By.cssSelector("div[class='error']")).getText(),
                     "‘" + x + "’ is an unsafe character");
         }
+    }
+
+    @Test
+    public void testTooltipIsVisibleInTheTimeSinceSection() {
+        creatingFreestyleProject(NAME_FREESTYLE_PROJECT);
+        getDriver().findElement(By.xpath("//td[@class='jenkins-table__cell--tight']/div/a")).click();
+        getDriver().findElement(By.cssSelector("a[href='/view/all/builds']")).click();
+
+        WebElement timeSince = getDriver().findElement(By.xpath("//tr/td[3]/button[1]"));
+
+        boolean tooltipIsVisible = true;
+        new Actions(getDriver()).
+                moveToElement(timeSince).
+                perform();
+
+        if (timeSince.getAttribute("title").equals("Click to center timeline on event")){
+            tooltipIsVisible = false;
+        }
+
+        Assert.assertTrue(tooltipIsVisible,"Tooltip is not visible");
+    }
+
+    @Test
+    public void testMoveProjectToFolder() {
+
+        final String folderName = "NewFolder";
+
+        creatingFreestyleProject(NAME_FREESTYLE_PROJECT);
+        creatingFolder(folderName);
+
+        getDriver().findElement(LINK_ON_A_CREATED_FREESTYLE_PROJECT).click();
+        getDriver().findElement(By.xpath("//div[@id='tasks']/div[7]")).click();
+
+        Select select = new Select(getDriver().findElement(By.cssSelector("select[name]")));
+        select.selectByVisibleText("Jenkins » " + folderName);
+
+        getDriver().findElement(By.cssSelector("button[name]")).click();
+        getDriver().findElement(By.cssSelector("#jenkins-home-link")).click();
+        getDriver().findElement(By.xpath("//td/a[@href='job/" + folderName + "/']")).click();
+
+        Assert.assertTrue((getDriver().findElement(By.cssSelector("tr[id^= 'job_']")).getText().
+                contains(NAME_FREESTYLE_PROJECT)),
+                "Folder not found");
     }
 }

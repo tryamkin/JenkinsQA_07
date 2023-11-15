@@ -57,7 +57,7 @@ public class Pipeline2Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath(JOB_ON_DASHBOARD_XPATH)).getText(), JOB_NAME);
     }
 
-    @Test(dependsOnMethods = "testCreate")
+    @Test(dependsOnMethods = "testDescriptionDisplays")
     public void testDelete() {
         getDriver().findElement((By.xpath(JOB_ON_DASHBOARD_XPATH))).click();
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Delete')]"))).click();
@@ -69,21 +69,18 @@ public class Pipeline2Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "Welcome to Jenkins!");
     }
 
-    @Test
+    @Test (dependsOnMethods = "testCreate")
     public void testDescriptionDisplays() {
-        final String jobName = "Pipeline1";
         final String description = "Description of the Pipeline ";
 
-        createAPipeline(jobName);
-        goMainPageByBreadcrumb();
-
-        getDriver().findElement(By.xpath("//td/a[@href ='job/" + jobName + "/']")).click();
+        getDriver().findElement(By.xpath(JOB_ON_DASHBOARD_XPATH)).click();
         getDriver().findElement(By.id("description-link")).click();
-        getDriver().findElement(By.cssSelector("textarea[name ='description']")).sendKeys(description + jobName);
+        getDriver().findElement(By.cssSelector("textarea[name ='description']")).sendKeys(description + JOB_NAME);
         getDriver().findElement(By.xpath("//div[@id = 'description']//button[@name = 'Submit']")).click();
 
-        Assert.assertEquals(getDriver().findElement(
-                By.xpath("//div[@class = 'jenkins-buttons-row jenkins-buttons-row--invert']/preceding-sibling :: div")).getText(), description + jobName);
+        Assert.assertEquals(getWait2().until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class = 'jenkins-buttons-row jenkins-buttons-row--invert']/preceding-sibling :: div"))).getText(),
+                description + JOB_NAME);
     }
 
     @Test
@@ -124,25 +121,20 @@ public class Pipeline2Test extends BaseTest {
 
     @Test
     public void testStageViewBeforeBuild() {
-        final String jobName = "Pipeline3";
-
-        createAPipeline(jobName);
+        createAPipeline(JOB_NAME);
         goMainPageByBreadcrumb();
 
-        getDriver().findElement(By.xpath("//td/a[@href = 'job/" + jobName + "/']")).click();
+        getDriver().findElement(By.xpath(JOB_ON_DASHBOARD_XPATH)).click();
 
-        String stageViewInfo = getDriver().findElement(By.xpath("//div[@id = 'pipeline-box']/div")).getText();
+        String stageViewInfo = getDriver().findElement(By.cssSelector("div#pipeline-box > div")).getText();
 
         Assert.assertEquals(stageViewInfo, "No data available. This Pipeline has not yet run.");
     }
 
-    @Test
+    @Test (dependsOnMethods = "testStageViewBeforeBuild")
     public void testStageViewAfterRunningSampleBuild() {
-        createAPipeline(JOB_NAME);
-        runHelloWorldBuildInPipeline(JOB_NAME);
-        goMainPageByBreadcrumb();
-
         getDriver().findElement(By.xpath(JOB_ON_DASHBOARD_XPATH)).click();
+        runHelloWorldBuildInPipeline(JOB_NAME);
 
         Assert.assertTrue(getWait2().until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@class = 'table-box']"))).isDisplayed());
@@ -219,7 +211,7 @@ public class Pipeline2Test extends BaseTest {
     }
 
     @Test
-    public void testPermalinksBuildData() throws InterruptedException {
+    public void testPermalinksBuildData() {
         final String jobName = "Pipeline1";
 
         createAPipeline(jobName);
@@ -227,10 +219,10 @@ public class Pipeline2Test extends BaseTest {
 
         getDriver().findElement(By.xpath("//td/a[@href='job/" + jobName + "/']")).click();
         getDriver().findElement(By.xpath("//a[@href='/job/" + jobName + "/build?delay=0sec']")).click();
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='alert alert-warning']")));
 
-        Thread.sleep(2000);
         getDriver().navigate().refresh();
-        List<WebElement> permalinksBuildHistory = getDriver().findElements(By.xpath("//li[@class='permalink-item']"));
+        List<WebElement> permalinksBuildHistory = getWait5().until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//li[@class='permalink-item']")));
 
         Assert.assertEquals(permalinksBuildHistory.size(), 4);
         Assert.assertTrue(permalinksBuildHistory.get(0).getText().contains("Last build"));

@@ -33,7 +33,6 @@ public class NodesTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[@id='tasks']/div[3]/span/a")).click();
     }
 
-    @Ignore
     @Test
     public void testCreateNewNodeWithValidNameFromMainPanel() {
         getDriver().findElement(By.xpath("//a[@href='computer/new']")).click();
@@ -47,7 +46,6 @@ public class NodesTest extends BaseTest {
         Assert.assertEquals(actualNodeName, NODE_NAME);
     }
 
-    @Ignore
     @Test
     public void testCreateNewNodeWithInvalidNameFromMainPanel() {
         final String NODE_NAME = "!";
@@ -76,7 +74,6 @@ public class NodesTest extends BaseTest {
         Assert.assertEquals(actualNodeName, NODE_NAME);
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testCreateNewNodeWithValidNameFromMainPanel")
     public void testCreateNodeByCopyingExistingNode() {
         final String newNode = "Copy node";
@@ -96,7 +93,6 @@ public class NodesTest extends BaseTest {
         Assert.assertEquals(actualNodeName, newNode);
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testCreateNewNodeWithValidNameFromMainPanel")
     public void testMarkNodeTemporarilyOffline() {
         getDriver().findElement(By.xpath("//span[text()='" + NODE_NAME +"']")).click();
@@ -109,7 +105,6 @@ public class NodesTest extends BaseTest {
         );
     }
 
-    @Ignore
     @Test(dependsOnMethods = {"testCreateNodeByCopyingExistingNode", "testMarkNodeTemporarilyOffline"})
     public void testRenameNodeWithValidName() {
         final String new_name = "Renamed node";
@@ -126,7 +121,6 @@ public class NodesTest extends BaseTest {
         );
     }
 
-    @Ignore
     @Test
     public void testRenameNodeValidName() {
         final String nodeName = "TestNode";
@@ -217,5 +211,28 @@ public class NodesTest extends BaseTest {
         getDriver().findElement(By.name("Submit")).click();
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//h1/following-sibling::p")).getText().contains("No such agent"));
+    }
+
+    @Test
+    public void testNodeStatusUpdateOfflineReason() {
+        createNewNode(NODE_NAME);
+        goToMainPage();
+        final String reasonMessage = "New No Reason";
+
+        getDriver().findElement(By.xpath("//span[text()='" + NODE_NAME +"']")).click();
+        getDriver().findElement(By.name("Submit")).click();
+
+        getDriver().findElement(By.name("offlineMessage")).sendKeys("No Reason");
+        getDriver().findElement(By.name("Submit")).click();
+
+        getDriver().findElement(By.xpath("//form[@action = 'setOfflineCause']/button")).click();
+        getDriver().findElement(By.xpath("//textarea[@name = 'offlineMessage']")).clear();
+
+        getDriver().findElement(By.xpath("//textarea[@name = 'offlineMessage']")).sendKeys(reasonMessage);
+        getDriver().findElement(By.name("Submit")).click();
+
+        String message = getDriver().findElement(By.xpath("//div[@class='message']")).getText();
+
+        Assert.assertEquals(message.substring(message.indexOf(':')+1).trim(), reasonMessage);
     }
 }

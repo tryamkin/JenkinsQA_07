@@ -8,7 +8,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -46,6 +45,11 @@ public class PipelineTest extends BaseTest {
 
     private void goToDashboard() {
         getDriver().findElement(By.id("jenkins-home-link")).click();
+    }
+
+    private void clickProjectOnDashboard(String projectName) {
+        getDriver().findElement(By
+                .xpath(String.format("//a[@href='job/%s/']", projectName.replace(" ", "%20")))).click();
     }
 
     @Test
@@ -184,17 +188,17 @@ public class PipelineTest extends BaseTest {
         WebElement newItem = getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']"));
         newItem.click();
         WebElement itemName = getDriver().findElement(By.id("name"));
-        itemName.sendKeys("MyPipeline");
+        itemName.sendKeys(PIPELINE_NAME);
         WebElement pipeLine = getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob"));
         pipeLine.click();
         WebElement button = getDriver().findElement(By.id("ok-button"));
         button.click();
         getDriver().findElement(By.id("jenkins-name-icon")).click();
-        getDriver().findElement(By.xpath("//td/a[@href = 'job/MyPipeline/']")).click();
+        getDriver().findElement(By.xpath("//td/a[@href = 'job/" + PIPELINE_NAME.replace(" ", "%20") + "/']")).click();
 
         Assert.assertEquals(
                 getDriver().findElement(By.cssSelector("#main-panel > h1")).getText(),
-                "Pipeline MyPipeline");
+                "Pipeline " + PIPELINE_NAME);
     }
 
     @Test
@@ -248,13 +252,11 @@ public class PipelineTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreatePipeline")
     public void testOpenLogsFromStageView() {
 
-        getDriver().findElement(By.xpath("//a[@href = '/view/all/newJob']")).click();
-        getDriver().findElement(By.className("jenkins-input")).sendKeys(PIPELINE_NAME);
-        getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob")).click();
-        getDriver().findElement(By.xpath("//button[@id = 'ok-button']")).click();
+        clickProjectOnDashboard(PIPELINE_NAME);
+        clickConfigure();
 
         Select select = new Select(getDriver().findElement(By.xpath("//div[@class='samples']/select")));
         select.selectByValue("hello");
@@ -263,19 +265,18 @@ public class PipelineTest extends BaseTest {
         clickBuildNow();
 
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='badge']/a[text()='#1']")));
+        WebElement buildRecordInStageView = getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[@class='tobsTable-body']//div[@class='duration']")));
 
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(getDriver().findElement(
-                By.xpath("//tbody[@class='tobsTable-body']//div[@class='duration']"))).perform();
+        actions.moveToElement(buildRecordInStageView).perform();
 
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@class='btn btn-small cbwf-widget cbwf-controller-applied stage-logs']"))).click();
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//pre[@class='console-output']")).getText(),
-                "Hello World");
+        String consoleLog = getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//pre[@class='console-output']"))).getText();
+        Assert.assertEquals(consoleLog, "Hello World");
     }
 
-    @Ignore
     @Test
     public void testBuildRunTriggeredByAnotherProject() {
 
@@ -301,9 +302,10 @@ public class PipelineTest extends BaseTest {
         getDriver().findElement(
                         By.xpath(String.format("//span[text()='%s']/../../..//a[contains(@href,'build?')]", PIPELINE_NAME)))
                 .click();
-        getDriver().navigate().refresh();
 
-        Assert.assertTrue(getDriver().findElement(By.xpath("//td[@class='pane pane-grow']")).getText()
+        Assert.assertTrue(getWait5().until(ExpectedConditions
+                        .visibilityOfElementLocated(By.xpath("//td[@class='pane pane-grow']")))
+                .getText()
                 .contains(upstreamPipelineName));
     }
 
@@ -340,7 +342,11 @@ public class PipelineTest extends BaseTest {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].click()",
                 getDriver().findElement(By.xpath("//label[text()='This project is parameterized']")));
-        getDriver().findElement(By.id("yui-gen1-button")).click();
+        WebElement addParameterBtn = getWait5().until(ExpectedConditions
+                .visibilityOfElementLocated(By.id("yui-gen1-button")));
+        js.executeScript("arguments[0].scrollIntoView(true)",
+                getDriver().findElement(By.xpath("//label[text()='This project is parameterized']")));
+        addParameterBtn.click();
         getDriver().findElement(By.id("yui-gen10")).click();
 
         getDriver().findElement(By.name("parameter.name")).sendKeys(parameterName);
@@ -365,6 +371,8 @@ public class PipelineTest extends BaseTest {
 
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].click()",
+                getDriver().findElement(By.xpath("//label[text()='This project is parameterized']")));
+        js.executeScript("arguments[0].scrollIntoView(true)",
                 getDriver().findElement(By.xpath("//label[text()='This project is parameterized']")));
         getDriver().findElement(By.id("yui-gen1-button")).click();
         getDriver().findElement(By.id("yui-gen4")).click();
