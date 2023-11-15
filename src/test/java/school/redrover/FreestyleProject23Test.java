@@ -15,7 +15,6 @@ import java.util.List;
 public class FreestyleProject23Test extends BaseTest {
 
     private final String PROJECT_NAME = "Freestyle_Project";
-    private WebDriverWait wait20;
 
     private void createFreestyleProject(String projectName) {
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
