@@ -32,12 +32,9 @@ public class Pipeline26Test extends BaseTest {
         Assert.assertEquals(foundName, PIPELINE_NAME);
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testPipelineRename() {
         final String newPipelineName = "NewPipelineName";
-
-        createPipeline();
-        goBackToDashboard();
 
         getDriver().findElement(By.xpath("//span[contains(text(),'" + PIPELINE_NAME + "')]")).click();
         getDriver().findElement(By.xpath("//a[contains(@href,'rename')]")).click();
@@ -50,16 +47,11 @@ public class Pipeline26Test extends BaseTest {
         Assert.assertEquals(confirmingName, "Pipeline " + newPipelineName);
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testPipelineDelete() {
-        createPipeline();
-        goBackToDashboard();
-
         getDriver().findElement(By.xpath("//span[contains(text(),'" + PIPELINE_NAME + "')]")).click();
         getDriver().findElement(By.xpath("//a[@class='task-link  confirmation-link']")).click();
         getDriver().switchTo().alert().accept();
-
-        goBackToDashboard();
 
         String dashboardResult = getDriver().findElement(By.xpath("//h1[contains(text(), 'Welcome to Jenkins!')]")).getText();
         Assert.assertEquals(dashboardResult, "Welcome to Jenkins!");
