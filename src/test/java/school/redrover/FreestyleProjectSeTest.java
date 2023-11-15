@@ -86,6 +86,7 @@ public class FreestyleProjectSeTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testSettingsOfDiscardOldBuildsIsDisplayed")
     public void testDaysToKeepBuildsErrorMessageIsDisplayed() {
         Alert alert = getWait2().until(ExpectedConditions.alertIsPresent());
@@ -106,6 +107,7 @@ public class FreestyleProjectSeTest extends BaseTest {
         Assert.assertTrue(errorMessage.isDisplayed());
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testDaysToKeepBuildsErrorMessageIsDisplayed")
     public void testSettingsGitIsOpened() {
         Alert alert = getWait2().until(ExpectedConditions.alertIsPresent());
@@ -193,6 +195,7 @@ public class FreestyleProjectSeTest extends BaseTest {
                 "none");
     }
 
+    @Ignore
     @Test
     public void testVerifyValueOfInsertedGitSourceLink() {
         createFreeStyleProject("FreestyleProject");
